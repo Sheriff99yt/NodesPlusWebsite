@@ -1,0 +1,462 @@
+/* Blueprint Node styles */
+.blueprint-node {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 4px;
+  min-width: 180px;
+  border: 1px solid #E2E8F0;
+  /* Reduce box-shadow intensity for performance */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* Speed up transitions for better responsiveness */
+  transition: all 0.15s ease;
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.blueprint-node:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-theme .blueprint-node {
+  background-color: #2D3748;
+  border-color: #4A5568;
+}
+
+.blueprint-node.detailed {
+  min-width: 280px;
+  min-height: 100px;
+}
+
+.blueprint-node-header, .node-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 4px 4px 0 0;
+  /* Use solid color instead of gradients for better performance */
+  background-color: #4A5568;
+  color: white;
+  font-weight: 600;
+}
+
+.blueprint-node-title {
+  font-size: 14px;
+  margin-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+.blueprint-node-category {
+  font-size: 11px;
+  opacity: 0.7;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.blueprint-node-content {
+  padding: 8px;
+}
+
+.blueprint-node-description {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #718096;
+  line-height: 1.4;
+  max-height: 60px;
+  overflow: hidden;
+  cursor: pointer;
+  /* Remove transitions for better performance */
+}
+
+.dark-theme .blueprint-node-description {
+  color: #A0AEC0;
+}
+
+.blueprint-node-description.expanded {
+  max-height: none;
+}
+
+.blueprint-node-pins {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inline-pins-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inline-pins-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blueprint-node-pin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  min-height: 24px;
+}
+
+.blueprint-node-pin.input-pin {
+  padding-left: 16px;
+  max-width: 45%;
+}
+
+.blueprint-node-pin.output-pin {
+  padding-right: 16px;
+  max-width: 45%;
+  justify-content: flex-end;
+}
+
+.blueprint-node-pin-label {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pin-name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pin-type {
+  font-size: 10px;
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Handle styles */
+.react-flow__handle {
+  width: 8px;
+  height: 8px;
+  border: 1px solid #E2E8F0;
+  /* Reduce transition for better performance */
+  transition: transform 0.1s ease;
+}
+
+.dark-theme .react-flow__handle {
+  border-color: #4A5568;
+}
+
+.react-flow__handle:hover {
+  /* Simplified hover effect for better performance */
+  transform: scale(1.2);
+}
+
+.react-flow__handle.exec {
+  border-radius: 2px !important;
+}
+
+/* Highlight style for search results */
+.highlight {
+  background-color: rgba(246, 173, 85, 0.3);
+  font-weight: bold;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.dark-theme .highlight {
+  background-color: rgba(246, 173, 85, 0.4);
+}
+
+/* Pin hover effect */
+.blueprint-node-pin:hover .pin-name {
+  color: #3182CE;
+}
+
+.dark-theme .blueprint-node-pin:hover .pin-name {
+  color: #63B3ED;
+}
+
+/* Default category colors (simplified) */
+:root {
+  --category-math: #3182CE;
+  --category-string: #38A169;
+  --category-debug: #E53E3E;
+  --category-utility: #D69E2E;
+  --category-array: #805AD5;
+  --category-qa: #DD6B20;
+}
+
+.dark-theme {
+  --category-math: #4299E1;
+  --category-string: #48BB78;
+  --category-debug: #F56565;
+  --category-utility: #ECC94B;
+  --category-array: #9F7AEA;
+  --category-qa: #F6AD55;
+}
+
+.blueprint-node-header:active {
+  cursor: grabbing;
+}
+
+.blueprint-node-category {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.long-description {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+
+.blueprint-node-pins {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inline-pins-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.inline-pins-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  min-height: 24px;
+}
+
+.blueprint-node-pin {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 45%;
+  position: relative;
+  z-index: 1;
+}
+
+.input-pin {
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 12px;
+}
+
+.output-pin {
+  align-items: flex-end;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.empty-input {
+  flex: 1;
+  min-height: 18px;
+}
+
+.input-pin .blueprint-node-pin-label {
+  margin-left: 6px;
+}
+
+.output-pin .blueprint-node-pin-label {
+  margin-right: 6px;
+}
+
+.pin-name {
+  font-weight: 600;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pin-type {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pin-default {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+
+.pin-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(45, 50, 75, 0.95);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blueprint-node-complexity {
+  text-align: right;
+  margin-top: 6px;
+}
+
+.complexity-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.complexity-badge.simple {
+  background-color: rgba(76, 175, 80, 0.3);
+  color: rgba(152, 251, 152, 0.9);
+}
+
+.complexity-badge.moderate {
+  background-color: rgba(255, 152, 0, 0.3);
+  color: rgba(255, 213, 79, 0.9);
+}
+
+.complexity-badge.complex {
+  background-color: rgba(244, 67, 54, 0.3);
+  color: rgba(255, 129, 129, 0.9);
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+  stroke: rgb(204, 204, 204);
+}
+
+.blueprint-node .react-flow__handle:hover {
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Make exec path more visible */
+.react-flow__edge.exec-connection .react-flow__edge-path {
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.react-flow__node.selected .blueprint-node {
+  box-shadow: 0 0 0 2px #6C8AFF;
+}
+
+.node-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Simplify category color customizations - use solid colors instead of gradients */
+.blueprint-node-header[style*="background-color: #E53E3E"],
+.blueprint-node-header[style*="background-color: #D65A5A"] {
+  background-color: #D65A5A;
+}
+
+.blueprint-node-header[style*="background-color: #3182CE"],
+.blueprint-node-header[style*="background-color: #526ED3"] {
+  background-color: #526ED3;
+}
+
+.blueprint-node-header[style*="background-color: #38A169"],
+.blueprint-node-header[style*="background-color: #4CAF7D"] {
+  background-color: #4CAF7D;
+}
+
+.blueprint-node-header[style*="background-color: #D69E2E"],
+.blueprint-node-header[style*="background-color: #E09D59"] {
+  background-color: #E09D59;
+}
+
+.blueprint-node-header[style*="background-color: #805AD5"],
+.blueprint-node-header[style*="background-color: #9C6DD3"] {
+  background-color: #9C6DD3;
+}
+
+.blueprint-node-header[style*="background-color: #4A5568"],
+.blueprint-node-header[style*="background-color: #6E8EAF"] {
+  background-color: #6E8EAF;
+}
+
+/* Minimal blueprint node for preview cards */
+.blueprint-node.minimal {
+  box-shadow: none;
+  border: none;
+  opacity: 0.95;
+  transform: scale(0.9);
+  transform-origin: center;
+}
+
+.blueprint-node.minimal:hover {
+  box-shadow: none;
+}
+
+.blueprint-node.minimal .blueprint-node-header {
+  padding: 5px 8px;
+  border-radius: 3px;
+}
+
+.blueprint-node.minimal .blueprint-node-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-shadow: none;
+}
+
+.blueprint-node.minimal .blueprint-node-category {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.blueprint-node.minimal .blueprint-node-content {
+  padding: 4px;
+}
+
+.blueprint-node.minimal .react-flow__handle {
+  width: 8px;
+  height: 8px;
+  border-width: 1px;
+  opacity: 0.7;
+}
+
+.blueprint-node.minimal .react-flow__handle.exec {
+  width: 10px;
+  height: 10px;
+}
+
+.blueprint-node.minimal .react-flow__handle:hover {
+  transform: scale(1.2);
+} 

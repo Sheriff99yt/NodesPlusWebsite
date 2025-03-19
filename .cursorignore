@@ -1,0 +1,42 @@
+# Build artifacts
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Large generated files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated outputs
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# Cache
+.cache/
+.temp/
+
+# Environment variables (for security)
+.env*
+
+# Other large files that don't need indexing
+*.svg
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.ico
+*.webp
+*.pdf
+*.zip
+*.gz
+*.tar
+*.min.js
+*.min.css
+
+# Optionally ignore large data files for faster indexing
+src/data/large-datasets/ 

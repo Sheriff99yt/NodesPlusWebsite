@@ -1,0 +1,95 @@
+/* Footer.css */
+.footer {
+  width: 100%;
+  padding: 8px 0;
+  position: fixed; /* Fixed position to overlay */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50; /* Above content but below details panel */
+  backdrop-filter: blur(8px); /* Increased blur to match navbar */
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Dark theme (default) */
+.footer, .footer.dark-theme {
+  background-color: rgba(26, 26, 29, 0.7); /* Match navbar desaturated dark grey */
+  border-top: 1px solid rgba(46, 46, 50, 0.5); /* Match navbar border */
+}
+
+/* Light theme */
+.footer.light-theme {
+  background-color: rgba(249, 249, 250, 0.7); /* Match navbar light theme color */
+  border-top: 1px solid rgba(228, 229, 231, 0.5); /* Match navbar border */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Dark theme text (default) */
+.footer .copyright, .footer.dark-theme .copyright {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8); /* Light text for dark background */
+  font-size: 0.75rem;
+}
+
+.footer .footer-link, .footer.dark-theme .footer-link {
+  color: #63b3ed; /* Light blue to match theme */
+  text-decoration: none;
+  transition: color 0.2s;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.footer .footer-link:hover, .footer.dark-theme .footer-link:hover {
+  color: #90cdf4; /* Lighter blue on hover */
+  text-decoration: underline;
+}
+
+/* Light theme text */
+.footer.light-theme .copyright {
+  color: rgba(45, 55, 72, 0.8); /* Dark text for light background */
+}
+
+.footer.light-theme .footer-link {
+  color: #3182ce; /* Darker blue for light background */
+}
+
+.footer.light-theme .footer-link:hover {
+  color: #2b6cb0; /* Even darker blue on hover */
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 6px 0;
+  }
+  
+  .footer-content {
+    flex-direction: row; /* Keep horizontal on mobile */
+    gap: 10px;
+  }
+  
+  .copyright {
+    font-size: 0.7rem;
+  }
+  
+  .footer-links {
+    gap: 12px;
+  }
+  
+  .footer-link {
+    font-size: 0.7rem;
+  }
+} 

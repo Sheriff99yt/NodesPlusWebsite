@@ -1,0 +1,28 @@
+/* Add performance optimization for node dragging */
+body.node-dragging {
+  cursor: grabbing !important;
+}
+
+/* When dragging nodes, reduce expensive operations on non-essential elements */
+body.node-dragging .sidebar,
+body.node-dragging .app-header,
+body.node-dragging .category-list,
+body.node-dragging .node-list {
+  pointer-events: none;
+}
+
+/* Optimize rendering during dragging by disabling transitions */
+body.node-dragging * {
+  transition-property: none !important;
+  animation: none !important;
+}
+
+/* Enable hardware acceleration for dragging */
+body.node-dragging .react-flow__node {
+  will-change: transform;
+}
+
+/* Simplify shadows during dragging for better performance */
+body.node-dragging .blueprint-node {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+} 
