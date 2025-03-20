@@ -26,7 +26,7 @@ const SidebarControls: React.FC<SidebarControlsProps> = ({
           <input
             ref={searchInputRef}
             type="text"
-            placeholder="Search nodes... (Press / to focus)"
+            placeholder=""
             value={searchTerm}
             onChange={(e) => handleSearch(e.target.value)}
             className="search-input"

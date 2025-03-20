@@ -2,7 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 import { Node, Pin } from '../../data/nodes';
 import '../../styles/NodeDetailsPanel.css';
 import { FaTimes, FaInfoCircle, FaTag, FaCubes, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
-import ReactFlow, { Background, Node as FlowNode, Edge, NodeTypes, ConnectionLineType } from 'reactflow';
+import ReactFlow, { Background, Node as FlowNode, Edge, NodeTypes, ConnectionLineType, Controls } from 'reactflow';
+import 'reactflow/dist/style.css';
 import BlueprintNode from './BlueprintNode';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -83,108 +84,98 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
       </div>
       
       <div className="node-details-content">
-        {/* Graph section to visualize the node */}
-        <div className="node-graph-section">
-          <h3>Node Visualization</h3>
-          <div className="node-graph-container" style={{ height: '300px', background: theme === 'dark-theme' ? '#1A202C' : '#F7FAFC' }}>
-            <ReactFlow
-              nodes={reactFlowNodes}
-              edges={reactFlowEdges}
-              nodeTypes={nodeTypes}
-              fitView
-              fitViewOptions={fitViewOptions}
-              minZoom={0.5}
-              maxZoom={1.5}
-              defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
-              connectionLineType={ConnectionLineType.SmoothStep}
-              panOnScroll={false}
-              zoomOnScroll={false}
-              panOnDrag={false}
-              preventScrolling={true}
-              attributionPosition="bottom-right"
-            >
-              <Background color="#5D7CE5" gap={16} size={1} />
-            </ReactFlow>
+        {/* Top section with visualization and overview side by side */}
+        <div className="node-top-section">
+          {/* Graph section to visualize the node */}
+          <div className="node-graph-section">
+            <h3>Node Visualization</h3>
+            <div className="node-graph-container">
+              <ReactFlow
+                nodes={reactFlowNodes}
+                edges={reactFlowEdges}
+                nodeTypes={nodeTypes}
+                fitView={true}
+                fitViewOptions={fitViewOptions}
+                minZoom={0.5}
+                maxZoom={1.5}
+                defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+                connectionLineType={ConnectionLineType.SmoothStep}
+                panOnScroll={true}
+                zoomOnScroll={true}
+                panOnDrag={true}
+                preventScrolling={false}
+                attributionPosition="bottom-right"
+              >
+                <Background color="#5D7CE5" gap={16} size={1} />
+                <Controls showInteractive={false} position="bottom-right" />
+              </ReactFlow>
+            </div>
           </div>
-        </div>
-        
-        <div className="node-overview">
-          <div className="node-description">
-            <h3><FaInfoCircle /> Description</h3>
-            <p className="short-description">
-              {shortDescHtml ? <span dangerouslySetInnerHTML={shortDescHtml} /> : node.shortDescription}
-            </p>
-            {node.longDescription && (
-              <p className="long-description">
-                {longDescHtml ? <span dangerouslySetInnerHTML={longDescHtml} /> : node.longDescription}
+          
+          {/* Description Section */}
+          <div className="node-overview">
+            <div className="node-description">
+              <h3><FaInfoCircle /> Overview</h3>
+              <p className="short-description">
+                {shortDescHtml ? <span dangerouslySetInnerHTML={shortDescHtml} /> : node.shortDescription}
               </p>
+              {node.longDescription && (
+                <p className="long-description">
+                  {longDescHtml ? <span dangerouslySetInnerHTML={longDescHtml} /> : node.longDescription}
+                </p>
+              )}
+            </div>
+            
+            {node.searchKeywords && node.searchKeywords.length > 0 && (
+              <div className="node-keywords">
+                <h3><FaTag /> Keywords</h3>
+                <div className="keyword-tags">
+                  {node.searchKeywords.map((keyword, index) => (
+                    <span key={index} className="keyword-tag">
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {node.performanceNotes && (
+              <div className="node-performance">
+                <h3><FaCubes /> Performance</h3>
+                <p>{node.performanceNotes}</p>
+              </div>
+            )}
+            
+            {node.errorHandling && (
+              <div className="node-error-handling">
+                <h3><FaExclamationTriangle /> Error Handling</h3>
+                <p>{node.errorHandling}</p>
+              </div>
             )}
           </div>
-          
-          {node.searchKeywords && node.searchKeywords.length > 0 && (
-            <div className="node-keywords">
-              <h3><FaTag /> Keywords</h3>
-              <div className="keyword-tags">
-                {node.searchKeywords.map((keyword, index) => (
-                  <span key={index} className="keyword-tag">
-                    {keyword}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {node.performanceNotes && (
-            <div className="node-performance">
-              <h3><FaCubes /> Performance Considerations</h3>
-              <p>{node.performanceNotes}</p>
-            </div>
-          )}
-          
-          {node.errorHandling && (
-            <div className="node-error-handling">
-              <h3><FaExclamationTriangle /> Error Handling</h3>
-              <p>{node.errorHandling}</p>
-            </div>
-          )}
         </div>
         
+        {/* Pins section */}
         {(node.inputs?.length || node.outputs?.length) && (
           <div className="node-pins-wrapper">
-            <h3>Pins</h3>
+            <h3>Connection Points</h3>
             <div className="node-pins-container">
               {node.inputs && node.inputs.length > 0 && (
                 <div className="node-pins-section">
                   <h4>Inputs</h4>
-                  <div className="pins-table-wrapper">
-                    <table className="pins-table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Type</th>
-                          <th>Description</th>
-                          {node.inputs.some(input => input.defaultValue !== undefined) && (
-                            <th>Default</th>
+                  <div className="pins-list">
+                    {node.inputs.map((input, index) => (
+                      <div key={index} className="pin-item">
+                        <div className="pin-header">
+                          <span className="pin-name">{input.name}</span>
+                          <span className="pin-type">{input.type}</span>
+                          {input.defaultValue !== undefined && (
+                            <span className="pin-default">Default: {input.defaultValue}</span>
                           )}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {node.inputs.map((input, index) => (
-                          <tr key={index}>
-                            <td className="pin-name">
-                              {input.name}
-                            </td>
-                            <td className="pin-type">{input.type}</td>
-                            <td className="pin-description">{input.description}</td>
-                            {node.inputs?.some(input => input.defaultValue !== undefined) && (
-                              <td className="pin-default">
-                                {input.defaultValue !== undefined ? input.defaultValue : '-'}
-                              </td>
-                            )}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </div>
+                        <p className="pin-description">{input.description}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -192,27 +183,16 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
               {node.outputs && node.outputs.length > 0 && (
                 <div className="node-pins-section">
                   <h4>Outputs</h4>
-                  <div className="pins-table-wrapper">
-                    <table className="pins-table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Type</th>
-                          <th>Description</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {node.outputs.map((output, index) => (
-                          <tr key={index}>
-                            <td className="pin-name">
-                              {output.name}
-                            </td>
-                            <td className="pin-type">{output.type}</td>
-                            <td className="pin-description">{output.description}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  <div className="pins-list">
+                    {node.outputs.map((output, index) => (
+                      <div key={index} className="pin-item">
+                        <div className="pin-header">
+                          <span className="pin-name">{output.name}</span>
+                          <span className="pin-type">{output.type}</span>
+                        </div>
+                        <p className="pin-description">{output.description}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -220,21 +200,24 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
           </div>
         )}
         
+        {/* Examples section */}
         {node.examples && node.examples.length > 0 && (
           <div className="node-examples-section">
-            <h3>Examples</h3>
-            <div className="node-examples">
+            <h3>Usage Examples</h3>
+            <div className="examples-list">
               {node.examples.map((example, index) => (
-                <div key={index} className="node-example">
-                  <h4>{example.title}</h4>
-                  <p>{example.description}</p>
+                <div key={index} className="example-item">
+                  <div className="example-header">
+                    <h4>{example.title}</h4>
+                  </div>
+                  <p className="example-description">{example.description}</p>
                   {example.code && (
                     <pre className="code-example">
                       <code>{example.code}</code>
                     </pre>
                   )}
                   {example.image && (
-                    <div className="example-image-container">
+                    <div className="example-image">
                       <img src={example.image} alt={`Example: ${example.title}`} />
                     </div>
                   )}

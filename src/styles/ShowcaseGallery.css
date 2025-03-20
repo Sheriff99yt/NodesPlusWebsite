@@ -8,10 +8,8 @@
   font-family: var(--font-family);
 }
 
-.content-wrapper {
-  max-width: 2400px;
-  margin: 0 auto;
-  padding: 0 2rem;
+/* Make content wrapper compatible with section-content */
+.showcase-section .section-content {
   position: relative;
 }
 

@@ -101,17 +101,19 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
             >
               <div 
                 className="category-header"
-                onClick={() => {
-                  // Navigate to category page
-                  onSelectCategory(category.id);
-                  
-                  // Also toggle expansion if not already expanded
-                  if (!isExpanded) {
-                    toggleCategory(category.id);
-                  }
+                onClick={(e) => {
+                  // Toggle expansion when clicking on the header
+                  toggleCategory(category.id);
                 }}
               >
-                <div className="category-info">
+                <div 
+                  className="category-info"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // Navigate to category page when clicking on the category info
+                    onSelectCategory(category.id);
+                  }}
+                >
                   <span className="category-name">{category.name}</span>
                   <span className="category-count">{nodeCount}</span>
                 </div>

@@ -7,22 +7,30 @@
   --navbar-height: 60px;
   --section-padding-y: 80px;
   --section-padding-x: 40px;
-  --content-max-width: 1800px;
+  --content-max-width: 1600px;
   
   /* Colors */
   --primary-color: #5D7CE5;
   --color-primary-rgb: 93, 124, 229;
   --primary-color-light: rgba(93, 124, 229, 0.3);
   --accent-color: #9CA3E0;
+  --text-color: #333333;
+  --text-color-light: rgba(255, 255, 255, 0.95);
+  --text-color-muted: rgba(255, 255, 255, 0.8);
+  
+  /* Backgrounds */
   --bg-color: rgba(248, 249, 252, 0.8);
   --bg-light: rgba(255, 255, 255, 0.8);
-  --text-color: #333333;
   
   /* Effects */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   --glass-blur: blur(8px);
+  
+  /* Animations */
+  --transition-speed: 0.3s;
+  --transition-function: ease;
 }
 
 /* Dark theme (default) */
@@ -78,10 +86,9 @@ section {
   position: relative;
   overflow: hidden;
   width: 100%;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: transparent;
+  padding: var(--section-padding-y) 0;
+  transition: all 0.4s ease;
 }
 
 .section-content {
@@ -90,6 +97,11 @@ section {
   padding: 0 var(--section-padding-x);
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Fix for section padding being overridden by component-specific CSS */
+.section-padding-fix {
+  padding: var(--section-padding-y) 0 !important;
 }
 
 .features-overview,
@@ -101,27 +113,43 @@ section {
   padding: var(--section-padding-y) 0;
 }
 
-/* Section dividers */
+/* Modern section dividers */
 .features-overview::before,
 .performance-section::before,
 .community-section::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--section-divider);
-  opacity: 0.6;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+  opacity: 0.3;
 }
 
 /* Section title */
 .section-title {
-  text-align: left;
+  text-align: center;
   font-size: 2.5rem;
   margin-bottom: 40px;
   color: var(--text-color);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--primary-gradient);
+  border-radius: 3px;
 }
 
 /* ===============================================================
@@ -204,7 +232,7 @@ section {
   font-size: 1.5rem;
   max-width: 800px;
   margin: 0 auto 50px;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--text-color-light);
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   line-height: 1.6;
 }
@@ -229,7 +257,7 @@ section {
   font-size: 1rem;
   text-decoration: none;
   border-radius: 12px;
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed) var(--transition-function);
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
@@ -243,7 +271,7 @@ section {
   margin-left: 8px;
   opacity: 0;
   transform: translateX(-10px);
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed) var(--transition-function);
 }
 
 .hero-button:hover {
@@ -288,7 +316,7 @@ section {
   border: none;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 999;
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed) var(--transition-function);
 }
 
 .scroll-to-top:hover {
@@ -338,18 +366,18 @@ section {
 }
 
 .badge-text {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-color-muted);
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .badge-icon {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--text-color-light);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all var(--transition-speed) var(--transition-function);
 }
 
 .badge-icon:hover {
@@ -358,7 +386,7 @@ section {
 }
 
 .platforms-label {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-color-muted);
   font-size: 0.85rem;
   font-weight: 600;
   margin-right: 4px;
@@ -442,6 +470,10 @@ section {
    =============================================================== */
 /* Large screens (1200px and down) */
 @media (max-width: 1200px) {
+  :root {
+    --content-max-width: 95%;
+  }
+  
   .hero-title {
     font-size: 3.8rem;
   }
@@ -451,6 +483,7 @@ section {
 @media (max-width: 992px) {
   :root {
     --section-padding-y: 70px;
+    --section-padding-x: 30px;
   }
   
   .hero-section {
@@ -463,6 +496,10 @@ section {
   
   .hero-description {
     font-size: 1.3rem;
+  }
+  
+  .section-title {
+    font-size: 2.3rem;
   }
 }
 
@@ -507,6 +544,11 @@ section {
   
   .platforms-label {
     font-size: 0.8rem;
+  }
+  
+  .section-title {
+    font-size: 2.1rem;
+    margin-bottom: 35px;
   }
 }
 
@@ -558,5 +600,38 @@ section {
     width: 100%;
     text-align: center;
     margin-bottom: 6px;
+  }
+}
+
+/* Disclaimer styles */
+.disclaimer-container {
+  width: 100%;
+  text-align: center;
+  padding: 20px 40px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.disclaimer-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+.dark-theme .disclaimer-container {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .disclaimer-container {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .disclaimer-text {
+    font-size: 0.75rem;
   }
 } 

@@ -1,120 +1,123 @@
 .performance-section {
   padding: 0;
-  background-image: var(--section-gradient);
-  background-color: var(--bg-dark);
+  background: transparent;
   position: relative;
   overflow: hidden;
   color: var(--text-color-light);
   font-family: var(--font-primary);
 }
 
-.performance-section .content-wrapper {
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 0 2rem;
+/* Dark theme (default) styling */
+.dark-theme .performance-section {
+  background: rgba(26, 26, 29, 0.5);
+  border-color: rgba(46, 46, 50, 0.3);
+}
+
+/* Light theme styling */
+.light-theme .performance-section {
+  background: rgba(249, 249, 250, 0.5);
+  border-color: rgba(228, 229, 231, 0.3);
+}
+
+/* Make content wrapper compatible with section-content */
+.performance-section .section-content {
   position: relative;
 }
 
 .performance-section .section-title {
   color: var(--text-color);
   font-family: var(--font-heading);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .performance-subtitle {
   text-align: left;
   max-width: 700px;
-  margin: 0 0 50px;
+  margin: 0 0 40px;
   color: var(--text-light);
-  font-size: 1.2rem;
-  line-height: 1.6;
+  font-size: 1.1rem;
+  line-height: 1.5;
   font-weight: 400;
 }
 
 /* Metrics Grid */
 .metrics-overview {
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  gap: 20px;
 }
 
 .metric-card {
-  background-image: var(--card-gradient);
-  background-color: var(--card-bg-dark);
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-color-dark);
-  transition: transform 0.3s ease;
+  background: transparent;
+  padding: 20px;
+  transition: transform 0.2s ease;
 }
 
 .metric-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
 .metric-header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .metric-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: var(--primary-gradient);
-  background-color: rgba(104, 133, 236, 0.2);
+  background-color: rgba(104, 133, 236, 0.1);
   color: var(--primary-color);
-  font-size: 18px;
-  margin-right: 15px;
+  font-size: 16px;
+  margin-right: 12px;
 }
 
 .metric-title {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-color);
-  letter-spacing: -0.01em;
 }
 
 .metric-values {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .metric-value {
   text-align: center;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 8px;
+  border-radius: 6px;
   flex: 1;
 }
 
 .metric-value.standard {
-  background-color: rgba(229, 62, 62, 0.1);
-  margin-right: 10px;
+  background-color: rgba(229, 62, 62, 0.08);
+  margin-right: 8px;
 }
 
 .metric-value.enhanced {
-  background-color: rgba(56, 161, 105, 0.1);
+  background-color: rgba(56, 161, 105, 0.08);
 }
 
 .value-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-light);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .value-number {
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
   font-family: var(--font-heading);
 }
 
@@ -127,57 +130,69 @@
 }
 
 .improvement-container {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .improvement-bar {
-  height: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .improvement-fill {
   height: 100%;
-  background: var(--success-gradient);
-  border-radius: 4px;
+  background-color: #38a169;
+  border-radius: 3px;
   width: 0;
 }
 
 .improvement-percentage {
   text-align: right;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #38a169;
 }
 
 .metric-description {
   color: var(--text-light);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.4;
   font-weight: 400;
 }
 
 /* Code Complexity Comparison */
 .complexity-comparison {
-  background-image: var(--card-gradient);
-  background-color: var(--card-bg-dark);
-  border-radius: 20px;
-  padding: 40px;
-  margin-bottom: 60px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--border-color-dark);
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+}
+
+/* Dark theme (default) styling */
+.dark-theme .complexity-comparison {
+  background: rgba(26, 26, 29, 0.5);
+  border-color: rgba(46, 46, 50, 0.3);
+}
+
+/* Light theme styling */
+.light-theme .complexity-comparison {
+  background: rgba(249, 249, 250, 0.5);
+  border-color: rgba(228, 229, 231, 0.3);
 }
 
 .complexity-comparison h3 {
   text-align: center;
-  margin: 0 0 30px 0;
+  margin: 0 0 24px 0;
   color: var(--text-color);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-family: var(--font-heading);
   font-weight: 600;
-  letter-spacing: -0.02em;
 }
 
 .comparison-container {
@@ -185,7 +200,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 24px;
 }
 
 .comparison-example {
@@ -194,44 +209,43 @@
 }
 
 .comparison-example h4 {
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
   color: var(--text-color);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-align: center;
   font-family: var(--font-heading);
   font-weight: 600;
-  letter-spacing: -0.01em;
 }
 
 .comparison-vs {
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: var(--text-light);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .node-count {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .node-icon-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 8px;
+  margin-bottom: 8px;
   justify-content: center;
 }
 
 .node-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,18 +254,18 @@
 }
 
 .node-icon.standard {
-  background-image: linear-gradient(135deg, rgba(229, 62, 62, 0.2) 0%, rgba(229, 62, 62, 0.3) 100%);
-  border: 1px solid rgba(229, 62, 62, 0.4);
+  background-color: rgba(229, 62, 62, 0.15);
+  border: 1px solid rgba(229, 62, 62, 0.25);
 }
 
 .node-icon.enhanced {
-  background-image: linear-gradient(135deg, rgba(56, 161, 105, 0.2) 0%, rgba(56, 161, 105, 0.3) 100%);
-  border: 1px solid rgba(56, 161, 105, 0.4);
+  background-color: rgba(56, 161, 105, 0.15);
+  border: 1px solid rgba(56, 161, 105, 0.25);
 }
 
 .node-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 
@@ -265,85 +279,97 @@
 
 .node-total {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-light);
 }
 
 .comparison-description {
   text-align: center;
   color: var(--text-light);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 /* Case Studies */
 .case-studies {
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .case-studies h3 {
   text-align: center;
-  margin: 0 0 30px 0;
+  margin: 0 0 24px 0;
   color: var(--text-color);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 .case-studies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  gap: 20px;
 }
 
 .case-study-card {
-  background-image: var(--card-gradient);
-  background-color: var(--card-bg-dark);
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--border-color-dark);
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+}
+
+/* Dark theme (default) styling */
+.dark-theme .case-study-card {
+  background: rgba(26, 26, 29, 0.5);
+  border-color: rgba(46, 46, 50, 0.3);
+}
+
+/* Light theme styling */
+.light-theme .case-study-card {
+  background: rgba(249, 249, 250, 0.5);
+  border-color: rgba(228, 229, 231, 0.3);
 }
 
 .case-study-card h4 {
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
   color: var(--text-color);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   text-align: center;
   font-family: var(--font-heading);
   font-weight: 600;
-  letter-spacing: -0.01em;
 }
 
 .time-comparison {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-  gap: 15px;
+  margin-bottom: 16px;
+  gap: 12px;
 }
 
 .time-block {
   flex: 1;
   text-align: center;
-  padding: 15px 10px;
-  border-radius: 8px;
+  padding: 12px 8px;
+  border-radius: 6px;
 }
 
 .time-block.standard {
-  background-image: linear-gradient(135deg, rgba(229, 62, 62, 0.05) 0%, rgba(229, 62, 62, 0.1) 100%);
+  background-color: rgba(229, 62, 62, 0.08);
 }
 
 .time-block.enhanced {
-  background-image: linear-gradient(135deg, rgba(56, 161, 105, 0.05) 0%, rgba(56, 161, 105, 0.1) 100%);
+  background-color: rgba(56, 161, 105, 0.08);
 }
 
 .time-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-light);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .time-value {
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 600;
+  font-size: 1rem;
   font-family: var(--font-heading);
 }
 
@@ -357,8 +383,8 @@
 
 .case-study-card p {
   color: var(--text-light);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.4;
   margin: 0;
   text-align: center;
   font-weight: 400;
@@ -367,43 +393,40 @@
 /* CTA Button */
 .performance-cta {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .performance-cta-button {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 15px 30px;
-  background-image: var(--primary-gradient);
+  gap: 8px;
+  padding: 12px 24px;
   background-color: var(--primary-color);
   color: white;
   text-decoration: none;
-  border-radius: 30px;
+  border-radius: 6px;
   font-weight: 600;
-  transition: all 0.3s ease;
-  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  font-size: 1rem;
   font-family: var(--font-heading);
-  letter-spacing: -0.01em;
-  box-shadow: 0 8px 20px rgba(104, 133, 236, 0.4);
+  box-shadow: 0 4px 10px rgba(104, 133, 236, 0.25);
 }
 
 .performance-cta-button:hover {
-  background-image: var(--accent-gradient);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(104, 133, 236, 0.5);
+  background-color: var(--primary-color-hover);
+  transform: translateY(-2px);
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .performance-section {
-    padding: 60px 0;
+    padding: 40px 0;
   }
   
   .metrics-grid {
@@ -421,15 +444,273 @@
   .performance-subtitle, 
   .complexity-comparison h3, 
   .case-studies h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   
   .metrics-overview {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
   
   .complexity-comparison {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+}
+
+.performance-benefits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.performance-intro {
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 50px;
+}
+
+.performance-intro p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.metric-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.metric-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  margin-right: 20px;
+  font-size: 24px;
+  color: white;
+  background: var(--primary-gradient);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.metric-title {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.metric-values {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.standard-value, .enhanced-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.value-label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.value-number {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.enhanced-value .value-number {
+  color: #6ae675;
+}
+
+.metric-bar-container {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 25px 0;
+  position: relative;
+}
+
+.metric-bar-standard,
+.metric-bar-enhanced {
+  height: 100%;
+  border-radius: 10px;
+  transition: all 1.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.metric-bar-standard {
+  background: rgba(255, 255, 255, 0.3);
+  width: 100%;
+}
+
+.metric-bar-enhanced {
+  background: var(--primary-gradient);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left;
+  transform: scaleX(0);
+  box-shadow: 0 0 15px rgba(106, 230, 117, 0.5);
+}
+
+.animate-bars .metric-bar-enhanced {
+  transform: scaleX(1);
+}
+
+.improvement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #6ae675;
+  margin-top: 20px;
+}
+
+.improvement-value {
+  display: inline-block;
+  background: rgba(106, 230, 117, 0.2);
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-left: 10px;
+}
+
+.metric-description {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Additional visualizations */
+.performance-visualizations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.visualization {
+  flex: 1 1 400px;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.visualization-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  color: white;
+  text-align: center;
+}
+
+/* Light theme adjustments */
+.light-theme .performance-intro p {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.light-theme .metric-card {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.light-theme .metric-title {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.light-theme .value-number {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.light-theme .value-label {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.light-theme .metric-description {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .performance-intro p {
+    font-size: 1.1rem;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metric-card {
     padding: 25px;
-    margin-bottom: 40px;
+  }
+  
+  .metric-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .metric-title {
+    font-size: 1.3rem;
+  }
+  
+  .value-number {
+    font-size: 1.8rem;
+  }
+  
+  .improvement {
+    font-size: 1.1rem;
   }
 } 

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaShoppingCart, FaDownload, FaCog, FaPuzzlePiece, FaProjectDiagram, FaLightbulb, FaChevronRight } from 'react-icons/fa';
+import React from 'react';
+import { FaShoppingCart, FaDownload, FaCog, FaPuzzlePiece, FaProjectDiagram } from 'react-icons/fa';
 import '../../styles/GettingStartedGuide.css';
 
 interface Step {
@@ -7,127 +7,65 @@ interface Step {
   title: string;
   description: string;
   icon: React.ReactNode;
-  docsLink?: string;
 }
 
 const GettingStartedGuide: React.FC = () => {
-  const [activeStep, setActiveStep] = useState<number>(1);
-  const [progress, setProgress] = useState<number>(0);
-
   const steps: Step[] = [
     {
       id: 1,
       title: "Purchase",
       description: "Visit Fab.com marketplace and purchase the NodesPlus plugin.",
-      icon: <FaShoppingCart />,
-      docsLink: "/NodesPlusWebsite/documentation#purchase"
+      icon: <FaShoppingCart />
     },
     {
       id: 2,
-      title: "Download",
-      description: "Access your Fab.com library and download the plugin package.",
-      icon: <FaDownload />,
-      docsLink: "/NodesPlusWebsite/documentation#download"
+      title: "Access Library",
+      description: "Log into Epic Games Launcher and navigate to the Library tab. Look for the FAB Library section and click the refresh button if needed.",
+      icon: <FaDownload />
     },
     {
       id: 3,
-      title: "Install",
-      description: "Install the plugin via Epic Games Launcher or manually to your project.",
-      icon: <FaCog />,
-      docsLink: "/NodesPlusWebsite/documentation#installation"
+      title: "Install Plugin",
+      description: "Find NodesPlus in your FAB Library and click 'Install to Engine' or 'Add to Project' depending on your preference.",
+      icon: <FaCog />
     },
     {
       id: 4,
-      title: "Enable",
-      description: "Go to Edit > Plugins in Unreal Engine, find NodesPlus and enable it.",
-      icon: <FaPuzzlePiece />,
-      docsLink: "/NodesPlusWebsite/documentation#enable-plugin"
+      title: "Enable Plugin",
+      description: "Go to Edit > Plugins in Unreal Engine, find NodesPlus and enable it. Restart the editor when prompted.",
+      icon: <FaPuzzlePiece />
     },
     {
       id: 5,
-      title: "Create",
-      description: "Add NodesPlus nodes to your Blueprint graphs - search for Nodes Plus.",
-      icon: <FaProjectDiagram />,
-      docsLink: "/NodesPlusWebsite/documentation#first-blueprint"
+      title: "Start Creating",
+      description: "Add NodesPlus nodes to your Blueprint graphs by searching for 'Nodes Plus' in the Blueprint editor's node palette.",
+      icon: <FaProjectDiagram />
     }
   ];
 
-  // Update progress bar when active step changes
-  useEffect(() => {
-    const newProgress = ((activeStep - 1) / (steps.length - 1)) * 100;
-    setProgress(newProgress);
-  }, [activeStep, steps.length]);
-
-  // Handle step selection
-  const handleStepClick = (stepId: number) => {
-    setActiveStep(stepId);
-  };
-
-  // Get the current step
-  const currentStep = steps.find(step => step.id === activeStep) || steps[0];
-
   return (
-    <div className="guide-container">
-      <div className="steps-progress">
-        <div className="progress-track">
-          <div 
-            className="progress-fill" 
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
+    <div className="getting-started-container">
+      <div className="guide-intro">
+        <p>Getting started with NodesPlus is quick and easy. Follow these simple steps to begin enhancing your Unreal Engine blueprints.</p>
       </div>
       
-      <div className="steps-list">
+      <div className="steps-cards">
         {steps.map(step => (
-          <button
-            key={step.id}
-            className={`step-indicator ${step.id === activeStep ? 'active' : ''} ${step.id < activeStep ? 'completed' : ''}`}
-            onClick={() => handleStepClick(step.id)}
-            aria-selected={step.id === activeStep}
-          >
-            <div className="step-icon">
+          <div key={step.id} className="step-card">
+            <div className="step-number">{step.id}</div>
+            <div className="step-icon-wrapper">
               {step.icon}
             </div>
-            <div className="step-title">
-              {step.title}
-            </div>
-            {step.id < activeStep && (
-              <div className="step-check">✓</div>
-            )}
-          </button>
+            <h3 className="step-card-title">{step.title}</h3>
+            <p className="step-card-description">{step.description}</p>
+          </div>
         ))}
       </div>
       
-      <div className="step-content">
-        <h3>{currentStep.title}</h3>
-        <p className="step-description">{currentStep.description}</p>
-        
-        <div className="step-actions">
-          <button 
-            className="step-button prev"
-            onClick={() => activeStep > 1 && setActiveStep(activeStep - 1)}
-            disabled={activeStep === 1}
-          >
-            Previous
-          </button>
-          
-          {currentStep.docsLink && (
-            <a 
-              href={currentStep.docsLink} 
-              className="docs-link"
-            >
-              Documentation
-            </a>
-          )}
-          
-          <button 
-            className="step-button next"
-            onClick={() => activeStep < steps.length && setActiveStep(activeStep + 1)}
-            disabled={activeStep === steps.length}
-          >
-            Next <FaChevronRight />
-          </button>
-        </div>
+      <div className="guide-cta">
+        <a href="/NodesPlusWebsite/documentation" className="guide-cta-button">
+          View Full Documentation
+        </a>
       </div>
     </div>
   );

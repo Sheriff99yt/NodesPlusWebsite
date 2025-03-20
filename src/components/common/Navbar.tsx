@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link as RouterLink, NavLink } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../../context/ThemeContext';
 import '../../styles/Navbar.css';
@@ -8,18 +7,59 @@ import '../../styles/Navbar.css';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme } = useTheme();
+  const navRef = useRef<HTMLElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
-  // Reset body scroll lock when component unmounts
+  // Close menu when clicking outside
   useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      // Check if click is outside nav and not on the toggle button
+      if (
+        navRef.current && 
+        !navRef.current.contains(event.target as Node) && 
+        btnRef.current && 
+        !btnRef.current.contains(event.target as Node) && 
+        isMenuOpen
+      ) {
+        closeMenu();
+      }
+    }
+    
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, [isMenuOpen]);
+
+  // Close menu on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && isMenuOpen) {
+        closeMenu();
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMenuOpen]);
+
+  // Log state changes to debug
+  useEffect(() => {
+    console.log('Menu open state changed:', isMenuOpen);
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    // Prevent scrolling when menu is open
-    document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
+    if (isMenuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
+
+  const openMenu = () => {
+    setIsMenuOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeMenu = () => {
@@ -45,16 +85,24 @@ const Navbar = () => {
           />
         </RouterLink>
         
-        <button 
-          className="menu-toggle" 
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMenuOpen}
-        >
-          {isMenuOpen ? <FaTimes /> : <FaBars />}
-        </button>
+        <div className={`menu-icon-container ${isMenuOpen ? 'active' : ''}`}>
+          <button 
+            ref={btnRef}
+            className="menu-toggle-btn"
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+          >
+            <div className="menu-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+        </div>
         
         <nav 
+          ref={navRef}
           role="navigation" 
           aria-label="Main Navigation"
           className={isMenuOpen ? 'open' : ''}

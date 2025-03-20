@@ -150,88 +150,85 @@ const ShowcaseGallery: React.FC = () => {
 
   return (
     <>
-      <div className="content-wrapper">
-        <p className="showcase-subtitle">
-          NodesPlus simplifies complex blueprint operations with single nodes that replace multiple standard nodes.
-        </p>
-        
-        <div className="showcase-comparison">
-          <div className="showcase-column">
-            <div className="showcase-header">
-              <h3>Standard Blueprint</h3>
-              <span className="node-count">12+ Nodes</span>
-            </div>
-            
-            <div className="standard-node-tiles-container">
-              {isLoading ? (
-                <div className="demo-skeleton">
-                  <div className="skeleton-flow">
-                    <div className="skeleton-node" style={{ left: '10%', top: '40%' }}></div>
-                    <div className="skeleton-node" style={{ right: '10%', top: '15%' }}></div>
-                    <div className="skeleton-node" style={{ right: '10%', top: '65%' }}></div>
-                  </div>
+      <p className="showcase-subtitle">
+        NodesPlus simplifies complex blueprint operations with single nodes that replace multiple standard nodes.
+      </p>
+      
+      <div className="showcase-comparison">
+        <div className="showcase-column">
+          <div className="showcase-header">
+            <h3>Standard Blueprint</h3>
+            <span className="node-count">12+ Nodes</span>
+          </div>
+          
+          <div className="standard-node-tiles-container">
+            {isLoading ? (
+              <div className="demo-skeleton">
+                <div className="skeleton-flow">
+                  <div className="skeleton-node" style={{ left: '10%', top: '40%' }}></div>
+                  <div className="skeleton-node" style={{ right: '10%', top: '15%' }}></div>
+                  <div className="skeleton-node" style={{ right: '10%', top: '65%' }}></div>
                 </div>
-              ) : (
-                <div className="blueprint-standard-nodes-grid">
-                  {standardFuzzySearchNodes.map((node, index) => (
-                    <div key={index} className="blueprint-standard-node">
-                      <div className="standard-node-icon">{node.icon}</div>
-                      <div className="standard-node-content">
-                        <div className="standard-node-title">{node.name}</div>
-                        <div className="standard-node-description">{node.description}</div>
-                      </div>
+              </div>
+            ) : (
+              <div className="blueprint-standard-nodes-grid">
+                {standardFuzzySearchNodes.map((node, index) => (
+                  <div key={index} className="blueprint-standard-node">
+                    <div className="standard-node-icon">{node.icon}</div>
+                    <div className="standard-node-content">
+                      <div className="standard-node-title">{node.name}</div>
+                      <div className="standard-node-description">{node.description}</div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          
-          <div className="showcase-divider">
-            <div className="vs-badge">VS</div>
-          </div>
-          
-          <div className="showcase-column">
-            <div className="showcase-header">
-              <h3>NodesPlus</h3>
-              <span className="node-count highlight">1 Node</span>
-            </div>
-            
-            <div className="node-visualization-container">
-              {isLoading ? (
-                <div className="demo-skeleton">
-                  <div className="skeleton-flow">
-                    <div className="skeleton-node" style={{ left: '35%', top: '35%', width: '180px', height: '100px' }}></div>
                   </div>
-                </div>
-              ) : (
-                <ReactFlow
-                  nodes={simpleNodes}
-                  edges={[]}
-                  onNodesChange={onSimpleNodesChange}
-                  nodeTypes={nodeTypes}
-                  fitView
-                  fitViewOptions={{ padding: 0.3 }}
-                  minZoom={0.5}
-                  maxZoom={1.5}
-                  defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
-                  attributionPosition="bottom-right"
-                  onInit={onSimpleInit}
-                  connectionLineType={ConnectionLineType.SmoothStep}
-                  className="node-flow"
-                  panOnScroll={false}
-                  zoomOnScroll={false}
-                  panOnDrag={false}
-                  preventScrolling={false}
-                  disableKeyboardA11y={true}
-                >
-                  <Background color={backgroundNodeColor} gap={16} size={1} />
-                </ReactFlow>
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         
+        <div className="showcase-divider">
+          <div className="vs-badge">VS</div>
+        </div>
+        
+        <div className="showcase-column">
+          <div className="showcase-header">
+            <h3>NodesPlus</h3>
+            <span className="node-count highlight">1 Node</span>
+          </div>
+          
+          <div className="node-visualization-container">
+            {isLoading ? (
+              <div className="demo-skeleton">
+                <div className="skeleton-flow">
+                  <div className="skeleton-node" style={{ left: '35%', top: '35%', width: '180px', height: '100px' }}></div>
+                </div>
+              </div>
+            ) : (
+              <ReactFlow
+                nodes={simpleNodes}
+                edges={[]}
+                onNodesChange={onSimpleNodesChange}
+                nodeTypes={nodeTypes}
+                fitView
+                fitViewOptions={{ padding: 0.3 }}
+                minZoom={0.5}
+                maxZoom={1.5}
+                defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
+                attributionPosition="bottom-right"
+                onInit={onSimpleInit}
+                connectionLineType={ConnectionLineType.SmoothStep}
+                className="node-flow"
+                panOnScroll={false}
+                zoomOnScroll={false}
+                panOnDrag={false}
+                preventScrolling={false}
+                disableKeyboardA11y={true}
+              >
+                <Background color={backgroundNodeColor} gap={16} size={1} />
+              </ReactFlow>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -20,7 +20,7 @@ import CategoryDetailsPanel from '../components/docs/CategoryDetailsPanel';
 import { nodeCategories, nodes, getNodesByCategory, getNodeById, Node, NodeCategory, searchNodes } from '../data/nodes';
 import useAnalytics from '../hooks/useAnalytics';
 import { useTheme } from '../context/ThemeContext';
-import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaArrowLeft, FaMoon, FaSun, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaArrowLeft, FaMoon, FaSun, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars, FaAdjust } from 'react-icons/fa';
 
 import '../styles/Documentation.css';
 
@@ -28,62 +28,134 @@ import '../styles/Documentation.css';
 const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categories: NodeCategory[], onSelectCategory: (categoryId: string) => void }) => {
   const { theme } = useTheme();
   
+  // Get count of all nodes
+  const totalNodesCount = useMemo(() => {
+    return nodes.length;
+  }, []);
+  
+  // Function to get nodes by category
+  const getNodesByCategory = useCallback((categoryId: string) => {
+    return nodes.filter(node => node.category === categoryId);
+  }, []);
+  
+  // Organize categories by type for better presentation
+  const categoriesByType = useMemo(() => {
+    const types = {
+      core: [] as NodeCategory[],
+      utility: [] as NodeCategory[],
+      advanced: [] as NodeCategory[]
+    };
+    
+    categories.forEach(category => {
+      if (['Math', 'String', 'Array', 'Data'].includes(category.name)) {
+        types.core.push(category);
+      } else if (['Utility', 'Debug', 'Conversion', 'Flow Control'].includes(category.name)) {
+        types.utility.push(category);
+      } else {
+        types.advanced.push(category);
+      }
+    });
+    
+    return types;
+  }, [categories]);
+  
   return (
     <div className={`default-documentation ${theme}`}>
       <div className="default-header">
         <h1>NodesPlus Blueprint Library</h1>
-        <p>Custom nodes for enhancing Unreal Engine Blueprints</p>
-      </div>
-      
-      <div className="documentation-guide">
-        <h2>Documentation Guide</h2>
-        <div className="guide-content">
-          <p>This documentation provides information about custom Blueprint nodes available in the Nodes Plus plugin for Unreal Engine.</p>
-          
-          <div className="navigation-steps">
-            <div className="navigation-step">
-              <div className="step-number">1</div>
-              <div className="step-content">
-                <h3>Select a Category</h3>
-                <p>Choose a category from the grid below to browse related nodes</p>
-              </div>
-            </div>
-            
-            <div className="navigation-step">
-              <div className="step-number">2</div>
-              <div className="step-content">
-                <h3>Explore Nodes</h3>
-                <p>View all nodes within the selected category and their brief descriptions</p>
-              </div>
-            </div>
-            
-            <div className="navigation-step">
-              <div className="step-number">3</div>
-              <div className="step-content">
-                <h3>View Details</h3>
-                <p>Click on any node to see full documentation including inputs, outputs, and usage examples</p>
-              </div>
-            </div>
-          </div>
-          
-          <p className="search-tip">You can also use the search bar at the left to quickly find specific nodes</p>
+        <p>Streamlining your Unreal Engine workflow with {totalNodesCount} powerful custom nodes</p>
+        
+        <div className="header-actions">
+          <button className="header-action-button" onClick={() => {
+            const searchInput = document.querySelector('.sidebar-inner .search-input') as HTMLInputElement;
+            if (searchInput) searchInput.focus();
+          }}>
+            <FaSearch /> Search Nodes
+          </button>
+          <button className="header-action-button" onClick={() => onSelectCategory(categories[0]?.id)}>
+            <FaBook /> Browse Categories
+          </button>
         </div>
       </div>
       
-      <h2 className="categories-heading">Node Categories</h2>
-      <div className="categories-minimal-grid">
-        {categories.map(category => (
-          <div 
-            key={category.id}
-            className="category-minimal-card"
-            onClick={() => onSelectCategory(category.id)}
-          >
-            <div className="category-minimal-header">
-              <h3>{category.name}</h3>
-              <span className="node-count">{getNodesByCategory(category.id).length}</span>
+      <div className="documentation-sections">
+        <div className="documentation-section">
+          <div className="section-header">
+            <FaLightbulb className="section-icon" />
+            <h2>Getting Started</h2>
+          </div>
+          <div className="section-content">
+            <p>The NodesPlus library extends Unreal Engine's Blueprint system with specialized nodes that help you build better games faster.</p>
+            
+            <div className="feature-cards">
+              <div className="feature-card">
+                <div className="feature-icon"><FaCode /></div>
+                <h3>Simple Integration</h3>
+                <p>Drag and drop nodes directly into your Blueprint graphs, no complex setup required.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon"><FaTools /></div>
+                <h3>Optimized Performance</h3>
+                <p>Built with efficiency in mind to ensure your games run smoothly.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon"><FaExpandAlt /></div>
+                <h3>Full Documentation</h3>
+                <p>Complete examples and details for every node in the library.</p>
+              </div>
             </div>
           </div>
-        ))}
+        </div>
+        
+        <div className="documentation-section">
+          <div className="section-header">
+            <FaCube className="section-icon" />
+            <h2>Core Categories</h2>
+          </div>
+          <div className="categories-grid">
+            {categoriesByType.core.map(category => (
+              <div 
+                key={category.id}
+                className="category-card"
+                onClick={() => onSelectCategory(category.id)}
+              >
+                <div className="category-card-header">
+                  <h3>{category.name}</h3>
+                </div>
+                <p className="category-description">{category.description || `A collection of ${category.name.toLowerCase()} related Blueprint nodes.`}</p>
+                <div className="category-footer">
+                  <span className="node-count">{getNodesByCategory(category.id).length} nodes</span>
+                  <span className="view-link">View Category →</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="documentation-section">
+          <div className="section-header">
+            <FaLayerGroup className="section-icon" />
+            <h2>All Categories</h2>
+          </div>
+          <div className="categories-grid">
+            {categories.map(category => (
+              <div 
+                key={category.id}
+                className="category-card"
+                onClick={() => onSelectCategory(category.id)}
+              >
+                <div className="category-card-header">
+                  <h3>{category.name}</h3>
+                </div>
+                <p className="category-description">{category.description || `A collection of ${category.name.toLowerCase()} related Blueprint nodes.`}</p>
+                <div className="category-footer">
+                  <span className="node-count">{getNodesByCategory(category.id).length} nodes</span>
+                  <span className="view-link">View Category →</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -104,7 +176,7 @@ const Documentation = () => {
   const [selectedNode, setSelectedNode] = useState<Node | undefined>(nodeId ? getNodeById(nodeId) : undefined);
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobileView, setIsMobileView] = useState<boolean>(window.innerWidth < 768);
-  const [showMobileSidebar, setShowMobileSidebar] = useState<boolean>(true);
+  const [showMobileSidebar, setShowMobileSidebar] = useState<boolean>(false);
   
   // Filtered nodes for sidebar
   const [filteredNodes, setFilteredNodes] = useState<Node[]>([]);
@@ -195,10 +267,17 @@ const Documentation = () => {
         const node = getNodeById(nodeId);
         if (node) {
           setSelectedNode(node);
+          // When showing a specific node on mobile, keep sidebar closed
+          if (isMobileView) {
+            setShowMobileSidebar(false);
+          }
         }
+      } else if (isMobileView) {
+        // When showing a category page on mobile, show the sidebar
+        setShowMobileSidebar(true);
       }
     }
-  }, [categoryId, nodeId]);
+  }, [categoryId, nodeId, isMobileView]);
 
   // Handle window resize
   useEffect(() => {
@@ -244,6 +323,33 @@ const Documentation = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [searchTerm, selectedNode, selectedCategory, navigate]);
   
+  // Handle category selection
+  const handleCategorySelect = useCallback((category: string) => {
+    // Update category state
+    setSelectedCategory(category);
+    
+    // Load nodes for this category
+    const categoryNodes = getNodesByCategory(category);
+    setFilteredNodes(categoryNodes);
+    
+    // Clear selected node when selecting a category
+    setSelectedNode(undefined);
+    
+    // Update URL
+    navigate(`/documentation/${category}`);
+    
+    // In mobile view, always show sidebar when selecting a category
+    if (isMobileView) {
+      setShowMobileSidebar(true);
+    }
+    
+    // Track analytics
+    analytics.trackFeatureUsage('select_category', {
+      category_id: category,
+      category_name: nodeCategories.find(cat => cat.id === category)?.name || category 
+    });
+  }, [navigate, isMobileView, analytics]);
+  
   // Handle node selection
   const handleNodeSelect = useCallback((node: Node) => {
     // Flag to prevent URL effect from triggering a category reload
@@ -257,8 +363,8 @@ const Documentation = () => {
     // Set the selected node
     setSelectedNode(node);
     
-    // In mobile view, switch to graph view when a node is selected
-    if (isMobileView && showMobileSidebar) {
+    // In mobile view, always close sidebar when a node is selected
+    if (isMobileView) {
       setShowMobileSidebar(false);
     }
     
@@ -274,7 +380,7 @@ const Documentation = () => {
       isDirectNodeSelection.current = false;
     }, 0);
     
-  }, [isMobileView, showMobileSidebar, selectedCategory, navigate, analytics]);
+  }, [isMobileView, selectedCategory, navigate, analytics]);
   
   // Handle search
   const handleSearch = useCallback((term: string) => {
@@ -300,33 +406,6 @@ const Documentation = () => {
     }
   }, [selectedCategory]);
   
-  // Handle category selection
-  const handleCategorySelect = useCallback((category: string) => {
-    // Update category state
-    setSelectedCategory(category);
-    
-    // Load nodes for this category
-    const categoryNodes = getNodesByCategory(category);
-    setFilteredNodes(categoryNodes);
-    
-    // Clear selected node when selecting a category
-    setSelectedNode(undefined);
-    
-    // Update URL
-    navigate(`/documentation/${category}`);
-    
-    // In mobile view, switch to list view when selecting a category
-    if (isMobileView && !showMobileSidebar) {
-      setShowMobileSidebar(true);
-    }
-    
-    // Track analytics
-    analytics.trackFeatureUsage('select_category', {
-      category_id: category,
-      category_name: nodeCategories.find(cat => cat.id === category)?.name || category 
-    });
-  }, [navigate, isMobileView, showMobileSidebar, analytics]);
-  
   // Handle details close
   const handleCloseDetails = useCallback(() => {
     setSelectedNode(undefined);
@@ -348,111 +427,132 @@ const Documentation = () => {
       <Navbar />
       
       <div className={`documentation-container ${isMobileView ? 'mobile-view' : ''} ${theme}`}>
-        <div className={`sidebar ${isMobileView && !showMobileSidebar ? 'mobile-hidden' : ''} ${theme}`}>
-          <div className="sidebar-controls">
-            <div className="search-container">
-              <div className="search-input-wrapper">
-                <FaSearch className="search-icon" />
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search nodes... (Press / to focus)"
-                  value={searchTerm}
-                  onChange={(e) => handleSearch(e.target.value)}
-                  className="search-input"
-                />
-                {searchTerm && (
-                  <button className="clear-search" onClick={clearSearch}>
-                    <FaTimes />
+        <div className={`sidebar ${showMobileSidebar ? 'mobile-visible' : ''} ${theme}`}>
+          <div className="sidebar-inner">
+            <div className="sidebar-controls">
+              <div className="search-container">
+                <div className="search-input-wrapper">
+                  <FaSearch className="search-icon" />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search nodes... (Press / to focus)"
+                    value={searchTerm}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    className="search-input"
+                  />
+                  {searchTerm && (
+                    <button className="clear-search" onClick={clearSearch}>
+                      <FaTimes />
+                    </button>
+                  )}
+                </div>
+              </div>
+              
+              <div className="controls-row">
+                <button 
+                  className="control-button theme-toggle-button"
+                  onClick={toggleTheme}
+                  title={`Switch to ${theme === 'dark-theme' ? 'light' : 'dark'} theme (Ctrl+T)`}
+                >
+                  {theme === 'dark-theme' ? <FaSun /> : <FaMoon />}
+                </button>
+                
+                <div className="category-controls">
+                  <button 
+                    className="control-button"
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('expandAllCategories'));
+                    }}
+                    title="Expand All Categories"
+                  >
+                    <FaExpandAlt />
                   </button>
-                )}
+                  <button 
+                    className="control-button"
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('collapseAllCategories'));
+                    }}
+                    title="Collapse All Categories"
+                  >
+                    <FaCompressAlt />
+                  </button>
+                </div>
               </div>
             </div>
             
-            <div className="controls-row">
-              <button 
-                className="control-button theme-toggle-button"
-                onClick={toggleTheme}
-                title={`Switch to ${theme === 'dark-theme' ? 'light' : 'dark'} theme (Ctrl+T)`}
-              >
-                {theme === 'dark-theme' ? <FaSun /> : <FaMoon />}
-              </button>
-              
-              <div className="category-controls">
-                <button 
-                  className="control-button"
-                  onClick={() => {
-                    window.dispatchEvent(new CustomEvent('expandAllCategories'));
-                  }}
-                  title="Expand All Categories"
-                >
-                  <FaExpandAlt />
-                </button>
-                <button 
-                  className="control-button"
-                  onClick={() => {
-                    window.dispatchEvent(new CustomEvent('collapseAllCategories'));
-                  }}
-                  title="Collapse All Categories"
-                >
-                  <FaCompressAlt />
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          {/* Show NodeCategoryList if not searching */}
-          {!searchTerm && (
-            <NodeCategoryList 
-              categories={nodeCategories}
-              selectedCategory={selectedCategory}
-              onSelectCategory={handleCategorySelect}
-              onNodeSelect={handleNodeSelect}
-            />
-          )}
-          
-          {/* Show filtered nodes list when searching */}
-          {searchTerm && filteredNodes.length > 0 && (
-            <div className="search-results">
-              <h3>Search Results ({filteredNodes.length})</h3>
-              <div className="node-list">
-                {filteredNodes.map((node) => (
-                  <div 
-                    key={node.id} 
-                    className={`node-list-item ${selectedNode?.id === node.id ? 'selected' : ''}`}
-                    onClick={() => handleNodeSelect(node)}
-                  >
-                    <div className="node-list-item-name">
-                      <span className="category-indicator"></span>
-                      <span dangerouslySetInnerHTML={{ __html: highlightText(node.name, searchTerm) }}></span>
+            {/* Show NodeCategoryList if not searching */}
+            {!searchTerm && (
+              <NodeCategoryList 
+                categories={nodeCategories}
+                selectedCategory={selectedCategory}
+                onSelectCategory={handleCategorySelect}
+                onNodeSelect={handleNodeSelect}
+              />
+            )}
+            
+            {/* Show filtered nodes list when searching */}
+            {searchTerm && filteredNodes.length > 0 && (
+              <div className="search-results">
+                <h3>Search Results ({filteredNodes.length})</h3>
+                <div className="search-results-list">
+                  {filteredNodes.map((node) => (
+                    <div 
+                      key={node.id} 
+                      className={`search-result-item ${selectedNode?.id === node.id ? 'selected' : ''}`}
+                      onClick={() => handleNodeSelect(node)}
+                    >
+                      <div className="search-result-header">
+                        <span 
+                          className="search-result-name"
+                          dangerouslySetInnerHTML={{ __html: highlightText(node.name, searchTerm) }}
+                        ></span>
+                        <span className="search-result-category">{node.category}</span>
+                      </div>
+                      {node.shortDescription && (
+                        <p className="search-result-description">
+                          {node.shortDescription.length > 100 
+                            ? node.shortDescription.substring(0, 100) + '...' 
+                            : node.shortDescription}
+                        </p>
+                      )}
                     </div>
-                    <div className="node-list-item-category">{node.category}</div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-          
-          {/* Show message when no search results */}
-          {searchTerm && filteredNodes.length === 0 && (
-            <div className="no-results">
-              <p>No nodes found matching "{searchTerm}"</p>
-              <p>Try a different search term or browse by category</p>
-            </div>
-          )}
+            )}
+            
+            {/* Show message when no search results */}
+            {searchTerm && filteredNodes.length === 0 && (
+              <div className="no-results">
+                <p>No nodes found matching "{searchTerm}"</p>
+                <p>Try a different search term or browse by category</p>
+              </div>
+            )}
+          </div>
         </div>
         
+        {/* Add mobile sidebar overlay */}
+        {isMobileView && showMobileSidebar && (
+          <div 
+            className="mobile-overlay visible"
+            onClick={() => setShowMobileSidebar(false)}
+            aria-hidden="true"
+          ></div>
+        )}
+        
+        {/* Mobile sidebar toggle button */}
+        {isMobileView && (
+          <button 
+            className="mobile-sidebar-toggle"
+            onClick={() => setShowMobileSidebar(!showMobileSidebar)}
+            aria-label={showMobileSidebar ? "Close sidebar" : "Open sidebar"}
+          >
+            {showMobileSidebar ? <FaTimes /> : <FaBars />}
+          </button>
+        )}
+        
         <div className="main-content">
-          {/* Mobile toggle button */}
-          {isMobileView && (
-            <button 
-              className={`mobile-toggle ${theme}`}
-              onClick={() => setShowMobileSidebar(!showMobileSidebar)}
-            >
-              {showMobileSidebar ? <FaArrowLeft /> : <FaExpandAlt />}
-            </button>
-          )}
-          
           {/* Show appropriate content based on selection state */}
           {selectedNode ? (
             /* Node detail view */

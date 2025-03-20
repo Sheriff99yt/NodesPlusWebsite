@@ -2,16 +2,11 @@
 .footer {
   width: 100%;
   padding: 12px 0;
-  position: fixed; /* Fixed position to overlay */
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 50; /* Above content but below details panel */
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  position: relative;
   background: var(--glass-bg);
   border-top: 1px solid var(--glass-border);
   box-shadow: 0 -8px 32px 0 rgba(31, 38, 135, 0.2);
+  margin-top: auto; /* Push to bottom if content is short */
 }
 
 /* Dark theme (default) */

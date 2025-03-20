@@ -53,12 +53,13 @@ interface SectionProps {
   id: string;
   title: string;
   className: string;
+  contentClassName?: string;
   children: ReactNode;
 }
 
-const Section = ({ id, title, className, children }: SectionProps) => (
-  <section id={id} className={className}>
-    <div className="section-content">
+const Section = ({ id, title, className, contentClassName, children }: SectionProps) => (
+  <section id={id} className={`${className} section-padding-fix`}>
+    <div className={`section-content ${contentClassName || ''}`}>
       <h2 className="section-title">{title}</h2>
       <Suspense fallback={<ComponentLoader />}>
         {children}
@@ -66,6 +67,103 @@ const Section = ({ id, title, className, children }: SectionProps) => (
     </div>
   </section>
 );
+
+/**
+ * Hero section component
+ */
+interface HeroSectionProps {
+  scrollY: number;
+  heroRef: React.RefObject<HTMLDivElement | null>;
+}
+
+const HeroSection = ({ scrollY, heroRef }: HeroSectionProps) => (
+  <section className="hero-section" ref={heroRef}>
+    {/* Background with parallax effect */}
+    <div 
+      className="hero-background"
+      style={{ transform: `translateY(${scrollY * 0.4}px)` }}
+    >
+      <OptimizedImage 
+        src="/NodesPlusWebsite/images/branding/Banner.jpg"
+        alt="NodesPlus Blueprint nodes for Unreal Engine"
+        loading="eager"
+        className="hero-background-image"
+        width="2400"
+        height="1350"
+        isBanner={true}
+      />
+      <div className="hero-overlay"></div>
+    </div>
+    
+    {/* Hero content */}
+    <div className="section-content hero-content">
+      <h1 className="hero-title animate-fade-in">
+        Extended Blueprint Nodes <span className="highlight">for Unreal Engine</span>
+      </h1>
+      <p className="hero-description animate-fade-in-delay">
+        A collection of custom Blueprint nodes that extend Unreal Engine's functionality, 
+        simplifying complex operations and improving your workflow.
+      </p>
+      
+      {/* Hero CTA buttons */}
+      <HeroButtons />
+      
+      {/* Platform badges */}
+      <PlatformBadges />
+    </div>
+  </section>
+);
+
+/**
+ * Hero buttons component
+ */
+const HeroButtons = () => (
+  <div className="hero-buttons animate-fade-in-delay-2">
+    <a 
+      href="https://www.fab.com/sellers/Sherif%20Hany" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="hero-button primary-button"
+    >
+      Get NodesPlus <FaArrowRight className="button-icon" />
+    </a>
+    <a 
+      href="/NodesPlusWebsite/documentation" 
+      className="hero-button secondary-button"
+    >
+      View Documentation
+    </a>
+    <a 
+      href="https://discord.gg/2Pu9ywaptN" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="hero-button tertiary-button"
+    >
+      Join Discord
+    </a>
+  </div>
+);
+
+/**
+ * Scroll to top button component
+ */
+interface ScrollToTopProps {
+  isVisible: boolean;
+}
+
+const ScrollToTop = ({ isVisible }: ScrollToTopProps) => {
+  if (!isVisible) return null;
+  
+  return (
+    <button 
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="scroll-to-top"
+      aria-label="Scroll to top"
+    >
+      <FaArrowUp />
+    </button>
+  );
+};
 
 /**
  * Homepage component
@@ -97,6 +195,46 @@ const Home = () => {
     };
   }, []);
 
+  // Define sections
+  const sections = [
+    {
+      id: "demo",
+      title: "Interactive Node Demo",
+      className: "demo-section",
+      component: InteractiveNodeDemo
+    },
+    {
+      id: "features",
+      title: "Features",
+      className: "features-overview",
+      component: EnhancedFeatures
+    },
+    {
+      id: "showcase",
+      title: "Showcase",
+      className: "showcase-section",
+      component: ShowcaseGallery
+    },
+    {
+      id: "performance",
+      title: "Performance Benefits",
+      className: "performance-section",
+      component: PerformanceBenefits
+    },
+    {
+      id: "getting-started",
+      title: "Getting Started",
+      className: "getting-started-section",
+      component: GettingStartedGuide
+    },
+    {
+      id: "community",
+      title: "Community",
+      className: "community-section",
+      component: CommunityShowcase
+    }
+  ];
+
   return (
     <>
       <StructuredData pageType="home" />
@@ -104,101 +242,23 @@ const Home = () => {
       
       <main className="main-content">
         {/* Hero Section */}
-        <section className="hero-section" ref={heroRef}>
-          {/* Background with parallax effect */}
-          <div 
-            className="hero-background"
-            style={{ transform: `translateY(${scrollY * 0.4}px)` }}
-          >
-            <OptimizedImage 
-              src="/NodesPlusWebsite/images/branding/Banner.jpg"
-              alt="NodesPlus Blueprint nodes for Unreal Engine"
-              loading="eager"
-              className="hero-background-image"
-              width="2400"
-              height="1350"
-              isBanner={true}
-            />
-            <div className="hero-overlay"></div>
-          </div>
-          
-          {/* Hero content */}
-          <div className="section-content hero-content">
-            <h1 className="hero-title animate-fade-in">
-              Extended Blueprint Nodes <span className="highlight">for Unreal Engine</span>
-            </h1>
-            <p className="hero-description animate-fade-in-delay">
-              A collection of custom Blueprint nodes that extend Unreal Engine's functionality, 
-              simplifying complex operations and improving your workflow.
-            </p>
-            
-            {/* Hero CTA buttons */}
-            <div className="hero-buttons animate-fade-in-delay-2">
-              <a 
-                href="https://www.fab.com/sellers/Sherif%20Hany" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hero-button primary-button"
-              >
-                Get NodesPlus <FaArrowRight className="button-icon" />
-              </a>
-              <a 
-                href="/NodesPlusWebsite/documentation" 
-                className="hero-button secondary-button"
-              >
-                View Documentation
-              </a>
-              <a 
-                href="https://discord.gg/2Pu9ywaptN" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hero-button tertiary-button"
-              >
-                Join Discord
-              </a>
-            </div>
-            
-            {/* Platform badges */}
-            <PlatformBadges />
-          </div>
-        </section>
+        <HeroSection scrollY={scrollY} heroRef={heroRef} />
         
         {/* Main Content Sections */}
-        <Section id="demo" title="Interactive Node Demo" className="demo-section">
-          <InteractiveNodeDemo />
-        </Section>
-        
-        <Section id="features" title="Key Features" className="features-overview">
-          <EnhancedFeatures />
-        </Section>
-        
-        <Section id="showcase" title="Showcase Gallery" className="showcase-section">
-          <ShowcaseGallery />
-        </Section>
-        
-        <Section id="performance" title="Performance Benefits" className="performance-section">
-          <PerformanceBenefits />
-        </Section>
-        
-        <Section id="getting-started" title="Getting Started" className="getting-started-section">
-          <GettingStartedGuide />
-        </Section>
-        
-        <Section id="community" title="Community" className="community-section">
-          <CommunityShowcase />
-        </Section>
+        {sections.map(({ id, title, className, component: Component }) => (
+          <Section key={id} id={id} title={title} className={className}>
+            <Component />
+          </Section>
+        ))}
       </main>
       
       {/* Scroll to top button */}
-      {isVisible && (
-        <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="scroll-to-top"
-          aria-label="Scroll to top"
-        >
-          <FaArrowUp />
-        </button>
-      )}
+      <ScrollToTop isVisible={isVisible} />
+      
+      {/* Disclaimer */}
+      <div className="disclaimer-container">
+          Note: Performance metrics and numbers presented are estimates based on our development goals and are not derived from actual user data.
+      </div>
       
       <Footer />
     </>
