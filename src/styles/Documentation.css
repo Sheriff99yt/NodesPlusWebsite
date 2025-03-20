@@ -1325,4 +1325,12 @@ kbd {
 .node-preview-graph .react-flow__controls,
 .node-preview-graph .react-flow__attribution {
   display: none;
-} */ 
+} */
+
+.dark-theme .node-preview-graph .react-flow__background {
+  opacity: 0.25;
+}
+
+.node-preview-graph .react-flow__attribution {
+  display: none;
+} 

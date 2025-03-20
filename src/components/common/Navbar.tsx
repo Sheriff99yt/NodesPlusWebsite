@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, NavLink } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
@@ -8,6 +8,13 @@ import '../../styles/Navbar.css';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme } = useTheme();
+
+  // Reset body scroll lock when component unmounts
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

@@ -1,0 +1,435 @@
+.performance-section {
+  padding: 0;
+  background-image: var(--section-gradient);
+  background-color: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
+  color: var(--text-color-light);
+  font-family: var(--font-primary);
+}
+
+.performance-section .content-wrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.performance-section .section-title {
+  color: var(--text-color);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.performance-subtitle {
+  text-align: left;
+  max-width: 700px;
+  margin: 0 0 50px;
+  color: var(--text-light);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Metrics Grid */
+.metrics-overview {
+  margin-bottom: 80px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.metric-card {
+  background-image: var(--card-gradient);
+  background-color: var(--card-bg-dark);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color-dark);
+  transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.metric-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: var(--primary-gradient);
+  background-color: rgba(104, 133, 236, 0.2);
+  color: var(--primary-color);
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.metric-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  letter-spacing: -0.01em;
+}
+
+.metric-values {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.metric-value {
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.metric-value.standard {
+  background-color: rgba(229, 62, 62, 0.1);
+  margin-right: 10px;
+}
+
+.metric-value.enhanced {
+  background-color: rgba(56, 161, 105, 0.1);
+}
+
+.value-label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 5px;
+}
+
+.value-number {
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-family: var(--font-heading);
+}
+
+.metric-value.standard .value-number {
+  color: #e53e3e;
+}
+
+.metric-value.enhanced .value-number {
+  color: #38a169;
+}
+
+.improvement-container {
+  margin-bottom: 15px;
+}
+
+.improvement-bar {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.improvement-fill {
+  height: 100%;
+  background: var(--success-gradient);
+  border-radius: 4px;
+  width: 0;
+}
+
+.improvement-percentage {
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #38a169;
+}
+
+.metric-description {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+/* Code Complexity Comparison */
+.complexity-comparison {
+  background-image: var(--card-gradient);
+  background-color: var(--card-bg-dark);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color-dark);
+}
+
+.complexity-comparison h3 {
+  text-align: center;
+  margin: 0 0 30px 0;
+  color: var(--text-color);
+  font-size: 1.6rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.comparison-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.comparison-example {
+  flex: 1;
+  min-width: 280px;
+}
+
+.comparison-example h4 {
+  margin: 0 0 20px 0;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.comparison-vs {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.node-count {
+  margin-bottom: 20px;
+}
+
+.node-icon-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.node-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.node-icon.standard {
+  background-image: linear-gradient(135deg, rgba(229, 62, 62, 0.2) 0%, rgba(229, 62, 62, 0.3) 100%);
+  border: 1px solid rgba(229, 62, 62, 0.4);
+}
+
+.node-icon.enhanced {
+  background-image: linear-gradient(135deg, rgba(56, 161, 105, 0.2) 0%, rgba(56, 161, 105, 0.3) 100%);
+  border: 1px solid rgba(56, 161, 105, 0.4);
+}
+
+.node-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.node-icon.standard .node-dot {
+  background-color: #e53e3e;
+}
+
+.node-icon.enhanced .node-dot {
+  background-color: #38a169;
+}
+
+.node-total {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.comparison-description {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Case Studies */
+.case-studies {
+  margin-bottom: 60px;
+}
+
+.case-studies h3 {
+  text-align: center;
+  margin: 0 0 30px 0;
+  color: var(--text-color);
+  font-size: 1.6rem;
+}
+
+.case-studies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.case-study-card {
+  background-image: var(--card-gradient);
+  background-color: var(--card-bg-dark);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color-dark);
+}
+
+.case-study-card h4 {
+  margin: 0 0 20px 0;
+  color: var(--text-color);
+  font-size: 1.3rem;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.time-comparison {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.time-block {
+  flex: 1;
+  text-align: center;
+  padding: 15px 10px;
+  border-radius: 8px;
+}
+
+.time-block.standard {
+  background-image: linear-gradient(135deg, rgba(229, 62, 62, 0.05) 0%, rgba(229, 62, 62, 0.1) 100%);
+}
+
+.time-block.enhanced {
+  background-image: linear-gradient(135deg, rgba(56, 161, 105, 0.05) 0%, rgba(56, 161, 105, 0.1) 100%);
+}
+
+.time-label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+
+.time-value {
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-family: var(--font-heading);
+}
+
+.time-block.standard .time-value {
+  color: #e53e3e;
+}
+
+.time-block.enhanced .time-value {
+  color: #38a169;
+}
+
+.case-study-card p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+  font-weight: 400;
+}
+
+/* CTA Button */
+.performance-cta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.performance-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  background-image: var(--primary-gradient);
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+  box-shadow: 0 8px 20px rgba(104, 133, 236, 0.4);
+}
+
+.performance-cta-button:hover {
+  background-image: var(--accent-gradient);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(104, 133, 236, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .performance-section {
+    padding: 60px 0;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .comparison-container {
+    flex-direction: column;
+  }
+  
+  .comparison-vs {
+    transform: rotate(90deg);
+  }
+  
+  .performance-subtitle, 
+  .complexity-comparison h3, 
+  .case-studies h3 {
+    font-size: 1.3rem;
+  }
+  
+  .metrics-overview {
+    margin-bottom: 40px;
+  }
+  
+  .complexity-comparison {
+    padding: 25px;
+    margin-bottom: 40px;
+  }
+} 

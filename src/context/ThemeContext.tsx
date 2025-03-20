@@ -16,10 +16,19 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return (savedTheme as ThemeType) || 'dark-theme';
   });
 
-  // Update localStorage when theme changes
+  // Update localStorage when theme changes and apply to both body and html
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    document.body.className = theme; // Apply theme to body for global styles
+    
+    // Apply theme to body for global styles
+    document.body.className = theme;
+    
+    // Also set data-theme attribute on HTML element for CSS selectors
+    document.documentElement.setAttribute('data-theme', theme === 'dark-theme' ? 'dark' : 'light');
+    
+    // Remove the opposite theme class if it exists
+    const oppositeTheme = theme === 'dark-theme' ? 'light-theme' : 'dark-theme';
+    document.body.classList.remove(oppositeTheme);
   }, [theme]);
 
   // Set up keyboard shortcut for theme toggle (Ctrl+T)

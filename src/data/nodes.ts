@@ -1050,9 +1050,10 @@ export const nodes: Node[] = [
       },
       {
         name: 'Break',
-        type: 'Boolean', 
+        type: 'Exec', 
         description: 'Signal to break out of the loop',
-        defaultValue: 'false'
+        defaultValue: 'false',
+        isExec: true
       }
     ],
     outputs: [

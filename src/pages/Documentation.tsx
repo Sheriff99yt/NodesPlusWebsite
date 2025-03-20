@@ -38,7 +38,7 @@ const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categorie
       <div className="documentation-guide">
         <h2>Documentation Guide</h2>
         <div className="guide-content">
-          <p>This documentation provides information about custom Blueprint nodes available in the NodesPlus plugin for Unreal Engine.</p>
+          <p>This documentation provides information about custom Blueprint nodes available in the Nodes Plus plugin for Unreal Engine.</p>
           
           <div className="navigation-steps">
             <div className="navigation-step">

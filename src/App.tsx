@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import useAnalytics from './hooks/useAnalytics';
 import { ThemeProvider } from './context/ThemeContext';
@@ -17,7 +17,6 @@ const LoadingFallback = () => (
   </div>
 );
 
-// The base path is set in vite.config.ts for GitHub Pages deployment
 const App: React.FC = () => {
   const location = useLocation();
   const analytics = useAnalytics();
@@ -35,35 +34,34 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider>
-      <div className="app">
-        {import.meta.env.DEV && (
-          <div 
-            style={{ 
-              background: '#ff9800', 
-              color: 'black', 
-              padding: '5px 10px', 
-              position: 'fixed', 
-              top: 0, 
-              left: 0, 
-              zIndex: 9999, 
-              fontSize: '12px',
-              borderRadius: '0 0 4px 0'
-            }}
-          >
-            Debug: {location.pathname}
-          </div>
-        )}
-        
-        <Suspense fallback={<LoadingFallback />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/documentation" element={<Documentation />} />
-            <Route path="/documentation/:categoryId" element={<Documentation />} />
-            <Route path="/documentation/:categoryId/:nodeId" element={<Documentation />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Suspense>
-      </div>
+      {import.meta.env.DEV && (
+        <div 
+          className="debug-banner"
+          style={{ 
+            background: '#ff9800', 
+            color: 'black', 
+            padding: '5px 10px', 
+            position: 'fixed', 
+            top: 0, 
+            left: 0, 
+            zIndex: 9999, 
+            fontSize: '12px',
+            borderRadius: '0 0 4px 0'
+          }}
+        >
+          Debug: {location.pathname}
+        </div>
+      )}
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/documentation" element={<Documentation />} />
+          <Route path="/documentation/:categoryId" element={<Documentation />} />
+          <Route path="/documentation/:categoryId/:nodeId" element={<Documentation />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </ThemeProvider>
   );
 };

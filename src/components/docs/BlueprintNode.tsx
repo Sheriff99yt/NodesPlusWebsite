@@ -2,6 +2,7 @@ import { memo, useState, useCallback, useMemo, useRef } from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 import { Node } from '../../data/nodes';
 import '../../styles/BlueprintNode.css';
+import { useTheme } from '../../context/ThemeContext';
 
 type BlueprintNodeProps = NodeProps<{
   node: Node;
@@ -67,20 +68,22 @@ const getPinTypeColor = (type: string): string => {
 };
 
 // Memoized category color function
-const getCategoryColor = (category: string): string => {
+const getCategoryColor = (category: string, theme: string): string => {
+  const isDarkTheme = theme === 'dark-theme';
+  
   switch (category.toLowerCase()) {
     case 'debug':
-      return '#E53E3E'; // Red
+      return isDarkTheme ? '#F56565' : '#E53E3E'; // Red
     case 'math':
-      return '#3182CE'; // Blue
+      return isDarkTheme ? '#4299E1' : '#3182CE'; // Blue
     case 'string':
-      return '#38A169'; // Green
+      return isDarkTheme ? '#48BB78' : '#38A169'; // Green
     case 'utility':
-      return '#D69E2E'; // Yellow
+      return isDarkTheme ? '#ECC94B' : '#D69E2E'; // Yellow
     case 'array':
-      return '#805AD5'; // Purple
+      return isDarkTheme ? '#9F7AEA' : '#805AD5'; // Purple
     default:
-      return '#4A5568'; // Gray
+      return isDarkTheme ? '#6E8EAF' : '#4A5568'; // Gray
   }
 };
 
@@ -89,6 +92,7 @@ const BlueprintNode = memo(({ data, isConnectable }: BlueprintNodeProps) => {
   const { node, detailed = false, highlightTerm = '', minimal = false } = data;
   const [hoveredPin, setHoveredPin] = useState<{ id: string, description: string } | null>(null);
   const nodeRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
   
   // Process name text for highlighting if needed
   const nameHtml = useMemo(() => {
@@ -100,8 +104,8 @@ const BlueprintNode = memo(({ data, isConnectable }: BlueprintNodeProps) => {
   
   // Header style object - memoized to avoid recreating on each render
   const headerStyle = useMemo(() => ({ 
-    backgroundColor: getCategoryColor(node.category) 
-  }), [node.category]);
+    backgroundColor: getCategoryColor(node.category, theme) 
+  }), [node.category, theme]);
   
   // Throttled event handlers to reduce frequency of state updates
   const throttledPinMouseEnter = useCallback(

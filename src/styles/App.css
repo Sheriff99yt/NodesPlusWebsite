@@ -1,0 +1,58 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  /* Font families */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-heading: 'Space Grotesk', var(--font-primary);
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', monospace;
+
+  /* Colors */
+  --primary-color: #6885EC;
+  --primary-color-rgb: 104, 133, 236;
+  --accent-color: #5A75D9;
+  --success-color: #38A169;
+  --warning-color: #ECC94B;
+  --error-color: #E53E3E;
+  --bg-color: #1A1A2E;
+  --bg-light: #1E1E2E;
+  --bg-dark: #16161F;
+  --card-bg: #1E1E2E;
+  --card-bg-dark: #16161F;
+  --text-color: #FFFFFF;
+  --text-light: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color-dark: rgba(255, 255, 255, 0.05);
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  --section-gradient: linear-gradient(135deg, rgba(26, 26, 29, 0.8) 0%, rgba(38, 38, 42, 0.8) 100%);
+  --card-gradient: linear-gradient(135deg, rgba(30, 30, 34, 0.8) 0%, rgba(22, 22, 25, 0.8) 100%);
+  --primary-gradient: linear-gradient(135deg, #6885EC 0%, #5A75D9 100%);
+  --accent-gradient: linear-gradient(135deg, #5A75D9 0%, #4A65C9 100%);
+  --success-gradient: linear-gradient(135deg, #38A169 0%, #2F855A 100%);
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-primary);
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  margin: 0;
+  line-height: 1.2;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Rest of your existing CSS */ 

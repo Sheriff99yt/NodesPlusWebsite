@@ -1,26 +1,29 @@
 /* Footer.css */
 .footer {
   width: 100%;
-  padding: 8px 0;
+  padding: 12px 0;
   position: fixed; /* Fixed position to overlay */
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 50; /* Above content but below details panel */
-  backdrop-filter: blur(8px); /* Increased blur to match navbar */
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-border);
+  box-shadow: 0 -8px 32px 0 rgba(31, 38, 135, 0.2);
 }
 
 /* Dark theme (default) */
 .footer, .footer.dark-theme {
-  background-color: rgba(26, 26, 29, 0.7); /* Match navbar desaturated dark grey */
-  border-top: 1px solid rgba(46, 46, 50, 0.5); /* Match navbar border */
+  background: rgba(31, 31, 35, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Light theme */
 .footer.light-theme {
-  background-color: rgba(249, 249, 250, 0.7); /* Match navbar light theme color */
-  border-top: 1px solid rgba(228, 229, 231, 0.5); /* Match navbar border */
+  background: rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .footer-content {
@@ -30,40 +33,54 @@
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 40px;
 }
 
 /* Dark theme text (default) */
 .footer .copyright, .footer.dark-theme .copyright {
   margin: 0;
-  color: rgba(255, 255, 255, 0.8); /* Light text for dark background */
-  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .footer .footer-link, .footer.dark-theme .footer-link {
-  color: #63b3ed; /* Light blue to match theme */
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
   font-weight: 500;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer .footer-link:hover, .footer.dark-theme .footer-link:hover {
-  color: #90cdf4; /* Lighter blue on hover */
-  text-decoration: underline;
+  color: white;
+  background: var(--primary-gradient);
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow);
+  text-decoration: none;
+  border: 1px solid transparent;
 }
 
 /* Light theme text */
 .footer.light-theme .copyright {
-  color: rgba(45, 55, 72, 0.8); /* Dark text for light background */
+  color: rgba(45, 55, 72, 0.9);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
 }
 
 .footer.light-theme .footer-link {
-  color: #3182ce; /* Darker blue for light background */
+  color: rgba(45, 55, 72, 0.9);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .footer.light-theme .footer-link:hover {
-  color: #2b6cb0; /* Even darker blue on hover */
+  color: white;
+  background: var(--primary-gradient);
 }
 
 .footer-links {
@@ -73,23 +90,25 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 6px 0;
+    padding: 10px 0;
   }
   
   .footer-content {
     flex-direction: row; /* Keep horizontal on mobile */
     gap: 10px;
+    padding: 0 20px;
   }
   
   .copyright {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
   
   .footer-links {
-    gap: 12px;
+    gap: 10px;
   }
   
   .footer-link {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+    padding: 4px 8px;
   }
 } 

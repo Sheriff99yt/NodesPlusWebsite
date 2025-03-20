@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { Node, Pin } from '../../data/nodes';
 import '../../styles/NodeDetailsPanel.css';
 import { FaTimes, FaInfoCircle, FaTag, FaCubes, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
-import ReactFlow, { Background, Node as FlowNode, Edge, NodeTypes, ConnectionLineType, Controls } from 'reactflow';
+import ReactFlow, { Background, Node as FlowNode, Edge, NodeTypes, ConnectionLineType } from 'reactflow';
 import BlueprintNode from './BlueprintNode';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -93,21 +93,17 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
               nodeTypes={nodeTypes}
               fitView
               fitViewOptions={fitViewOptions}
-              attributionPosition="bottom-right"
               minZoom={0.5}
-              maxZoom={2}
-              zoomOnScroll={true}
+              maxZoom={1.5}
+              defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
+              connectionLineType={ConnectionLineType.SmoothStep}
               panOnScroll={false}
-              panOnDrag={true}
-              nodesDraggable={true}
-              elementsSelectable={false}
+              zoomOnScroll={false}
+              panOnDrag={false}
+              preventScrolling={true}
+              attributionPosition="bottom-right"
             >
-              <Background
-                color={theme === 'dark-theme' ? '#2D3748' : '#E2E8F0'} 
-                size={1.5}
-                gap={16}
-              />
-              <Controls showInteractive={false} />
+              <Background color="#5D7CE5" gap={16} size={1} />
             </ReactFlow>
           </div>
         </div>
