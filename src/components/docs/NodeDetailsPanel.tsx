@@ -2,7 +2,15 @@ import React, { useEffect, useMemo } from 'react';
 import { Node, Pin } from '../../data/nodes';
 import '../../styles/NodeDetailsPanel.css';
 import { FaTimes, FaInfoCircle, FaTag, FaCubes, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
-import ReactFlow, { Background, Node as FlowNode, Edge, NodeTypes, ConnectionLineType, Controls } from 'reactflow';
+import ReactFlow, { 
+  Background, 
+  BackgroundVariant, 
+  Node as FlowNode, 
+  Edge, 
+  NodeTypes, 
+  ConnectionLineType, 
+  Controls 
+} from 'reactflow';
 import 'reactflow/dist/style.css';
 import BlueprintNode from './BlueprintNode';
 import { useTheme } from '../../context/ThemeContext';
@@ -105,8 +113,14 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
                 panOnDrag={true}
                 preventScrolling={false}
                 attributionPosition="bottom-right"
+                className="node-flow"
               >
-                <Background color="#5D7CE5" gap={16} size={1} />
+                <Background 
+                  variant={BackgroundVariant.Lines} 
+                  gap={20} 
+                  size={1}
+                  color={theme === 'dark-theme' ? '#2D3748' : '#E2E8F0'} 
+                />
                 <Controls showInteractive={false} position="bottom-right" />
               </ReactFlow>
             </div>
@@ -168,7 +182,7 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
                       <div key={index} className="pin-item">
                         <div className="pin-header">
                           <span className="pin-name">{input.name}</span>
-                          <span className="pin-type">{input.type}</span>
+                          <span className="pin-type" style={{ backgroundColor: getPinTypeColor(input.type), color: 'white' }}>{input.type}</span>
                           {input.defaultValue !== undefined && (
                             <span className="pin-default">Default: {input.defaultValue}</span>
                           )}
@@ -188,7 +202,7 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
                       <div key={index} className="pin-item">
                         <div className="pin-header">
                           <span className="pin-name">{output.name}</span>
-                          <span className="pin-type">{output.type}</span>
+                          <span className="pin-type" style={{ backgroundColor: getPinTypeColor(output.type), color: 'white' }}>{output.type}</span>
                         </div>
                         <p className="pin-description">{output.description}</p>
                       </div>
@@ -233,19 +247,21 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
 
 // Helper function to get color based on category
 function getCategoryColor(category: string): string {
+  const isDarkTheme = document.body.classList.contains('dark-theme');
+  
   switch (category.toLowerCase()) {
     case 'debug':
-      return '#E53E3E'; // Red
+      return isDarkTheme ? '#F56565' : '#E53E3E'; // Red
     case 'math':
-      return '#3182CE'; // Blue
+      return isDarkTheme ? '#4299E1' : '#3182CE'; // Blue
     case 'string':
-      return '#38A169'; // Green
+      return isDarkTheme ? '#48BB78' : '#38A169'; // Green
     case 'utility':
-      return '#D69E2E'; // Yellow
+      return isDarkTheme ? '#ECC94B' : '#D69E2E'; // Yellow
     case 'array':
-      return '#805AD5'; // Purple
+      return isDarkTheme ? '#9F7AEA' : '#805AD5'; // Purple
     default:
-      return '#4A5568'; // Gray
+      return isDarkTheme ? '#6E8EAF' : '#4A5568'; // Gray
   }
 }
 

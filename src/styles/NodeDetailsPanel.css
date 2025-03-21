@@ -353,14 +353,12 @@
 
 .pin-type {
   display: inline-block;
-  padding: 0.4rem 0.75rem;
+  padding: 0.3rem 0.6rem;
   font-size: 0.8rem;
   border-radius: 6px;
-  background-color: var(--bg-light);
-  color: var(--text-light);
   font-family: monospace;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--border-color);
+  border: none;
+  font-weight: 500;
 }
 
 .pin-description {
@@ -645,7 +643,7 @@
 
 .dark-theme .node-graph-container {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  background: #1A202C;
+  background: var(--bg-dark);
 }
 
 .dark-theme .node-graph-container:hover {
@@ -825,9 +823,9 @@
   padding: 0.3rem 0.6rem;
   font-size: 0.8rem;
   border-radius: 6px;
-  background-color: var(--bg-light);
-  color: var(--text-light);
   font-family: monospace;
+  border: none;
+  font-weight: 500;
 }
 
 .pin-default {
@@ -918,4 +916,30 @@
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
+}
+
+/* Match React Flow background with theme */
+.react-flow__pane {
+  background-color: var(--bg-light) !important;
+}
+
+.dark-theme .react-flow__pane {
+  background-color: var(--bg-dark) !important;
+}
+
+.node-flow {
+  background-color: var(--bg-light) !important;
+}
+
+.dark-theme .node-flow {
+  background-color: var(--bg-dark) !important;
+}
+
+.pin-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.pin-type:hover {
+  opacity: 0.9;
 } 

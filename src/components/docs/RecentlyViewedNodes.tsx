@@ -37,19 +37,21 @@ const RecentlyViewedNodes: React.FC<RecentlyViewedNodesProps> = ({ nodes, onSele
 
 // Helper function to get color based on category
 function getCategoryColor(category: string): string {
-  switch (category) {
+  const isDarkTheme = document.body.classList.contains('dark-theme');
+  
+  switch (category.toLowerCase()) {
     case 'debug':
-      return '#E53E3E'; // Red
+      return isDarkTheme ? '#F56565' : '#E53E3E'; // Red
     case 'math':
-      return '#3182CE'; // Blue
+      return isDarkTheme ? '#4299E1' : '#3182CE'; // Blue
     case 'string':
-      return '#38A169'; // Green
+      return isDarkTheme ? '#48BB78' : '#38A169'; // Green
     case 'utility':
-      return '#D69E2E'; // Yellow
+      return isDarkTheme ? '#ECC94B' : '#D69E2E'; // Yellow
     case 'array':
-      return '#805AD5'; // Purple
+      return isDarkTheme ? '#9F7AEA' : '#805AD5'; // Purple
     default:
-      return '#4A5568'; // Gray
+      return isDarkTheme ? '#6E8EAF' : '#4A5568'; // Gray
   }
 }
 

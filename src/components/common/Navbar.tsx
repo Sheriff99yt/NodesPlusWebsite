@@ -77,9 +77,9 @@ const Navbar = () => {
           onClick={closeMenu}
         >
           <img 
-            src="/NodesPlusWebsite/images/branding/Logo.png" 
-            alt="Nodes Plus Logo" 
-            className="navbar-logo-image"
+            className="navbar-logo" 
+            src="./images/branding/Logo.png" 
+            alt="NodesPlus Logo" 
             width="180"
             height="40"
           />

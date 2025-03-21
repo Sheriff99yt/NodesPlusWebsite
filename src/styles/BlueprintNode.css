@@ -2,20 +2,19 @@
 .blueprint-node {
   position: relative;
   background-color: #ffffff;
-  border-radius: 4px;
+  border-radius: 8px;
   min-width: 180px;
   border: 1px solid #E2E8F0;
-  /* Reduce box-shadow intensity for performance */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* Speed up transitions for better responsiveness */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: all 0.15s ease;
-  /* Enable hardware acceleration */
   transform: translateZ(0);
   will-change: transform;
+  user-select: none;
 }
 
 .blueprint-node:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .dark-theme .blueprint-node {
@@ -32,9 +31,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
-  border-radius: 4px 4px 0 0;
-  /* Use solid color instead of gradients for better performance */
+  padding: 10px 14px;
+  border-radius: 8px 8px 0 0;
   background-color: #4A5568;
   color: white;
   font-weight: 600;
@@ -47,33 +45,35 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 70%;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
 }
 
 .blueprint-node-category {
   font-size: 11px;
-  opacity: 0.7;
-  padding: 2px 6px;
-  border-radius: 3px;
+  opacity: 0.9;
+  padding: 3px 8px;
+  border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.02em;
 }
 
 .blueprint-node-content {
-  padding: 8px;
+  padding: 12px;
 }
 
 .blueprint-node-description {
   margin-top: 8px;
-  font-size: 12px;
-  color: #718096;
-  line-height: 1.4;
+  font-size: 13px;
+  color: #4A5568;
+  line-height: 1.5;
   max-height: 60px;
   overflow: hidden;
   cursor: pointer;
-  /* Remove transitions for better performance */
 }
 
 .dark-theme .blueprint-node-description {
-  color: #A0AEC0;
+  color: #CBD5E0;
 }
 
 .blueprint-node-description.expanded {
@@ -83,37 +83,40 @@
 .blueprint-node-pins {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .inline-pins-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .inline-pins-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  min-height: 28px;
 }
 
 .blueprint-node-pin {
   position: relative;
   display: flex;
   align-items: center;
-  font-size: 12px;
-  min-height: 24px;
+  font-size: 13px;
+  min-height: 28px;
 }
 
 .blueprint-node-pin.input-pin {
   padding-left: 16px;
-  max-width: 45%;
+  max-width: 48%;
 }
 
 .blueprint-node-pin.output-pin {
   padding-right: 16px;
-  max-width: 45%;
+  max-width: 48%;
   justify-content: flex-end;
 }
 
@@ -128,23 +131,33 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 13px;
+  color: #2D3748;
+}
+
+.dark-theme .pin-name {
+  color: #E2E8F0;
 }
 
 .pin-type {
-  font-size: 10px;
-  opacity: 0.7;
+  font-size: 11px;
+  opacity: 0.8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #718096;
+}
+
+.dark-theme .pin-type {
+  color: #A0AEC0;
 }
 
 /* Handle styles */
 .react-flow__handle {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border: 1px solid #E2E8F0;
-  /* Reduce transition for better performance */
-  transition: transform 0.1s ease;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
 
 .dark-theme .react-flow__handle {
@@ -152,8 +165,8 @@
 }
 
 .react-flow__handle:hover {
-  /* Simplified hover effect for better performance */
   transform: scale(1.2);
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
 }
 
 .react-flow__handle.exec {
@@ -186,18 +199,22 @@
   --category-math: #3182CE;
   --category-string: #38A169;
   --category-debug: #E53E3E;
-  --category-utility: #D69E2E;
+  --category-utility: #DD6B20;
   --category-array: #805AD5;
-  --category-qa: #DD6B20;
+  --category-data: #0BC5EA;
+  --category-logic: #9F7AEA;
+  --category-default: #4A5568;
 }
 
 .dark-theme {
   --category-math: #4299E1;
   --category-string: #48BB78;
   --category-debug: #F56565;
-  --category-utility: #ECC94B;
+  --category-utility: #ED8936;
   --category-array: #9F7AEA;
-  --category-qa: #F6AD55;
+  --category-data: #0BC5EA;
+  --category-logic: #B794F4;
+  --category-default: #718096;
 }
 
 .blueprint-node-header:active {
@@ -207,6 +224,8 @@
 .blueprint-node-category {
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-size: 10px;
+  font-weight: 600;
 }
 
 .long-description {
@@ -248,50 +267,58 @@
 .input-pin {
   align-items: flex-start;
   text-align: left;
-  padding-left: 12px;
+  padding-left: 14px;
 }
 
 .output-pin {
   align-items: flex-end;
   text-align: right;
-  padding-right: 12px;
+  padding-right: 14px;
 }
 
 .empty-input {
   flex: 1;
-  min-height: 18px;
+  min-height: 20px;
 }
 
 .input-pin .blueprint-node-pin-label {
-  margin-left: 6px;
+  margin-left: 8px;
 }
 
 .output-pin .blueprint-node-pin-label {
-  margin-right: 6px;
+  margin-right: 8px;
 }
 
 .pin-name {
   font-weight: 600;
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
   margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #2D3748;
+}
+
+.dark-theme .pin-name {
+  color: #E2E8F0;
 }
 
 .pin-type {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.7);
-  opacity: 0.9;
+  font-size: 11px;
+  opacity: 0.8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #718096;
+}
+
+.dark-theme .pin-type {
+  color: #A0AEC0;
 }
 
 .pin-default {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  color: #718096;
   opacity: 0.8;
   white-space: nowrap;
   overflow: hidden;
@@ -299,23 +326,29 @@
   font-style: italic;
 }
 
+.dark-theme .pin-default {
+  color: #A0AEC0;
+}
+
 .pin-tooltip {
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(45, 50, 75, 0.95);
+  background-color: #2D3748;
   color: white;
-  padding: 6px 10px;
+  padding: 8px 12px;
   border-radius: 6px;
-  font-size: 0.7rem;
-  white-space: nowrap;
+  font-size: 12px;
   z-index: 100;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  line-height: 1.5;
+  max-width: 250px;
+  word-wrap: break-word;
+}
+
+.dark-theme .pin-tooltip {
+  background-color: #4A5568;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .blueprint-node-complexity {
@@ -348,37 +381,47 @@
   color: rgba(255, 129, 129, 0.9);
 }
 
+/* Display pin connection lines more visibly */
 .react-flow__edge-path {
-  stroke-width: 2;
-  stroke: rgb(204, 204, 204);
+  stroke: #A0AEC0;
+  stroke-width: 1.5;
 }
 
-.blueprint-node .react-flow__handle:hover {
-  border-color: rgba(0, 0, 0, 0.8);
+.dark-theme .react-flow__edge-path {
+  stroke: #718096;
 }
 
-/* Make exec path more visible */
 .react-flow__edge.exec-connection .react-flow__edge-path {
-  stroke: #ffffff;
+  stroke: #4A5568;
   stroke-width: 2;
 }
 
-.react-flow__node.selected .blueprint-node {
-  box-shadow: 0 0 0 2px #6C8AFF;
+.dark-theme .react-flow__edge.exec-connection .react-flow__edge-path {
+  stroke: #CBD5E0;
 }
 
+/* Selected node styles */
+.react-flow__node.selected .blueprint-node {
+  box-shadow: 0 0 0 2px #3182CE, 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-color: #3182CE;
+}
+
+.dark-theme .react-flow__node.selected .blueprint-node {
+  box-shadow: 0 0 0 2px #4299E1, 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-color: #4299E1;
+}
+
+/* Node icon for clarity */
 .node-icon {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   width: 18px;
   height: 18px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  margin-right: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  opacity: 0.8;
 }
 
 /* Simplify category color customizations - use solid colors instead of gradients */
@@ -459,4 +502,42 @@
 
 .blueprint-node.minimal .react-flow__handle:hover {
   transform: scale(1.2);
+}
+
+/* Improve ReactFlow canvas background */
+.react-flow__background {
+  background-color: #F7FAFC;
+}
+
+.dark-theme .react-flow__background {
+  background-color: #1A202C;
+}
+
+/* Blueprint node header colors by category */
+.blueprint-node-header[data-category="math"] {
+  background-color: var(--category-math);
+}
+
+.blueprint-node-header[data-category="string"] {
+  background-color: var(--category-string);
+}
+
+.blueprint-node-header[data-category="debug"] {
+  background-color: var(--category-debug);
+}
+
+.blueprint-node-header[data-category="utility"] {
+  background-color: var(--category-utility);
+}
+
+.blueprint-node-header[data-category="array"] {
+  background-color: var(--category-array);
+}
+
+.blueprint-node-header[data-category="data"] {
+  background-color: var(--category-data);
+}
+
+.blueprint-node-header[data-category="logic"] {
+  background-color: var(--category-logic);
 } 

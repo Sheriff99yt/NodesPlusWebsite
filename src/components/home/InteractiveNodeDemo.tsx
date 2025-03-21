@@ -10,6 +10,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { FaExternalLinkAlt, FaDiscord, FaStore, FaLinkedinIn } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import BlueprintNode from '../docs/BlueprintNode';
 import { nodes as allNodes } from '../../data/nodes';
@@ -365,10 +366,10 @@ const InteractiveNodeDemo: React.FC = () => {
             </p>
             
             <div className="info-buttons">
-              <a href="/documentation" className="info-button doc-button">
+              <Link to="/documentation" className="info-button doc-button">
                 <span className="button-text">View Documentation</span>
                 <FaExternalLinkAlt />
-              </a>
+              </Link>
               
               <a 
                 href="https://www.fab.com/sellers/Sherif%20Hany" 

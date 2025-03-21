@@ -49,15 +49,10 @@
   font-size: 1.1rem;
   line-height: 1.6;
   color: var(--text-light);
-  margin-bottom: 20px;
 }
 
 .info-call-to-action {
-  background-color: rgba(104, 133, 236, 0.05);
-  padding: 25px;
   border-radius: 8px;
-  border-left: 3px solid var(--primary-color);
-  margin-bottom: 25px;
 }
 
 .info-call-to-action h4 {

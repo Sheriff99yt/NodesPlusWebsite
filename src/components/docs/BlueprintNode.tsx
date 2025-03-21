@@ -138,7 +138,11 @@ const BlueprintNode = memo(({ data, isConnectable }: BlueprintNodeProps) => {
 
   return (
     <div className={nodeClassName} ref={nodeRef}>
-      <div className="blueprint-node-header node-header" style={headerStyle}>
+      <div 
+        className="blueprint-node-header node-header" 
+        style={headerStyle}
+        data-category={node.category.toLowerCase()}
+      >
         {nameHtml ? (
           <span 
             className="blueprint-node-title" 

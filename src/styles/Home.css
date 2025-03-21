@@ -587,6 +587,12 @@ section {
     flex-direction: column;
     margin-top: 20px;
     gap: 10px;
+    align-items: center;
+  }
+  
+  .badge {
+    width: auto;
+    max-width: 250px;
   }
   
   .badge.platforms {
@@ -594,10 +600,12 @@ section {
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
+    width: auto;
+    max-width: 250px;
   }
   
   .platforms-label {
-    width: 100%;
+    width: auto;
     text-align: center;
     margin-bottom: 6px;
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaShoppingCart, FaDownload, FaCog, FaPuzzlePiece, FaProjectDiagram } from 'react-icons/fa';
 import '../../styles/GettingStartedGuide.css';
+import { Link } from 'react-router-dom';
 
 interface Step {
   id: number;
@@ -63,9 +64,9 @@ const GettingStartedGuide: React.FC = () => {
       </div>
       
       <div className="guide-cta">
-        <a href="/NodesPlusWebsite/documentation" className="guide-cta-button">
+        <Link to="/documentation" className="guide-cta-button">
           View Full Documentation
-        </a>
+        </Link>
       </div>
     </div>
   );

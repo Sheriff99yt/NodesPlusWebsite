@@ -28,90 +28,54 @@ import '../styles/Documentation.css';
 const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categories: NodeCategory[], onSelectCategory: (categoryId: string) => void }) => {
   const { theme } = useTheme();
   
-  // Map icons to categories
-  const getCategoryIcon = (categoryId: string) => {
-    const iconMap: {[key: string]: React.ReactNode} = {
-      'math': <FaCalculator className="category-icon" />,
-      'string': <FaFont className="category-icon" />,
-      'utility': <FaTools className="category-icon" />,
-      'data': <FaLayerGroup className="category-icon" />,
-      'logic': <FaCode className="category-icon" />,
-      'geometry': <FaCube className="category-icon" />,
-    };
-    
-    return iconMap[categoryId] || <FaBook className="category-icon" />;
-  };
-  
   return (
-    <div className={`docs-default-panel ${theme}`}>
-      <div className="docs-hero-section">
-        <div className="docs-hero-content">
-          <h1>Nodes Plus Library</h1>
-          <p>Custom nodes for enhancing your Unreal Engine Blueprints workflow</p>
-          <div className="docs-hero-actions">
-            <button className="docs-hero-button primary" onClick={() => onSelectCategory(categories[0]?.id)}>
-              Explore Nodes
-            </button>
-          </div>
-        </div>
+    <div className={`default-documentation ${theme}`}>
+      <div className="default-header">
+        <h1>Nodes Plus Blueprint Library</h1>
+        <p>Custom nodes for Unreal Engine Blueprints</p>
       </div>
       
-      <div className="docs-content-wrapper">
-        <div className="docs-features-section">
-          <h2>Why NodesPlus?</h2>
-          <div className="docs-features-grid">
-            <div className="docs-feature-card">
-              <div className="docs-feature-icon">
-                <FaLightbulb />
-              </div>
-              <h3>Enhanced Productivity</h3>
-              <p>Reduce blueprint spaghetti with specialized nodes that combine common operations</p>
-            </div>
-            <div className="docs-feature-card">
-              <div className="docs-feature-icon">
-                <FaCode />
-              </div>
-              <h3>Clean Architecture</h3>
-              <p>Create more readable, maintainable blueprints with optimized node functions</p>
-            </div>
-            <div className="docs-feature-card">
-              <div className="docs-feature-icon">
-                <FaTools />
-              </div>
-              <h3>Specialized Utilities</h3>
-              <p>Access powerful functionality not available in standard Unreal Engine blueprints</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="docs-categories-section">
-          <h2>Browse Node Categories</h2>
-          <div className="docs-categories-grid">
-            {categories.map(category => (
-              <div 
-                key={category.id}
-                className="docs-category-card"
-                onClick={() => onSelectCategory(category.id)}
-              >
-                <div className="docs-category-header">
-                  <div className="docs-category-icon-wrapper">
-                    {getCategoryIcon(category.id)}
-                  </div>
-                  <span className="docs-category-node-count">{getNodesByCategory(category.id).length} nodes</span>
-                </div>
-                <h3>{category.name}</h3>
-                <p>{category.description || `A collection of ${category.name.toLowerCase()} blueprint nodes`}</p>
-                <div className="docs-category-card-footer">
-                  <span className="docs-view-category">View Category <span className="arrow">→</span></span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="search-tip">
+        <FaSearch className="search-icon" />
+        <p>Use the search bar or press <kbd>/</kbd> to find nodes</p>
       </div>
       
+      <h2>Categories</h2>
+      <div className="categories-simple-list">
+        {categories.map(category => {
+          const categoryNodes = getNodesByCategory(category.id);
+          return (
+            <div 
+              key={category.id}
+              className="category-simple-item"
+              onClick={() => onSelectCategory(category.id)}
+            >
+              <h3>{category.name}</h3>
+              <p>{categoryNodes.length} nodes</p>
+            </div>
+          );
+        })}
       </div>
+    </div>
   );
+};
+
+// Helper function to get icon for category
+const getCategoryIcon = (categoryId: string) => {
+  switch(categoryId.toLowerCase()) {
+    case 'math':
+      return <FaCalculator />;
+    case 'string':
+      return <FaFont />;
+    case 'utility':
+      return <FaTools />;
+    case 'array':
+      return <FaLayerGroup />;
+    case 'rendering':
+      return <FaCube />;
+    default:
+      return <FaCode />;
+  }
 };
 
 const Documentation = () => {
@@ -130,7 +94,6 @@ const Documentation = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobileView, setIsMobileView] = useState<boolean>(window.innerWidth < 768);
   const [showMobileSidebar, setShowMobileSidebar] = useState<boolean>(false);
-  const [scrollY, setScrollY] = useState<number>(0);
   
   // Filtered nodes for sidebar
   const [filteredNodes, setFilteredNodes] = useState<Node[]>([]);
@@ -226,6 +189,9 @@ const Documentation = () => {
             setShowMobileSidebar(false);
           }
         }
+      } else if (isMobileView) {
+        // When showing a category page on mobile, show the sidebar
+        setShowMobileSidebar(true);
       }
     }
   }, [categoryId, nodeId, isMobileView]);
@@ -233,28 +199,11 @@ const Documentation = () => {
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      const width = window.innerWidth;
-      setIsMobileView(width < 768);
-      
-      // Auto-close sidebar on small screens when resizing from large to small
-      if (width < 768 && showMobileSidebar) {
-        setShowMobileSidebar(false);
-        document.body.classList.remove('sidebar-open');
-      }
+      setIsMobileView(window.innerWidth < 768);
     };
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [showMobileSidebar]);
-  
-  // Track scroll position for mobile UI adjustments
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Handle keyboard shortcuts
@@ -306,12 +255,17 @@ const Documentation = () => {
     // Update URL
     navigate(`/documentation/${category}`);
     
+    // In mobile view, always show sidebar when selecting a category
+    if (isMobileView) {
+      setShowMobileSidebar(true);
+    }
+    
     // Track analytics
     analytics.trackFeatureUsage('select_category', {
       category_id: category,
       category_name: nodeCategories.find(cat => cat.id === category)?.name || category 
     });
-  }, [navigate, analytics]);
+  }, [navigate, isMobileView, analytics]);
   
   // Handle node selection
   const handleNodeSelect = useCallback((node: Node) => {
@@ -385,28 +339,11 @@ const Documentation = () => {
     return nodeCategories.find(category => category.id === selectedCategory) || null;
   }, [selectedCategory]);
   
-  // Toggle mobile sidebar
-  const toggleMobileSidebar = useCallback(() => {
-    setShowMobileSidebar(prev => !prev);
-    // Add/remove body class to prevent scrolling when sidebar is open
-    if (!showMobileSidebar) {
-      document.body.classList.add('sidebar-open');
-    } else {
-      document.body.classList.remove('sidebar-open');
-    }
-  }, [showMobileSidebar]);
-  
-  // Close mobile sidebar when clicking outside
-  const handleOverlayClick = useCallback(() => {
-    setShowMobileSidebar(false);
-    document.body.classList.remove('sidebar-open');
-  }, []);
-  
   return (
     <div className={`documentation-page ${theme}`}>
       <Navbar />
       
-      <div className={`documentation-container ${isMobileView ? 'mobile-view' : ''} ${showMobileSidebar ? 'sidebar-visible' : ''} ${theme}`}>
+      <div className={`documentation-container ${isMobileView ? 'mobile-view' : ''} ${theme}`}>
         <div className={`sidebar ${showMobileSidebar ? 'mobile-visible' : ''} ${theme}`}>
           <div className="sidebar-inner">
             <div className="sidebar-controls">
@@ -479,100 +416,4 @@ const Documentation = () => {
                   {filteredNodes.map((node) => (
                     <div 
                       key={node.id} 
-                      className={`search-result-item ${selectedNode?.id === node.id ? 'selected' : ''}`}
-                      onClick={() => handleNodeSelect(node)}
-                    >
-                      <div className="search-result-header">
-                        <span 
-                          className="search-result-name"
-                          dangerouslySetInnerHTML={{ __html: highlightText(node.name, searchTerm) }}
-                        ></span>
-                        <span className="search-result-category">{node.category}</span>
-                      </div>
-                      {node.shortDescription && (
-                        <p className="search-result-description">
-                          {node.shortDescription.length > 100 
-                            ? node.shortDescription.substring(0, 100) + '...' 
-                            : node.shortDescription}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {/* Show message when no search results */}
-            {searchTerm && filteredNodes.length === 0 && (
-              <div className="no-results">
-                <p>No nodes found matching "{searchTerm}"</p>
-                <p>Try a different search term or browse by category</p>
-              </div>
-            )}
-          </div>
-        </div>
-        
-        {/* Mobile overlay */}
-        {isMobileView && (
-          <div 
-            className={`mobile-overlay ${showMobileSidebar ? 'visible' : ''}`}
-            onClick={handleOverlayClick}
-            aria-hidden="true"
-          ></div>
-        )}
-        
-        {/* Mobile menu toggle button */}
-        {isMobileView && (
-          <button 
-            className={`mobile-menu-toggle ${scrollY > 100 ? 'scrolled' : ''}`}
-            onClick={toggleMobileSidebar}
-            aria-label={showMobileSidebar ? "Close menu" : "Open menu"}
-          >
-            {showMobileSidebar ? <FaTimes /> : <FaBars />}
-          </button>
-        )}
-        
-        <div className="docs-main-content">
-          {/* Show appropriate content based on selection state */}
-          {selectedNode ? (
-            /* Node detail view */
-            <NodeDetailsPanel 
-              node={selectedNode}
-              highlightTerm={searchTerm}
-              onClose={handleCloseDetails}
-            />
-          ) : selectedCategory && selectedCategoryObject ? (
-            /* Category detail view */
-            <CategoryDetailsPanel 
-              category={selectedCategoryObject}
-              nodes={filteredNodes}
-              onSelectNode={handleNodeSelect}
-              onBack={() => {
-                setSelectedCategory(undefined);
-                navigate('/documentation');
-              }}
-            />
-          ) : (
-            /* Default documentation view */
-            <DefaultDocumentationPanel 
-              categories={nodeCategories}
-              onSelectCategory={handleCategorySelect}
-            />
-          )}
-        </div>
-      </div>
-      
-      <Footer className={theme} />
-    </div>
-  );
-};
-
-export default Documentation;
-
-// Helper function to highlight text matches
-function highlightText(text: string, searchTerm: string): string {
-  if (!text || !searchTerm || searchTerm.length < 2) return text;
-  
-  const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-  return text.replace(regex, '<span class="highlight">$1</span>');
-}
+                      className={`

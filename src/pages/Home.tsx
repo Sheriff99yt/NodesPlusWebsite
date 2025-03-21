@@ -5,6 +5,7 @@ import StructuredData from '../components/common/StructuredData';
 import OptimizedImage from '../components/common/OptimizedImage';
 import { FaArrowUp, FaArrowRight, FaWindows, FaApple, FaLinux, FaMobileAlt, FaAndroid } from 'react-icons/fa';
 import '../styles/Home.css';
+import { Link } from 'react-router-dom';
 
 // Lazy loaded components
 const InteractiveNodeDemo = lazy(() => import('../components/home/InteractiveNodeDemo'));
@@ -84,8 +85,8 @@ const HeroSection = ({ scrollY, heroRef }: HeroSectionProps) => (
       style={{ transform: `translateY(${scrollY * 0.4}px)` }}
     >
       <OptimizedImage 
-        src="/NodesPlusWebsite/images/branding/Banner.jpg"
-        alt="NodesPlus Blueprint nodes for Unreal Engine"
+        src="./images/branding/Banner.jpg"
+        alt="Nodes Plus Banner"
         loading="eager"
         className="hero-background-image"
         width="2400"
@@ -127,12 +128,12 @@ const HeroButtons = () => (
     >
       Get NodesPlus <FaArrowRight className="button-icon" />
     </a>
-    <a 
-      href="/NodesPlusWebsite/documentation" 
+    <Link 
+      to="./documentation" 
       className="hero-button secondary-button"
     >
       View Documentation
-    </a>
+    </Link>
     <a 
       href="https://discord.gg/2Pu9ywaptN" 
       target="_blank" 
@@ -177,6 +178,10 @@ const Home = () => {
   useEffect(() => {
     // Reset scroll position when component mounts
     window.scrollTo(0, 0);
+    setScrollY(0);
+    
+    // Add a class to identify when we're on the home page
+    document.body.classList.add('on-home-page');
 
     // Handle parallax effect and scroll-to-top button visibility
     const handleScroll = () => {
@@ -192,6 +197,8 @@ const Home = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.documentElement.style.scrollBehavior = '';
+      // Clean up home page specific class when component unmounts
+      document.body.classList.remove('on-home-page');
     };
   }, []);
 
@@ -199,7 +206,7 @@ const Home = () => {
   const sections = [
     {
       id: "demo",
-      title: "Interactive Node Demo",
+      title: "Interactive Demo",
       className: "demo-section",
       component: InteractiveNodeDemo
     },
