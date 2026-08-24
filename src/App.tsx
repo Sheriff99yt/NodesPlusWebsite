@@ -1,4 +1,4 @@
-﻿import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import useAnalytics from './hooks/useAnalytics';
@@ -39,7 +39,6 @@ const App: React.FC = () => {
       const main = document.getElementById('main-content');
       if (main) {
         main.scrollTop = 0;
-        main.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'auto' });
       }
     };
 

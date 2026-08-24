@@ -5,10 +5,10 @@
   align-items: center;
   width: 100%;
   padding: 12px 40px;
-  background: var(--glass-bg);
+  background: var(--navbar-bg, #1a1a1d);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   z-index: 100;
@@ -22,13 +22,13 @@
 
 /* Dark theme (default) - blue theme */
 .navbar, .navbar.dark-theme {
-  background: rgba(31, 31, 35, 0.2);
+  background: #1a1a1d;
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Light theme */
 .navbar.light-theme {
-  background: rgba(255, 255, 255, 0.2);
+  background: #ffffff;
   border-bottom-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -628,4 +628,17 @@ img.navbar-logo,
     opacity: 1;
     visibility: visible;
   }
+}
+
+.navbar,
+.navbar.dark-theme,
+html[data-theme="dark"] .navbar {
+  background: #1a1a1d;
+  backdrop-filter: none;
+}
+
+.navbar.light-theme,
+html[data-theme="light"] .navbar {
+  background: #ffffff;
+  backdrop-filter: none;
 }
