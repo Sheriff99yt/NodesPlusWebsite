@@ -1,14 +1,16 @@
-﻿import { nodeCategories } from '../data/nodes';
+﻿import { lazy, Suspense } from 'react';
+import { nodeCategories } from '../data/nodes';
 import { useTheme } from '../context/ThemeContext';
 import { useDocumentation } from '../hooks/useDocumentation';
 import PageSeo from '../components/common/PageSeo';
 import StructuredData from '../components/common/StructuredData';
 import DocsLanding from '../components/docs/DocsLanding';
 import DocsSidebar from '../components/docs/DocsSidebar';
-import NodeDetailsPanel from '../components/docs/NodeDetailsPanel';
 import CategoryDetailsPanel from '../components/docs/CategoryDetailsPanel';
 import '../styles/Documentation.css';
 import '../styles/docs-ux.css';
+
+const NodeDetailsPanel = lazy(() => import('../components/docs/NodeDetailsPanel'));
 
 const Documentation = () => {
   const { theme } = useTheme();
@@ -69,9 +71,11 @@ const Documentation = () => {
           onCloseSidebar={docs.closeSidebar}
         />
 
-        <div className="docs-main-content" role="main">
+        <div className="docs-main-content">
           {selectedNode ? (
-            <NodeDetailsPanel node={selectedNode} highlightTerm={docs.searchTerm} onClose={docs.closeDetails} />
+            <Suspense fallback={<div className="docs-panel-loading" role="status">Loading node…</div>}>
+              <NodeDetailsPanel node={selectedNode} highlightTerm={docs.searchTerm} onClose={docs.closeDetails} />
+            </Suspense>
           ) : selectedCategory && selectedCategoryObject ? (
             <CategoryDetailsPanel
               category={selectedCategoryObject}
