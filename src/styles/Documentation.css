@@ -991,3 +991,24 @@ button.search-result-item {
     padding-bottom: 7rem;
   }
 }
+
+
+.documentation-page .sidebar-inner {
+  overflow-y: auto;
+}
+.documentation-page .sidebar {
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  .documentation-page .sidebar.mobile-visible {
+    width: 100%;
+    max-width: 100%;
+  }
+  .documentation-page .mobile-overlay.visible {
+    background: rgba(8, 10, 16, 0.72);
+  }
+}
+.docs-category-node-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+}

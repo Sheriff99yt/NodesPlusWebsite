@@ -564,3 +564,16 @@
   margin-left: auto;
   flex-shrink: 0;
 }
+
+.category-count,
+.node-count-badge {
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+.node-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+}

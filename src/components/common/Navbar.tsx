@@ -74,7 +74,7 @@ const Navbar = () => {
   return (
     <header className={`navbar ${theme}`} role="banner">
       <div className="navbar-content">
-        <RouterLink to="/" className="navbar-logo-link" onClick={closeMenu}>
+        <RouterLink to="/" className="navbar-logo-link" aria-label="Nodes Plus home" onClick={closeMenu}>
           <img
             className="navbar-logo navbar-logo-image"
             src={LOGO_SRC}

@@ -87,7 +87,7 @@ const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categorie
                   <div className="docs-category-icon-wrapper">
                     {getCategoryIcon(category.id)}
                   </div>
-                  <span className="docs-category-node-count">{getNodesByCategory(category.id).length} nodes</span>
+                  <span className="docs-category-node-count">{getNodesByCategory(category.id).length === 1 ? "1 node" : `${getNodesByCategory(category.id).length} nodes`}</span>
                 </div>
                 <h3>{category.name}</h3>
                 <p>{category.description || `A collection of ${category.name.toLowerCase()} blueprint nodes`}</p>

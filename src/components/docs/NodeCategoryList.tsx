@@ -120,7 +120,8 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
                     e.stopPropagation();
                     toggleCategory(category.id);
                   }}
-                  aria-label={isExpanded ? 'Collapse category' : 'Expand category'}
+                  aria-expanded={isExpanded}
+                  aria-label={isExpanded ? `Collapse ${category.name}` : `Expand ${category.name}`}
                 >
                   {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
                 </button>
@@ -144,7 +145,7 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
                         }}
                       >
                         <div className="node-item-info">
-                          <span className="node-name">{node.name}</span>
+                          <span className="node-name" title={node.name}>{node.name}</span>
                         </div>
                       </div>
                     );
