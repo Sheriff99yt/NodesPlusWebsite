@@ -9,7 +9,8 @@ const NotFoundPage = () => {
       <PageSeo
         title="Page not found"
         description="This page does not exist on the Nodes Plus site. Return to Home, Documentation, or Architecture."
-        path="/"
+        path="/404"
+        noIndex
       />
       <StructuredData pageType="notfound" path="/" breadcrumbs={[{ name: 'Home', path: '/' }]} />
       <div className="not-found-content">

@@ -22,32 +22,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     
     // Apply theme to body for global styles
     document.body.className = theme;
-    
-    // Also set data-theme attribute on HTML element for CSS selectors
+    document.documentElement.classList.remove('dark-theme', 'light-theme');
+    document.documentElement.classList.add(theme);
     document.documentElement.setAttribute('data-theme', theme === 'dark-theme' ? 'dark' : 'light');
-    
-    // Remove the opposite theme class if it exists
-    const oppositeTheme = theme === 'dark-theme' ? 'light-theme' : 'dark-theme';
-    document.body.classList.remove(oppositeTheme);
   }, [theme]);
-
-  // Set up keyboard shortcut for theme toggle (Ctrl+T)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger shortcuts when typing in input fields
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
-        return;
-      }
-      
-      if (e.ctrlKey && e.key === 't') {
-        e.preventDefault();
-        toggleTheme();
-      }
-    };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
 
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'dark-theme' ? 'light-theme' : 'dark-theme');

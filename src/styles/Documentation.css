@@ -9,12 +9,12 @@
 :root {
   --sidebar-width: 280px;
   --sidebar-width-mobile: 85%;
-  --header-height: 46px;
+  --header-height: 60px;
   --content-padding: 1.5rem 2rem;
   --content-padding-mobile: 1rem;
-  --sidebar-z-index: 20;
-  --overlay-z-index: 15;
-  --toggle-z-index: 30;
+  --sidebar-z-index: 40;
+  --overlay-z-index: 35;
+  --toggle-z-index: 50;
   --controls-z-index: 25;
 }
 

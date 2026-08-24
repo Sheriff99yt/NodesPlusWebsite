@@ -7,9 +7,10 @@ interface PageSeoProps {
   description: string;
   path?: string;
   type?: string;
+  noIndex?: boolean;
 }
 
-const PageSeo = ({ title, description, path = '/', type = 'website' }: PageSeoProps) => {
+const PageSeo = ({ title, description, path = '/', type = 'website', noIndex = false }: PageSeoProps) => {
   const url = absoluteUrl(path);
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} — ${SITE_NAME}`;
 
@@ -30,6 +31,7 @@ const PageSeo = ({ title, description, path = '/', type = 'website' }: PageSeoPr
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={OG_IMAGE} />
       <meta name="twitter:url" content={url} />
+      {noIndex ? <meta name="robots" content="noindex, follow" /> : null}
     </Helmet>
   );
 };

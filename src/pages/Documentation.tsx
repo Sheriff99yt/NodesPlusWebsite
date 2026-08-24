@@ -110,8 +110,7 @@ const Documentation = () => {
   const analytics = useAnalytics();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { theme, toggleTheme } = useTheme();
-  
-  // Prevent handling of URL param changes during direct node selection
+
   const isDirectNodeSelection = useRef(false);
   
   // Application states
@@ -418,22 +417,26 @@ const Documentation = () => {
                 
                 <div className="category-controls">
                   <button 
+                    type="button"
                     className="control-button"
                     onClick={() => {
                       window.dispatchEvent(new CustomEvent('expandAllCategories'));
                     }}
-                    title="Expand All Categories"
+                    title="Expand all categories"
+                    aria-label="Expand all categories"
                   >
-                    <FaExpandAlt />
+                    <FaExpandAlt aria-hidden="true" />
                   </button>
                   <button 
+                    type="button"
                     className="control-button"
                     onClick={() => {
                       window.dispatchEvent(new CustomEvent('collapseAllCategories'));
                     }}
-                    title="Collapse All Categories"
+                    title="Collapse all categories"
+                    aria-label="Collapse all categories"
                   >
-                    <FaCompressAlt />
+                    <FaCompressAlt aria-hidden="true" />
                   </button>
                 </div>
               </div>

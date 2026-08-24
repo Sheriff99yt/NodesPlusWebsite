@@ -25,9 +25,9 @@ export const trackPageView = (path: string, title: string): void => {
   if (isProduction) {
     // In a real implementation, this would send data to your analytics service
     // Example: window.gtag('page_view', { page_path: path, page_title: title });
-    console.log(`[ANALYTICS] Page view: ${path} (${title})`);
+    if (import.meta.env.DEV) console.log(`[ANALYTICS] Page view: ${path} (${title})`);
   } else {
-    console.log(`[DEV] Page view: ${path} (${title})`);
+    if (import.meta.env.DEV) console.log(`[DEV] Page view: ${path} (${title})`);
   }
 };
 
@@ -45,13 +45,13 @@ export const trackEvent = (
   if (isProduction) {
     // In a real implementation, this would send event data to your analytics service
     // Example: window.gtag('event', action, { event_category: category, event_label: label, value });
-    console.log(
+    if (import.meta.env.DEV) console.log(
       `[ANALYTICS] Event: ${category} / ${action}${label ? ` / ${label}` : ''}${
         value !== undefined ? ` (${value})` : ''
       }`
     );
   } else {
-    console.log(
+    if (import.meta.env.DEV) console.log(
       `[DEV] Event: ${category} / ${action}${label ? ` / ${label}` : ''}${
         value !== undefined ? ` (${value})` : ''
       }`
@@ -74,9 +74,9 @@ const initializeAnalytics = (): void => {
   if (isProduction) {
     // In a real implementation, this would initialize your analytics service
     // Example: window.gtag = (...args) => { /* initialize Google Analytics */ };
-    console.log('Analytics initialized in production mode');
+    if (import.meta.env.DEV) console.log('Analytics initialized in production mode');
   } else {
-    console.log('Analytics initialized in development mode (no data sent)');
+    if (import.meta.env.DEV) console.log('Analytics initialized in development mode (no data sent)');
   }
   initialized = true;
 }; 

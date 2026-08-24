@@ -11,7 +11,7 @@ const useAnalytics = () => {
    */
   const trackPageView = useCallback((path: string, title: string) => {
     if (import.meta.env.DEV) {
-      console.log(`[Analytics] Page View: ${path} - ${title}`);
+      if (import.meta.env.DEV) console.log(`[Analytics] Page View: ${path} - ${title}`);
     }
     
     // In production, this would send data to an analytics service
@@ -23,7 +23,7 @@ const useAnalytics = () => {
    */
   const trackNodeView = useCallback((nodeId: string, nodeName: string, category: string) => {
     if (import.meta.env.DEV) {
-      console.log(`[Analytics] Node View: ${nodeId} - ${nodeName} (${category})`);
+      if (import.meta.env.DEV) console.log(`[Analytics] Node View: ${nodeId} - ${nodeName} (${category})`);
     }
     
     // In production, this would send data to an analytics service
@@ -35,7 +35,7 @@ const useAnalytics = () => {
    */
   const trackSearch = useCallback((searchTerm: string, resultCount: number) => {
     if (import.meta.env.DEV) {
-      console.log(`[Analytics] Search: "${searchTerm}" - ${resultCount} results`);
+      if (import.meta.env.DEV) console.log(`[Analytics] Search: "${searchTerm}" - ${resultCount} results`);
     }
     
     // In production, this would send data to an analytics service
@@ -47,7 +47,7 @@ const useAnalytics = () => {
    */
   const trackFeatureUsage = useCallback((featureId: string, metadata?: Record<string, unknown>) => {
     if (import.meta.env.DEV) {
-      console.log(`[Analytics] Feature Usage: ${featureId}`, metadata);
+      if (import.meta.env.DEV) console.log(`[Analytics] Feature Usage: ${featureId}`, metadata);
     }
     
     // In production, this would send data to an analytics service

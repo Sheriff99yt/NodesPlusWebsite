@@ -204,9 +204,9 @@ export const initPerformanceMonitoring = (): void => {
       // Log results to console in development
       if (isDevelopment()) {
         console.group('Performance Metrics');
-        console.log('Load Metrics:', loadMetrics);
-        console.log('Resource Metrics:', resourceMetrics);
-        console.log('Memory Info:', memoryInfo);
+        if (import.meta.env.DEV) console.log('Load Metrics:', loadMetrics);
+        if (import.meta.env.DEV) console.log('Resource Metrics:', resourceMetrics);
+        if (import.meta.env.DEV) console.log('Memory Info:', memoryInfo);
         console.groupEnd();
       }
     }, 100); // Small delay to ensure all metrics are available
@@ -222,28 +222,28 @@ export const getPerformanceData = (): PerformanceData | null => {
 export const logPerformanceData = (): void => {
   if (performanceData) {
     console.group('NodesPlus Website Performance Data');
-    console.log('Collected at:', new Date(performanceData.timestamp).toLocaleString());
+    if (import.meta.env.DEV) console.log('Collected at:', new Date(performanceData.timestamp).toLocaleString());
     
     if (performanceData.loadMetrics) {
       console.group('Page Load Metrics');
       const { loadMetrics } = performanceData;
-      if (loadMetrics.domContentLoaded) console.log('DOM Content Loaded:', Math.round(loadMetrics.domContentLoaded), 'ms');
-      if (loadMetrics.domInteractive) console.log('DOM Interactive:', Math.round(loadMetrics.domInteractive), 'ms');
-      if (loadMetrics.loadTime) console.log('Page Load Time:', Math.round(loadMetrics.loadTime), 'ms');
-      if (loadMetrics.firstPaint) console.log('First Paint:', Math.round(loadMetrics.firstPaint), 'ms');
-      if (loadMetrics.firstContentfulPaint) console.log('First Contentful Paint:', Math.round(loadMetrics.firstContentfulPaint), 'ms');
+      if (loadMetrics.domContentLoaded) if (import.meta.env.DEV) console.log('DOM Content Loaded:', Math.round(loadMetrics.domContentLoaded), 'ms');
+      if (loadMetrics.domInteractive) if (import.meta.env.DEV) console.log('DOM Interactive:', Math.round(loadMetrics.domInteractive), 'ms');
+      if (loadMetrics.loadTime) if (import.meta.env.DEV) console.log('Page Load Time:', Math.round(loadMetrics.loadTime), 'ms');
+      if (loadMetrics.firstPaint) if (import.meta.env.DEV) console.log('First Paint:', Math.round(loadMetrics.firstPaint), 'ms');
+      if (loadMetrics.firstContentfulPaint) if (import.meta.env.DEV) console.log('First Contentful Paint:', Math.round(loadMetrics.firstContentfulPaint), 'ms');
       console.groupEnd();
     }
     
     if (performanceData.resourceMetrics) {
       console.group('Resource Metrics');
       const { resourceMetrics } = performanceData;
-      console.log('Total Resources:', resourceMetrics.totalResources);
-      console.log('Total Size:', Math.round(resourceMetrics.totalSize / 1024), 'KB');
-      console.log('Image Size:', Math.round(resourceMetrics.imageSize / 1024), 'KB');
-      console.log('Script Size:', Math.round(resourceMetrics.scriptSize / 1024), 'KB');
-      console.log('CSS Size:', Math.round(resourceMetrics.cssSize / 1024), 'KB');
-      console.log('Font Size:', Math.round(resourceMetrics.fontSize / 1024), 'KB');
+      if (import.meta.env.DEV) console.log('Total Resources:', resourceMetrics.totalResources);
+      if (import.meta.env.DEV) console.log('Total Size:', Math.round(resourceMetrics.totalSize / 1024), 'KB');
+      if (import.meta.env.DEV) console.log('Image Size:', Math.round(resourceMetrics.imageSize / 1024), 'KB');
+      if (import.meta.env.DEV) console.log('Script Size:', Math.round(resourceMetrics.scriptSize / 1024), 'KB');
+      if (import.meta.env.DEV) console.log('CSS Size:', Math.round(resourceMetrics.cssSize / 1024), 'KB');
+      if (import.meta.env.DEV) console.log('Font Size:', Math.round(resourceMetrics.fontSize / 1024), 'KB');
       console.groupEnd();
     }
     

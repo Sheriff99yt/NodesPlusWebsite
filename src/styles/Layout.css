@@ -11,3 +11,11 @@
   display: flex;
   flex-direction: column;
 }
+
+html {
+  scroll-padding-top: 72px;
+}
+.app-shell-body {
+  position: relative;
+  z-index: 0;
+}

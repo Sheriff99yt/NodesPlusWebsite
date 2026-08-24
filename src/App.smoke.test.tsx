@@ -16,5 +16,8 @@ describe('router smoke', () => {
     expect(
       await screen.findByRole('heading', { level: 1, name: /Nodes Plus/i }),
     ).toBeInTheDocument();
+    const skip = screen.getByRole('link', { name: /Skip to content/i });
+    expect(skip).toHaveAttribute('href', '#main-content');
+    expect(document.getElementById('main-content')).toBeTruthy();
   });
 });
