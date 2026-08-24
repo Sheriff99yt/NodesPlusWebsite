@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef, lazy, Suspense, ReactNode } from 'react';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
 import StructuredData from '../components/common/StructuredData';
 import OptimizedImage from '../components/common/OptimizedImage';
 import { FaArrowUp, FaArrowRight, FaWindows, FaApple, FaLinux, FaMobileAlt, FaAndroid } from 'react-icons/fa';
@@ -245,8 +243,6 @@ const Home = () => {
   return (
     <>
       <StructuredData pageType="home" />
-      <Navbar />
-      
       <main className="main-content">
         {/* Hero Section */}
         <HeroSection scrollY={scrollY} heroRef={heroRef} />
@@ -267,7 +263,6 @@ const Home = () => {
           Note: Performance metrics and numbers presented are estimates based on our development goals and are not derived from actual user data.
       </div>
       
-      <Footer />
     </>
   );
 };

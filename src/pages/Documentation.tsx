@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+﻿import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactFlow, {
   Background,
@@ -11,8 +11,6 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
 import BlueprintNode from '../components/docs/BlueprintNode';
 import NodeCategoryList, { FaExpandAlt as ExpandIcon, FaCompressAlt as CollapseIcon } from '../components/docs/NodeCategoryList';
 import NodeDetailsPanel from '../components/docs/NodeDetailsPanel';
@@ -102,7 +100,7 @@ const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categorie
                 <h3>{category.name}</h3>
                 <p>{category.description || `A collection of ${category.name.toLowerCase()} blueprint nodes`}</p>
                 <div className="docs-category-card-footer">
-                  <span className="docs-view-category">View Category <span className="arrow">→</span></span>
+                  <span className="docs-view-category">View Category <span className="arrow">â†’</span></span>
                 </div>
               </div>
             ))}
@@ -404,7 +402,7 @@ const Documentation = () => {
   
   return (
     <div className={`documentation-page ${theme}`}>
-      <Navbar />
+
       
       <div className={`documentation-container ${isMobileView ? 'mobile-view' : ''} ${showMobileSidebar ? 'sidebar-visible' : ''} ${theme}`}>
         <div className={`sidebar ${showMobileSidebar ? 'mobile-visible' : ''} ${theme}`}>
@@ -562,7 +560,7 @@ const Documentation = () => {
         </div>
       </div>
       
-      <Footer className={theme} />
+
     </div>
   );
 };
@@ -576,3 +574,4 @@ function highlightText(text: string, searchTerm: string): string {
   const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
   return text.replace(regex, '<span class="highlight">$1</span>');
 }
+

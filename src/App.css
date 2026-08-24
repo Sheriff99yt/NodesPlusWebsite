@@ -1,12 +1,12 @@
 /* App.css */
 /* Global styles for the entire application */
 
-/* Light theme (default) - Light shades of grey and red */
+/* Light theme (default) - Light shades of grey and blue */
 :root {
-  /* Primary colors - red theme */
-  --primary-color: #E54C4C; /* Main red */
-  --secondary-color: #D73737; /* Darker red */
-  --accent-color: #F07171; /* Lighter red */
+  /* Primary colors - blue theme */
+  --primary-color: #526ED3; /* Main red */
+  --secondary-color: #3A5BBC; /* Darker red */
+  --accent-color: #6A8AE6; /* Lighter red */
   
   /* Text colors - grey shades */
   --text-color: #2E3033; /* Near black with slight grey tint */
@@ -24,7 +24,7 @@
   /* Status colors */
   --success: #63B57A; /* Green */
   --warning: #F0A05D; /* Orange */
-  --error: #E54C4C; /* Red (same as primary) */
+  --error: #E54C4C;
   
   /* Component specific */
   --card-bg: #FFFFFF;
@@ -34,10 +34,10 @@
   --code-text: #383B3E;
   
   /* Gradient definitions - light theme */
-  --primary-gradient: linear-gradient(135deg, #E54C4C 0%, #F07171 100%);
+  --primary-gradient: linear-gradient(135deg, #526ED3 0%, #6A8AE6 100%);
   --section-gradient: linear-gradient(135deg, #F9F9FA 0%, #F0F0F2 100%);
   --card-gradient: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
-  --accent-gradient: linear-gradient(135deg, #F07171 0%, #F5A9A9 100%);
+  --accent-gradient: linear-gradient(135deg, #6A8AE6 0%, #A8BBF5 100%);
   --success-gradient: linear-gradient(135deg, #63B57A 0%, #8ED29F 100%);
   --section-divider: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
   
@@ -107,10 +107,10 @@ html[data-theme='dark'] {
 /* Light theme - explicitly add these classes for when light theme is active */
 .light-theme,
 html[data-theme='light'] {
-  /* Primary colors - red theme */
-  --primary-color: #E54C4C; /* Main red */
-  --secondary-color: #D73737; /* Darker red */
-  --accent-color: #F07171; /* Lighter red */
+  /* Primary colors - blue theme */
+  --primary-color: #526ED3; /* Main red */
+  --secondary-color: #3A5BBC; /* Darker red */
+  --accent-color: #6A8AE6; /* Lighter red */
   
   /* Text colors - grey shades */
   --text-color: #2E3033; /* Near black with slight grey tint */
@@ -339,3 +339,4 @@ p {
     transform: rotate(360deg);
   }
 }
+
