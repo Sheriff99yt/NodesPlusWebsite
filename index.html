@@ -3,27 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="./images/branding/Logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="Nodes Plus - Extended Blueprint Nodes for Unreal Engine. A collection of custom Blueprint nodes that extend Unreal Engine's functionality." />
-    <meta name="keywords" content="Unreal Engine, Blueprint, Nodes, Plugin, Game Development, NodesPlus" />
-    <meta name="author" content="Nodes Plus Team" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Nodes Plus is a Blueprint function library for Unreal Engine. Browse documentation in the browser, get the plugin on Fab, and ask questions on Discord." />
+    <meta name="author" content="Sherif Hany / 99 Studios" />
     <meta name="theme-color" content="#526ED3" />
-    
-    <!-- Start Single Page Apps for GitHub Pages -->
+    <link rel="canonical" href="https://sheriff99yt.github.io/NodesPlusWebsite/" />
+
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      // This script checks to see if a redirect is present in the query string,
-      // converts it back into the correct url and adds it to the
-      // browser's history using window.history.replaceState(...),
-      // which won't cause the browser to attempt to load the new url.
-      // When the single page app is loaded further down in this file,
-      // the correct url will be waiting in the browser's history for
-      // the single page app to route accordingly.
       (function(l) {
         if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
+          var decoded = l.search.slice(1).split('&').map(function(s) {
             return s.replace(/~and~/g, '&')
           }).join('?');
           window.history.replaceState(null, null,
@@ -32,45 +21,40 @@
         }
       }(window.location))
     </script>
-    <!-- End Single Page Apps for GitHub Pages -->
-    
-    <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Nodes Plus - Extended Blueprint Nodes for Unreal Engine" />
-    <meta property="og:description" content="A collection of custom Blueprint nodes that extend Unreal Engine's functionality, providing simplified solutions for complex operations." />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <meta property="og:title" content="Nodes Plus - Blueprint nodes for Unreal Engine" />
+    <meta property="og:description" content="A Blueprint function library for Unreal Engine by Sherif Hany / 99 Studios. Docs on this site, plugin on Fab." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://your-github-username.github.io/" />
-    <meta property="og:image" content="https://your-github-username.github.io/images/branding/og-image.png" />
-    
-    <title>Nodes Plus - Extended Blueprint Nodes for Unreal Engine</title>
-    
-    <!-- Scroll fixing styles -->
+    <meta property="og:url" content="https://sheriff99yt.github.io/NodesPlusWebsite/" />
+    <meta property="og:image" content="https://sheriff99yt.github.io/NodesPlusWebsite/images/branding/og-image.png" />
+    <meta property="og:site_name" content="Nodes Plus" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nodes Plus - Blueprint nodes for Unreal Engine" />
+    <meta name="twitter:description" content="A Blueprint function library for Unreal Engine by Sherif Hany / 99 Studios. Docs on this site, plugin on Fab." />
+    <meta name="twitter:image" content="https://sheriff99yt.github.io/NodesPlusWebsite/images/branding/og-image.png" />
+
+    <title>Nodes Plus - Blueprint nodes for Unreal Engine</title>
     <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-        position: relative;
-      }
-      
-      body {
-        display: block;
-      }
-      
-      #root {
-        min-height: 100vh;
-        position: relative;
-      }
+      html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; }
+      body { display: block; font-family: Inter, system-ui, sans-serif; }
+      #root { min-height: 100vh; }
     </style>
   </head>
   <body>
+    <noscript>
+      <p>Nodes Plus is a Blueprint function library for Unreal Engine by Sherif Hany / 99 Studios. This site documents the plugin in the browser.</p>
+      <p>
+        <a href="/NodesPlusWebsite/">Home</a> ·
+        <a href="/NodesPlusWebsite/architecture/">Architecture</a> ·
+        <a href="/NodesPlusWebsite/documentation/">Documentation</a> ·
+        <a href="https://www.fab.com/sellers/Sherif%20Hany">Get on Fab</a> ·
+        <a href="https://discord.gg/2Pu9ywaptN">Discord</a>
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>
   </body>

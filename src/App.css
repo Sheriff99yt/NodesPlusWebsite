@@ -4,9 +4,9 @@
 /* Light theme (default) - Light shades of grey and blue */
 :root {
   /* Primary colors - blue theme */
-  --primary-color: #526ED3; /* Main red */
-  --secondary-color: #3A5BBC; /* Darker red */
-  --accent-color: #6A8AE6; /* Lighter red */
+  --primary-color: #526ED3; /* Main blue */
+  --secondary-color: #3A5BBC; /* Darker blue */
+  --accent-color: #6A8AE6; /* Lighter blue */
   
   /* Text colors - grey shades */
   --text-color: #2E3033; /* Near black with slight grey tint */
@@ -60,6 +60,25 @@
   --letter-spacing-tight: -0.01em;
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.02em;
+  /* Spacing (4/8 scale) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radius, focus, motion */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --focus-ring: 2px solid var(--primary-color);
+  --focus-offset: 3px;
+  --motion-fast: 150ms;
+  --motion-med: 250ms;
+  --prose-width: 65ch;
 }
 
 /* Dark theme - Dark shades of grey and blue */
@@ -108,9 +127,9 @@ html[data-theme='dark'] {
 .light-theme,
 html[data-theme='light'] {
   /* Primary colors - blue theme */
-  --primary-color: #526ED3; /* Main red */
-  --secondary-color: #3A5BBC; /* Darker red */
-  --accent-color: #6A8AE6; /* Lighter red */
+  --primary-color: #526ED3; /* Main blue */
+  --secondary-color: #3A5BBC; /* Darker blue */
+  --accent-color: #6A8AE6; /* Lighter blue */
   
   /* Text colors - grey shades */
   --text-color: #2E3033; /* Near black with slight grey tint */
@@ -240,8 +259,42 @@ p {
 
 /* Focus styles for accessibility */
 :focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+  outline: none;
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: var(--space-2);
+  z-index: 2000;
+  padding: var(--space-2) var(--space-4);
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.prose {
+  max-width: var(--prose-width);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Mobile responsive adjustments */

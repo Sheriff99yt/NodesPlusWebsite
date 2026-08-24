@@ -1,105 +1,136 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
+import {
+  AUTHOR_NAME,
+  DISCORD_URL,
+  FAB_URL,
+  GITHUB_URL,
+  LOGO_URL,
+  OG_IMAGE,
+  ORG_NAME,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+  absoluteUrl,
+} from '../../utils/site';
 
-interface StructuredDataProps {
-  pageType: 'home' | 'documentation' | 'product';
+export interface FaqItem {
+  question: string;
+  answer: string;
 }
 
-const StructuredData: React.FC<StructuredDataProps> = ({ pageType }) => {
-  const baseUrl = 'https://sherifu.github.io/NodesPlusWebsite';
-  
-  // Generate structured data based on page type
-  const generateJsonLd = (): string => {
-    if (pageType === 'home') {
-      // Home page structured data
-      const homeJsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'SoftwareApplication',
-        'name': 'NodesPlus for Unreal Engine',
-        'applicationCategory': 'DesignApplication',
-        'operatingSystem': 'Windows, macOS, Linux',
-        'description': 'A collection of custom Blueprint nodes that extend Unreal Engine\'s functionality, providing simplified solutions for complex operations in Blueprint scripting.',
-        'offers': {
-          '@type': 'Offer',
-          'price': '24.99',
-          'priceCurrency': 'USD',
-          'availability': 'https://schema.org/InStock'
+interface BreadcrumbItem {
+  name: string;
+  path: string;
+}
+
+interface StructuredDataProps {
+  pageType: 'home' | 'documentation' | 'architecture' | 'notfound';
+  title?: string;
+  description?: string;
+  path?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  faq?: FaqItem[];
+}
+
+const organization = {
+  '@type': 'Organization',
+  name: `${AUTHOR_NAME} / ${ORG_NAME}`,
+  url: SITE_URL,
+  logo: LOGO_URL,
+  sameAs: [FAB_URL, DISCORD_URL, GITHUB_URL],
+};
+
+const website = {
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  url: `${SITE_URL}/`,
+  description: SITE_DESCRIPTION,
+  publisher: organization,
+  inLanguage: 'en',
+};
+
+const software = {
+  '@type': 'SoftwareApplication',
+  name: `${SITE_NAME} for Unreal Engine`,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Windows, macOS, Linux',
+  description: SITE_DESCRIPTION,
+  url: `${SITE_URL}/`,
+  image: OG_IMAGE,
+  author: organization,
+  publisher: organization,
+  offers: {
+    '@type': 'Offer',
+    url: FAB_URL,
+    availability: 'https://schema.org/InStock',
+  },
+};
+
+const StructuredData = ({
+  pageType,
+  title,
+  description,
+  path = '/',
+  breadcrumbs,
+  faq,
+}: StructuredDataProps) => {
+  const graph: object[] = [organization, website];
+
+  if (pageType === 'home') {
+    graph.push(software);
+  }
+
+  if (pageType === 'documentation') {
+    graph.push({
+      '@type': 'TechArticle',
+      headline: title || 'Nodes Plus Documentation',
+      description:
+        description ||
+        'Documentation for the Nodes Plus Unreal Engine Blueprint library, including categories and individual nodes.',
+      author: organization,
+      publisher: organization,
+      url: absoluteUrl(path),
+      image: OG_IMAGE,
+      mainEntityOfPage: absoluteUrl(path),
+    });
+  }
+
+  if (breadcrumbs && breadcrumbs.length > 0) {
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: absoluteUrl(crumb.path),
+      })),
+    });
+  }
+
+  if (faq && faq.length > 0) {
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
         },
-        'aggregateRating': {
-          '@type': 'AggregateRating',
-          'ratingValue': '4.8',
-          'ratingCount': '127'
-        },
-        'developer': {
-          '@type': 'Organization',
-          'name': 'NodesPlus Team',
-          'url': 'https://sherifu.github.io/NodesPlusWebsite'
-        },
-        'url': baseUrl,
-        'screenshot': `${baseUrl}/images/showcase/array_slice_example.jpg`,
-        'softwareVersion': '1.4.2',
-        'releaseNotes': 'Added new string formatting nodes and improved error handling.'
-      };
-      return JSON.stringify(homeJsonLd);
-    } else if (pageType === 'documentation') {
-      // Documentation page structured data
-      const docsJsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'TechArticle',
-        'headline': 'NodesPlus Documentation',
-        'description': 'Comprehensive documentation for Nodes Plus Blueprint nodes, including usage examples and performance considerations.',
-        'author': {
-          '@type': 'Organization',
-          'name': 'NodesPlus Team'
-        },
-        'publisher': {
-          '@type': 'Organization',
-          'name': 'NodesPlus Team',
-          'logo': {
-            '@type': 'ImageObject',
-            'url': `${baseUrl}/images/branding/Logo.png`
-          }
-        },
-        'datePublished': '2023-09-15',
-        'dateModified': new Date().toISOString().split('T')[0]
-      };
-      return JSON.stringify(docsJsonLd);
-    } else if (pageType === 'product') {
-      // Product page structured data
-      const productJsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        'name': 'NodesPlus for Unreal Engine',
-        'description': 'A collection of custom Blueprint nodes that extend Unreal Engine\'s functionality, providing simplified solutions for complex operations in Blueprint scripting.',
-        'image': `${baseUrl}/images/branding/Logo.png`,
-        'brand': {
-          '@type': 'Brand',
-          'name': 'NodesPlus'
-        },
-        'offers': {
-          '@type': 'Offer',
-          'price': '24.99',
-          'priceCurrency': 'USD',
-          'availability': 'https://schema.org/InStock',
-          'url': 'https://www.fab.com/sellers/Sherif%20Hany'
-        },
-        'aggregateRating': {
-          '@type': 'AggregateRating',
-          'ratingValue': '4.8',
-          'reviewCount': '127'
-        }
-      };
-      return JSON.stringify(productJsonLd);
-    }
-    
-    return '';
+      })),
+    });
+  }
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': graph,
   };
 
   return (
     <Helmet>
-      <script type="application/ld+json">{generateJsonLd()}</script>
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
     </Helmet>
   );
 };
 
-export default StructuredData; 
+export default StructuredData;

@@ -1,28 +1,28 @@
-﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
+import { AUTHOR_NAME, DISCORD_URL, FAB_URL, GITHUB_URL } from '../../utils/site';
 import '../../styles/Footer.css';
 
-interface FooterProps {
-  className?: string;
-}
-
-const Footer: React.FC<FooterProps> = ({ className }) => {
+const Footer = () => {
   const { theme } = useTheme();
   const year = new Date().getFullYear();
 
   return (
-    <footer className={`footer ${theme} ${className || ''}`}>
+    <footer className={`footer ${theme}`} role="contentinfo">
       <div className="content-wrapper">
-        <div className="footer-content">
-          <p className="copyright">&copy; {year} NodesPlus. All rights reserved.</p>
-          <div className="footer-links">
-            <Link to="/architecture" className="footer-link">Architecture</Link>
-            <Link to="/documentation" className="footer-link">Docs</Link>
-            <a href="https://discord.gg/2Pu9ywaptN" target="_blank" rel="noopener noreferrer" className="footer-link">Discord</a>
-            <a href="https://github.com/Sheriff99yt/NodesPlusWebsite" target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a>
-          </div>
-        </div>
+        <nav className="footer-nav" aria-label="Footer">
+          <p className="copyright">
+            &copy; {year} {AUTHOR_NAME} / 99 Studios. Nodes Plus.
+          </p>
+          <ul className="footer-links">
+            <li><Link to="/" className="footer-link">Home</Link></li>
+            <li><Link to="/architecture" className="footer-link">Architecture</Link></li>
+            <li><Link to="/documentation" className="footer-link">Documentation</Link></li>
+            <li><a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="footer-link">Discord</a></li>
+            <li><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a></li>
+            <li><a href={FAB_URL} target="_blank" rel="noopener noreferrer" className="footer-link">Fab listing</a></li>
+          </ul>
+        </nav>
       </div>
     </footer>
   );

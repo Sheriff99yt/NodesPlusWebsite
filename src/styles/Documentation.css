@@ -840,3 +840,18 @@
   margin: 0;
   line-height: 1.4;
 } 
+
+button.docs-category-card,
+button.search-result-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: var(--card-bg);
+  cursor: pointer;
+}
+
+.docs-default-panel h1 {
+  max-width: var(--prose-width);
+}

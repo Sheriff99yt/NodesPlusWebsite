@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-github-username.github.io/sitemap.xml 
+Sitemap: https://sheriff99yt.github.io/NodesPlusWebsite/sitemap.xml

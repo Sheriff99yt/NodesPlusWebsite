@@ -1,136 +1,44 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FaCode, FaMemory, FaRocket } from 'react-icons/fa';
+import { FaCode, FaLayerGroup, FaBookOpen } from 'react-icons/fa';
 import '../../styles/PerformanceBenefits.css';
 
-interface PerformanceMetric {
-  label: string;
-  standardValue: number;
-  enhancedValue: number;
-  unit: string;
-  desiredDirection: 'lower' | 'higher';
-  description: string;
-}
+const points = [
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: 'Fewer graph hops',
+    body: 'Common math, string, and array work lives in one node instead of a chain of stock Blueprint nodes.',
+  },
+  {
+    icon: <FaLayerGroup aria-hidden="true" />,
+    title: 'Same names in editor and docs',
+    body: 'Categories on this site match the plugin catalog, so you can look up a node before you open Unreal.',
+  },
+  {
+    icon: <FaBookOpen aria-hidden="true" />,
+    title: 'Learn outside the editor',
+    body: 'Pins, descriptions, and examples are on the documentation pages. No claimed speed or memory numbers here.',
+  },
+];
 
-const PerformanceBenefits: React.FC = () => {
-  const [animate, setAnimate] = useState<boolean>(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  // Performance metrics data
-  const performanceMetrics: PerformanceMetric[] = [
-    {
-      label: 'Code Complexity',
-      standardValue: 28,
-      enhancedValue: 12,
-      unit: 'nodes',
-      desiredDirection: 'lower',
-      description: 'Average number of nodes needed for typical string processing operations.'
-    },
-    {
-      label: 'Memory Usage',
-      standardValue: 14.5,
-      enhancedValue: 10.2,
-      unit: 'MB',
-      desiredDirection: 'lower',
-      description: 'Average memory footprint for equivalent Blueprint graphs in our tests.'
-    },
-    {
-      label: 'Development Speed',
-      standardValue: 35,
-      enhancedValue: 18,
-      unit: 'min',
-      desiredDirection: 'lower',
-      description: 'Average time to implement common functionality in our testing scenarios.'
-    }
-  ];
-
-  // Calculate improvement percentage
-  const calculateImprovement = (metric: PerformanceMetric): number => {
-    if (metric.desiredDirection === 'lower') {
-      return Math.round(((metric.standardValue - metric.enhancedValue) / metric.standardValue) * 100);
-    } else {
-      return Math.round(((metric.enhancedValue - metric.standardValue) / metric.standardValue) * 100);
-    }
-  };
-
-  // Set up intersection observer to trigger animations when section is in view
-  useEffect(() => {
-    if (!observerRef.current && sectionRef.current) {
-      observerRef.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting) {
-            setAnimate(true);
-            if (observerRef.current) {
-              observerRef.current.disconnect();
-            }
-          }
-        },
-        { threshold: 0.2 }
-      );
-      
-      observerRef.current.observe(sectionRef.current);
-    }
-    
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, []);
-
+const PerformanceBenefits = () => {
   return (
-    <>
-      <p className="performance-subtitle">
-        Nodes Plus aim to help you achieve these performance improvements while streamlining your workflow
+    <div className="metrics-overview">
+      <p className="performance-subtitle prose">
+        Nodes Plus is a dedicated Blueprint library. The goal is clearer graphs and documented nodes —
+        not a benchmark contest.
       </p>
-      
-      <div className="metrics-overview">
-        <div className="metrics-grid">
-          {performanceMetrics.map((metric, index) => {
-            const improvement = calculateImprovement(metric);
-            const barWidth = animate ? `${Math.min(100, improvement)}%` : '0%';
-            
-            return (
-              <div className="metric-card" key={index}>
-                <div className="metric-header">
-                  <div className="metric-icon">
-                    {index === 0 ? <FaCode /> :
-                     index === 1 ? <FaMemory /> : <FaRocket />}
-                  </div>
-                  <div className="metric-title">{metric.label}</div>
-                </div>
-                
-                <div className="metric-values">
-                  <div className="metric-value standard">
-                    <div className="value-label">Standard Blueprints</div>
-                    <div className="value-number">{metric.standardValue} {metric.unit}</div>
-                  </div>
-                  <div className="metric-value enhanced">
-                    <div className="value-label">NodesPlus</div>
-                    <div className="value-number">{metric.enhancedValue} {metric.unit}</div>
-                  </div>
-                </div>
-                
-                <div className="improvement-container">
-                  <div className="improvement-bar">
-                    <div 
-                      className="improvement-fill" 
-                      style={{ width: barWidth, transition: 'width 1.5s ease-out' }}
-                    ></div>
-                  </div>
-                  <div className="improvement-percentage">{improvement}% {metric.desiredDirection === 'lower' ? 'Reduction' : 'Improvement'}</div>
-                </div>
-                
-                <div className="metric-description">{metric.description}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      
-   
-    </>
+      <ul className="metrics-grid qualitative-grid">
+        {points.map((point) => (
+          <li className="metric-card" key={point.title}>
+            <div className="metric-header">
+              <div className="metric-icon">{point.icon}</div>
+              <h3 className="metric-title">{point.title}</h3>
+            </div>
+            <p className="metric-description">{point.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
-export default PerformanceBenefits; 
+export default PerformanceBenefits;

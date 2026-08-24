@@ -1,7 +1,8 @@
-﻿import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link as RouterLink, NavLink } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../../context/ThemeContext';
+import { DISCORD_URL, FAB_URL } from '../../utils/site';
 import '../../styles/Navbar.css';
 
 const Navbar = () => {
@@ -9,6 +10,24 @@ const Navbar = () => {
   const { theme } = useTheme();
   const navRef = useRef<HTMLElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const openMenu = () => {
+    setIsMenuOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const toggleMenu = () => {
+    if (isMenuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -41,62 +60,50 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMenuOpen]);
 
-  const toggleMenu = () => {
-    if (isMenuOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  };
-
-  const openMenu = () => {
-    setIsMenuOpen(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    document.body.style.overflow = 'auto';
-  };
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMenuOpen) {
+        closeMenu();
+        btnRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isMenuOpen]);
 
   return (
     <header className={`navbar ${theme}`} role="banner">
       <div className="navbar-content">
-        <RouterLink
-          to="/"
-          className="navbar-logo"
-          aria-label="Nodes Plus Home"
-          onClick={closeMenu}
-        >
+        <RouterLink to="/" className="navbar-logo-link" onClick={closeMenu}>
           <img
             className="navbar-logo"
             src="./images/branding/Logo.png"
-            alt="NodesPlus Logo"
+            alt="Nodes Plus home"
             width="180"
             height="40"
           />
         </RouterLink>
 
-        <div className={`menu-icon-container ${isMenuOpen ? 'active' : ''}`}>
-          <button
-            ref={btnRef}
-            className="menu-toggle-btn"
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMenuOpen}
-          >
-            <div className="menu-icon">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </button>
-        </div>
+        <button
+          ref={btnRef}
+          className={`menu-toggle-btn ${isMenuOpen ? 'active' : ''}`}
+          onClick={toggleMenu}
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="primary-navigation"
+          type="button"
+        >
+          <span className="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
 
         <nav
+          id="primary-navigation"
           ref={navRef}
-          role="navigation"
-          aria-label="Main Navigation"
+          aria-label="Primary"
           className={isMenuOpen ? 'open' : ''}
         >
           <NavLink
@@ -107,7 +114,6 @@ const Navbar = () => {
           >
             Home
           </NavLink>
-
           <NavLink
             to="/architecture"
             className={({ isActive }) => (isActive ? 'navbar-link active' : 'navbar-link')}
@@ -115,7 +121,6 @@ const Navbar = () => {
           >
             Architecture
           </NavLink>
-
           <NavLink
             to="/documentation"
             className={({ isActive }) => (isActive ? 'navbar-link active' : 'navbar-link')}
@@ -123,38 +128,29 @@ const Navbar = () => {
           >
             Documentation
           </NavLink>
-
           <a
-            href="https://www.fab.com/sellers/Sherif%20Hany"
+            href={FAB_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="navbar-button navbar-button-blue"
-            aria-label="Get Nodes Plus on Fab.com (opens in a new tab)"
             onClick={closeMenu}
           >
-            Get on Fab.com
+            Get on Fab
           </a>
-
           <a
-            href="https://discord.gg/2Pu9ywaptN"
+            href={DISCORD_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="navbar-button navbar-button-purple"
-            aria-label="Join Discord Community (opens in a new tab)"
             onClick={closeMenu}
           >
-            Join Discord
+            Discord
           </a>
-
           <ThemeToggle />
         </nav>
 
         {isMenuOpen && (
-          <div
-            className="navbar-overlay visible"
-            onClick={closeMenu}
-            aria-hidden="true"
-          ></div>
+          <div className="navbar-overlay visible" onClick={closeMenu} aria-hidden="true" />
         )}
       </div>
     </header>

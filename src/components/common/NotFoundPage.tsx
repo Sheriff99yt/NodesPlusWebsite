@@ -1,30 +1,36 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import PageSeo from './PageSeo';
+import StructuredData from './StructuredData';
 import '../../styles/NotFoundPage.css';
 
-const NotFoundPage: React.FC = () => {
+const NotFoundPage = () => {
   return (
-    <div className="container">
-      <Navbar />
-      
-      <div className="not-found-container">
-        <div className="not-found-content">
-          <h1 className="not-found-title">404</h1>
-          <h2 className="not-found-subtitle">Page Not Found</h2>
-          <p className="not-found-message">
-            Sorry, the page you are looking for doesn't exist or has been moved.
-          </p>
+    <main id="main-content" className="not-found-container" tabIndex={-1}>
+      <PageSeo
+        title="Page not found"
+        description="This page does not exist on the Nodes Plus site. Return to Home, Documentation, or Architecture."
+        path="/"
+      />
+      <StructuredData pageType="notfound" path="/" breadcrumbs={[{ name: 'Home', path: '/' }]} />
+      <div className="not-found-content">
+        <h1 className="not-found-title">Page not found</h1>
+        <p className="not-found-message">
+          That URL is not part of the Nodes Plus docs site. Use the links below to get back on track.
+        </p>
+        <nav className="not-found-links" aria-label="Helpful pages">
           <Link to="/" className="not-found-button">
-            Return to Home
+            Nodes Plus home
           </Link>
-        </div>
+          <Link to="/documentation" className="not-found-button secondary">
+            Browse documentation
+          </Link>
+          <Link to="/architecture" className="not-found-button secondary">
+            How the plugin is structured
+          </Link>
+        </nav>
       </div>
-      
-      <Footer />
-    </div>
+    </main>
   );
 };
 
-export default NotFoundPage; 
+export default NotFoundPage;

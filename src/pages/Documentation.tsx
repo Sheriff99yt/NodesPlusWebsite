@@ -1,5 +1,7 @@
-﻿import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+﻿import { useEffect, useState, useCallback, useRef, useMemo, type ReactNode } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import PageSeo from '../components/common/PageSeo';
+import StructuredData from '../components/common/StructuredData';
 
 import NodeCategoryList from '../components/docs/NodeCategoryList';
 import NodeDetailsPanel from '../components/docs/NodeDetailsPanel';
@@ -17,7 +19,7 @@ const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categorie
   
   // Map icons to categories
   const getCategoryIcon = (categoryId: string) => {
-    const iconMap: {[key: string]: React.ReactNode} = {
+    const iconMap: {[key: string]: ReactNode} = {
       'math': <FaCalculator className="category-icon" />,
       'string': <FaFont className="category-icon" />,
       'utility': <FaTools className="category-icon" />,
@@ -75,7 +77,8 @@ const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categorie
           <h2>Browse Node Categories</h2>
           <div className="docs-categories-grid">
             {categories.map(category => (
-              <div 
+              <button
+                type="button"
                 key={category.id}
                 className="docs-category-card"
                 onClick={() => onSelectCategory(category.id)}
@@ -91,7 +94,7 @@ const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categorie
                 <div className="docs-category-card-footer">
                   <span className="docs-view-category">View Category <span className="arrow">â†’</span></span>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -217,6 +220,11 @@ const Documentation = () => {
           searchInputRef.current?.focus();
           break;
         case 'Escape':
+          if (showMobileSidebar) {
+            setShowMobileSidebar(false);
+            document.body.classList.remove('sidebar-open');
+            return;
+          }
           // Clear search on escape
           if (searchTerm) {
             clearSearch();
@@ -233,7 +241,7 @@ const Documentation = () => {
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [searchTerm, selectedNode, selectedCategory, navigate, clearSearch]);
+  }, [searchTerm, selectedNode, selectedCategory, navigate, clearSearch, showMobileSidebar]);
   
   // Handle category selection
   const handleCategorySelect = useCallback((category: string) => {
@@ -333,12 +341,48 @@ const Documentation = () => {
     document.body.classList.remove('sidebar-open');
   }, []);
   
+
+  const pageTitle = selectedNode
+    ? `${selectedNode.name} — Nodes Plus Docs`
+    : selectedCategoryObject
+      ? `${selectedCategoryObject.name} — Nodes Plus Docs`
+      : 'Documentation — Nodes Plus Docs';
+  const pageDescription = selectedNode
+    ? (selectedNode.shortDescription || selectedNode.longDescription || `Documentation for the ${selectedNode.name} Blueprint node.`)
+    : selectedCategoryObject
+      ? (selectedCategoryObject.description || `Nodes Plus ${selectedCategoryObject.name} category.`)
+      : 'Browse Nodes Plus Blueprint nodes by category. Documentation for the Unreal Engine plugin by Sherif Hany.';
+  const pagePath = selectedNode
+    ? `/documentation/${selectedNode.category}/${selectedNode.id}`
+    : selectedCategory
+      ? `/documentation/${selectedCategory}`
+      : '/documentation';
+  const crumbs = [
+    { name: 'Home', path: '/' },
+    { name: 'Documentation', path: '/documentation' },
+  ];
+  if (selectedCategoryObject) {
+    crumbs.push({ name: selectedCategoryObject.name, path: `/documentation/${selectedCategoryObject.id}` });
+  }
+  if (selectedNode) {
+    crumbs.push({ name: selectedNode.name, path: pagePath });
+  }
+
   return (
     <div className={`documentation-page ${theme}`}>
+      <PageSeo title={pageTitle} description={pageDescription} path={pagePath} type="article" />
+      <StructuredData
+        pageType="documentation"
+        title={pageTitle}
+        description={pageDescription}
+        path={pagePath}
+        breadcrumbs={crumbs}
+      />
+
 
       
       <div className={`documentation-container ${isMobileView ? 'mobile-view' : ''} ${showMobileSidebar ? 'sidebar-visible' : ''} ${theme}`}>
-        <div className={`sidebar ${showMobileSidebar ? 'mobile-visible' : ''} ${theme}`}>
+        <aside id="docs-sidebar" className={`sidebar ${showMobileSidebar ? 'mobile-visible' : ''} ${theme}`} aria-label="Documentation categories">
           <div className="sidebar-inner">
             <div className="sidebar-controls">
               <div className="search-container">
@@ -346,15 +390,16 @@ const Documentation = () => {
                   <FaSearch className="search-icon" />
                   <input
                     ref={searchInputRef}
-                    type="text"
-                    placeholder=""
+                    type="search"
+                    placeholder="Search nodes"
+                    aria-label="Search nodes"
                     value={searchTerm}
                     onChange={(e) => handleSearch(e.target.value)}
                     className="search-input"
                   />
                   {searchTerm && (
-                    <button className="clear-search" onClick={clearSearch}>
-                      <FaTimes />
+                    <button type="button" className="clear-search" onClick={clearSearch} aria-label="Clear search">
+                      <FaTimes aria-hidden="true" />
                     </button>
                   )}
                 </div>
@@ -362,9 +407,11 @@ const Documentation = () => {
               
               <div className="controls-row">
                 <button 
+                  type="button"
                   className="control-button theme-toggle-button"
                   onClick={toggleTheme}
-                  title={`Switch to ${theme === 'dark-theme' ? 'light' : 'dark'} theme (Ctrl+T)`}
+                  aria-label={`Switch to ${theme === 'dark-theme' ? 'light' : 'dark'} theme`}
+                  title={`Switch to ${theme === 'dark-theme' ? 'light' : 'dark'} theme`}
                 >
                   {theme === 'dark-theme' ? <FaSun /> : <FaMoon />}
                 </button>
@@ -408,8 +455,9 @@ const Documentation = () => {
                 <h3>Search Results ({filteredNodes.length})</h3>
                 <div className="search-results-list">
                   {filteredNodes.map((node) => (
-                    <div 
-                      key={node.id} 
+                    <button
+                      type="button"
+                      key={node.id}
                       className={`search-result-item ${selectedNode?.id === node.id ? 'selected' : ''}`}
                       onClick={() => handleNodeSelect(node)}
                     >
@@ -427,7 +475,7 @@ const Documentation = () => {
                             : node.shortDescription}
                         </p>
                       )}
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -441,7 +489,7 @@ const Documentation = () => {
               </div>
             )}
           </div>
-        </div>
+        </aside>
         
         {/* Mobile overlay */}
         {isMobileView && (
@@ -455,15 +503,18 @@ const Documentation = () => {
         {/* Mobile menu toggle button */}
         {isMobileView && (
           <button 
+            type="button"
             className={`mobile-menu-toggle ${scrollY > 100 ? 'scrolled' : ''}`}
             onClick={toggleMobileSidebar}
-            aria-label={showMobileSidebar ? "Close menu" : "Open menu"}
+            aria-expanded={showMobileSidebar}
+            aria-controls="docs-sidebar"
+            aria-label={showMobileSidebar ? "Close documentation menu" : "Open documentation menu"}
           >
             {showMobileSidebar ? <FaTimes /> : <FaBars />}
           </button>
         )}
         
-        <div className="docs-main-content">
+        <div id="main-content" className="docs-main-content" tabIndex={-1} role="main">
           {/* Show appropriate content based on selection state */}
           {selectedNode ? (
             /* Node detail view */
