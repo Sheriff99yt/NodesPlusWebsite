@@ -63,12 +63,16 @@ const Documentation = () => {
           selectedCategory={selectedCategory}
           selectedNode={selectedNode}
           filteredNodes={filteredNodes}
+          expandedCategories={docs.expandedCategories}
           onSearch={docs.handleSearch}
           onClearSearch={docs.clearSearch}
           onSelectCategory={docs.selectCategory}
           onSelectNode={docs.selectNode}
           onToggleSidebar={docs.toggleSidebar}
           onCloseSidebar={docs.closeSidebar}
+          onExpandAll={docs.expandAllCategories}
+          onCollapseAll={docs.collapseAllCategories}
+          onToggleCategory={docs.toggleCategoryExpanded}
         />
 
         <div className="docs-main-content">

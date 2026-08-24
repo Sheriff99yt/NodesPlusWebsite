@@ -1,39 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NodeCategory, Node, getNodesByCategory } from '../../data/nodes';
-import { 
-  FaChevronDown, 
-  FaChevronRight, 
-  FaExpandAlt,
-  FaCompressAlt
-} from 'react-icons/fa';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import '../../styles/NodeCategoryList.css';
 
 interface NodeCategoryListProps {
   categories: NodeCategory[];
   selectedCategory?: string;
+  selectedNodeId?: string;
+  expandedCategories: Record<string, boolean>;
   onSelectCategory: (categoryId: string) => void;
   onNodeSelect?: (node: Node) => void;
+  onToggleCategory: (categoryId: string) => void;
 }
 
-const NodeCategoryList: React.FC<NodeCategoryListProps> = ({ 
-  categories, 
-  selectedCategory, 
+const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
+  categories,
+  selectedCategory,
+  selectedNodeId,
+  expandedCategories,
   onSelectCategory,
-  onNodeSelect 
+  onNodeSelect,
+  onToggleCategory,
 }) => {
-  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isMobileView, setIsMobileView] = useState<boolean>(window.innerWidth < 768);
 
-  // Ensure selected category is expanded
-  useEffect(() => {
-    if (selectedCategory) {
-      setExpandedCategories(prev => (
-        prev[selectedCategory] ? prev : { ...prev, [selectedCategory]: true }
-      ));
-    }
-  }, [selectedCategory]);
-
-  // Handle resize events for responsive layout
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth < 768);
@@ -43,82 +33,40 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Toggle category expansion
-  const toggleCategory = (categoryId: string) => {
-    setExpandedCategories(prev => ({
-      ...prev,
-      [categoryId]: !prev[categoryId]
-    }));
-  };
-
-  const expandAll = useCallback(() => {
-    const allCategories = categories.reduce((acc, category) => {
-      acc[category.id] = true;
-      return acc;
-    }, {} as Record<string, boolean>);
-    
-    setExpandedCategories(allCategories);
-  }, [categories]);
-  
-  const collapseAll = useCallback(() => {
-    setExpandedCategories({});
-  }, []);
-
-  // Add event listeners for the expandAllCategories and collapseAllCategories events
-  useEffect(() => {
-    const handleExpandAll = () => {
-      expandAll();
-    };
-    
-    const handleCollapseAll = () => {
-      collapseAll();
-    };
-    
-    window.addEventListener('expandAllCategories', handleExpandAll);
-    window.addEventListener('collapseAllCategories', handleCollapseAll);
-    
-    return () => {
-      window.removeEventListener('expandAllCategories', handleExpandAll);
-      window.removeEventListener('collapseAllCategories', handleCollapseAll);
-    };
-  }, [expandAll, collapseAll]);
-
   return (
     <div className={`node-category-list ${isMobileView ? 'mobile-view' : ''}`}>
       <div className="category-list">
-        {categories.map(category => {
+        {categories.map((category) => {
           const isSelected = selectedCategory === category.id;
-          const isExpanded = expandedCategories[category.id];
+          const isExpanded = Boolean(expandedCategories[category.id]);
           const nodeCount = getNodesByCategory(category.id).length;
-          
+
           return (
-            <div 
-              key={category.id} 
-              className={`category-item ${isSelected ? 'selected' : ''}`}
-            >
-              <div 
+            <div key={category.id} className={`category-item ${isSelected ? 'selected' : ''}`}>
+              <div
                 className="category-header"
                 onClick={() => {
-                  toggleCategory(category.id);
+                  onToggleCategory(category.id);
                 }}
               >
-                <div 
+                <div
                   className="category-info"
                   onClick={(e) => {
                     e.stopPropagation();
-                    // Navigate to category page when clicking on the category info
                     onSelectCategory(category.id);
                   }}
                 >
-                  <span className="category-name" title={category.name}>{category.name}</span>
+                  <span className="category-name" title={category.name}>
+                    {category.name}
+                  </span>
                   <span className="category-count">{nodeCount}</span>
                 </div>
-                
-                <button 
+
+                <button
                   className="expand-button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    toggleCategory(category.id);
+                    onToggleCategory(category.id);
                   }}
                   aria-expanded={isExpanded}
                   aria-label={isExpanded ? `Collapse ${category.name}` : `Expand ${category.name}`}
@@ -126,15 +74,14 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
                   {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
                 </button>
               </div>
-              
-              {isExpanded && (
+
+              {isExpanded ? (
                 <div className="category-nodes">
-                  {getNodesByCategory(category.id).map(node => {
-                    const isNodeSelected = selectedCategory === category.id && 
-                      window.location.pathname.includes(node.id);
-                    
+                  {getNodesByCategory(category.id).map((node) => {
+                    const isNodeSelected = selectedNodeId === node.id;
+
                     return (
-                      <div 
+                      <div
                         key={node.id}
                         className={`node-item ${isNodeSelected ? 'selected' : ''}`}
                         onClick={(e) => {
@@ -145,13 +92,15 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
                         }}
                       >
                         <div className="node-item-info">
-                          <span className="node-name" title={node.name}>{node.name}</span>
+                          <span className="node-name" title={node.name}>
+                            {node.name}
+                          </span>
                         </div>
                       </div>
                     );
                   })}
                 </div>
-              )}
+              ) : null}
             </div>
           );
         })}
@@ -160,7 +109,4 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
   );
 };
 
-// Export expand/collapse functionality with the component
-export { FaExpandAlt, FaCompressAlt };
-
-export default NodeCategoryList; 
+export default NodeCategoryList;

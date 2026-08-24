@@ -20,6 +20,7 @@ export function useDocumentation() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
   const selectedCategory = categoryId;
   const selectedNode = nodeId ? getNodeById(nodeId) : undefined;
@@ -52,6 +53,25 @@ export function useDocumentation() {
   useEffect(() => {
     if (isMobile && selectedNode) setSidebarOpen(false);
   }, [isMobile, selectedNode]);
+
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setExpandedCategories((prev) => (prev[selectedCategory] ? prev : { ...prev, [selectedCategory]: true }));
+    }
+  }, [selectedCategory]);
+
+  const expandAllCategories = useCallback(() => {
+    setExpandedCategories(Object.fromEntries(nodeCategories.map((category) => [category.id, true])));
+  }, []);
+
+  const collapseAllCategories = useCallback(() => {
+    setExpandedCategories({});
+  }, []);
+
+  const toggleCategoryExpanded = useCallback((categoryId: string) => {
+    setExpandedCategories((prev) => ({ ...prev, [categoryId]: !prev[categoryId] }));
+  }, []);
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
   const toggleSidebar = useCallback(() => setSidebarOpen((open) => !open), []);
@@ -123,6 +143,7 @@ export function useDocumentation() {
     selectedNode,
     selectedCategoryObject,
     filteredNodes,
+    expandedCategories,
     closeSidebar,
     toggleSidebar,
     selectCategory,
@@ -131,5 +152,8 @@ export function useDocumentation() {
     clearSearch,
     closeDetails,
     goHome,
+    expandAllCategories,
+    collapseAllCategories,
+    toggleCategoryExpanded,
   };
 }

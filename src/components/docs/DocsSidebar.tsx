@@ -20,6 +20,10 @@ type Props = {
   onSelectNode: (node: Node) => void;
   onToggleSidebar: () => void;
   onCloseSidebar: () => void;
+  expandedCategories: Record<string, boolean>;
+  onExpandAll: () => void;
+  onCollapseAll: () => void;
+  onToggleCategory: (id: string) => void;
 };
 
 const DocsSidebar = ({
@@ -37,6 +41,10 @@ const DocsSidebar = ({
   onSelectNode,
   onToggleSidebar,
   onCloseSidebar,
+  expandedCategories,
+  onExpandAll,
+  onCollapseAll,
+  onToggleCategory,
 }: Props) => {
   const searching = searchTerm.length >= 2;
 
@@ -88,7 +96,7 @@ const DocsSidebar = ({
                 <button
                   type="button"
                   className="control-button control-button-label"
-                  onClick={() => window.dispatchEvent(new CustomEvent('expandAllCategories'))}
+                  onClick={onExpandAll}
                   aria-label="Expand all categories"
                 >
                   <FaExpandAlt aria-hidden="true" />
@@ -97,7 +105,7 @@ const DocsSidebar = ({
                 <button
                   type="button"
                   className="control-button control-button-label"
-                  onClick={() => window.dispatchEvent(new CustomEvent('collapseAllCategories'))}
+                  onClick={onCollapseAll}
                   aria-label="Collapse all categories"
                 >
                   <FaCompressAlt aria-hidden="true" />
@@ -111,8 +119,11 @@ const DocsSidebar = ({
             <NodeCategoryList
               categories={nodeCategories}
               selectedCategory={selectedCategory}
+              selectedNodeId={selectedNode?.id}
+              expandedCategories={expandedCategories}
               onSelectCategory={onSelectCategory}
               onNodeSelect={onSelectNode}
+              onToggleCategory={onToggleCategory}
             />
           ) : filteredNodes.length > 0 ? (
             <div className="search-results">

@@ -18,6 +18,15 @@ function Probe() {
       <span data-testid="node">{docs.selectedNode?.id ?? ''}</span>
       <span data-testid="count">{String(docs.filteredNodes.length)}</span>
       <span data-testid="search">{docs.searchTerm}</span>
+      <span data-testid="expand-count">
+        {String(Object.values(docs.expandedCategories).filter(Boolean).length)}
+      </span>
+      <button type="button" onClick={docs.expandAllCategories}>
+        Expand all
+      </button>
+      <button type="button" onClick={docs.collapseAllCategories}>
+        Collapse all
+      </button>
     </div>
   );
 }
@@ -61,6 +70,16 @@ describe('useDocumentation', () => {
     input.blur();
     await user.keyboard('{Escape}');
     expect(screen.getByTestId('search')).toHaveTextContent('');
+  });
+
+  it('expands and collapses categories without window events', async () => {
+    const user = userEvent.setup();
+    renderDocs('/documentation/math');
+    expect(Number(screen.getByTestId('expand-count').textContent)).toBeGreaterThan(0);
+    await user.click(screen.getByRole('button', { name: 'Collapse all' }));
+    expect(screen.getByTestId('expand-count')).toHaveTextContent('0');
+    await user.click(screen.getByRole('button', { name: 'Expand all' }));
+    expect(Number(screen.getByTestId('expand-count').textContent)).toBeGreaterThan(1);
   });
 
   it('focuses search when / is pressed', async () => {
