@@ -12,7 +12,16 @@
   flex-direction: column;
 }
 
-html {
+html, body {
+  scroll-padding-top: var(--navbar-height, 72px);
+  scroll-padding-top: 72px;
+}
+
+#main-content,
+.architecture-page,
+.documentation-page,
+.docs-main-content {
+  scroll-margin-top: 72px;
   scroll-padding-top: 72px;
 }
 .app-shell-body {

@@ -21,9 +21,33 @@ const App: React.FC = () => {
   const analytics = useAnalytics();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useEffect(() => {
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.querySelectorAll(
+        '#root, .app-shell, .app-shell-body, .documentation-page, .documentation-container, .docs-main-content, .sidebar-inner, .architecture-page'
+      ).forEach((el) => {
+        (el as HTMLElement).scrollTop = 0;
+      });
+      const main = document.getElementById('main-content');
+      if (main) {
+        main.scrollTop = 0;
+        main.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'auto' });
+      }
+    };
+
+    resetScroll();
+    const frame = window.requestAnimationFrame(resetScroll);
     analytics.trackPageView(location.pathname, document.title);
-  }, [location, analytics]);
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash, location.key, analytics]);
 
   return (
     <Suspense fallback={<LoadingFallback />}>

@@ -9,6 +9,10 @@ import './index.css'
 // Initialize performance monitoring
 PerformanceMonitor.initPerformanceMonitoring();
 
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter basename="/NodesPlusWebsite">
