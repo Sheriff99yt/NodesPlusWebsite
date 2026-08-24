@@ -45,7 +45,7 @@ const useAnalytics = () => {
   /**
    * Track feature usage
    */
-  const trackFeatureUsage = useCallback((featureId: string, metadata?: Record<string, any>) => {
+  const trackFeatureUsage = useCallback((featureId: string, metadata?: Record<string, unknown>) => {
     if (import.meta.env.DEV) {
       console.log(`[Analytics] Feature Usage: ${featureId}`, metadata);
     }

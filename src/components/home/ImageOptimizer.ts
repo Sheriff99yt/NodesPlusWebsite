@@ -4,7 +4,7 @@
  */
 
 // Interface for responsive image sources
-interface ResponsiveImageSrc {
+export interface ResponsiveImageSrc {
   original: string;
   small: string;
   medium: string;

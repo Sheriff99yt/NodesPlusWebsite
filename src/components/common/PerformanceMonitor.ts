@@ -69,9 +69,27 @@ const collectNavigationTiming = (): Partial<PerformanceNavigationTiming> | undef
 };
 
 // Get memory usage info
+interface PerformanceMemory {
+  totalJSHeapSize?: number;
+  usedJSHeapSize?: number;
+  jsHeapSizeLimit?: number;
+}
+
+interface PerformanceWithMemory extends Performance {
+  memory?: PerformanceMemory;
+}
+
+interface ResourceTimingLike {
+  transferSize?: number;
+  encodedBodySize?: number;
+  initiatorType?: string;
+  name: string;
+}
+
 const getMemoryInfo = () => {
-  if (window.performance && (performance as any).memory) {
-    const memoryInfo = (performance as any).memory;
+  const perf = window.performance as PerformanceWithMemory;
+  if (perf && perf.memory) {
+    const memoryInfo = perf.memory;
     return {
       totalJSHeapSize: memoryInfo.totalJSHeapSize,
       usedJSHeapSize: memoryInfo.usedJSHeapSize,
@@ -96,7 +114,7 @@ const collectResourceMetrics = () => {
     let fontSize = 0;
     let otherSize = 0;
 
-    resources.forEach((resource: any) => {
+    resources.forEach((resource: ResourceTimingLike) => {
       const size = resource.transferSize || resource.encodedBodySize || 0;
       totalSize += size;
 

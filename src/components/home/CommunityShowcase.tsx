@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaDiscord, FaShare, FaTwitter, FaFacebook, FaReddit, FaVoteYea, FaLightbulb, FaQuestionCircle, FaComments } from 'react-icons/fa';
+import { FaDiscord, FaVoteYea, FaLightbulb, FaQuestionCircle, FaComments } from 'react-icons/fa';
 import '../../styles/CommunityShowcase.css';
 
 // Static data for community examples

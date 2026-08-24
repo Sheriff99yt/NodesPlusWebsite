@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react';
-import { Node, getNodesByCategory, NodeCategory } from '../../data/nodes';
-import { useTheme } from '../../context/ThemeContext';
+import React from 'react';
+import { Node, NodeCategory } from '../../data/nodes';
 import { FaArrowLeft, FaLayerGroup } from 'react-icons/fa';
 import '../../styles/CategoryDetailsPanel.css';
 
@@ -17,8 +16,6 @@ const CategoryDetailsPanel: React.FC<CategoryDetailsPanelProps> = ({
   onSelectNode,
   onBack 
 }) => {
-  const { theme } = useTheme();
-  
   return (
     <div className="category-details-panel">
       <div className="category-details-banner">

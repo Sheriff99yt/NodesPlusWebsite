@@ -1,24 +1,13 @@
 ﻿import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ReactFlow, {
-  Background,
-  useNodesState,
-  useEdgesState,
-  Node as FlowNode,
-  Edge,
-  NodeTypes,
-  ConnectionLineType
-} from 'reactflow';
-import 'reactflow/dist/style.css';
 
-import BlueprintNode from '../components/docs/BlueprintNode';
-import NodeCategoryList, { FaExpandAlt as ExpandIcon, FaCompressAlt as CollapseIcon } from '../components/docs/NodeCategoryList';
+import NodeCategoryList from '../components/docs/NodeCategoryList';
 import NodeDetailsPanel from '../components/docs/NodeDetailsPanel';
 import CategoryDetailsPanel from '../components/docs/CategoryDetailsPanel';
-import { nodeCategories, nodes, getNodesByCategory, getNodeById, Node, NodeCategory, searchNodes } from '../data/nodes';
+import { nodeCategories, getNodesByCategory, getNodeById, Node, NodeCategory, searchNodes } from '../data/nodes';
 import useAnalytics from '../hooks/useAnalytics';
 import { useTheme } from '../context/ThemeContext';
-import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaArrowLeft, FaMoon, FaSun, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaMoon, FaSun, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars } from 'react-icons/fa';
 
 import '../styles/Documentation.css';
 
@@ -133,62 +122,6 @@ const Documentation = () => {
   // Filtered nodes for sidebar
   const [filteredNodes, setFilteredNodes] = useState<Node[]>([]);
   
-  // Memoize node types to prevent re-creation on each render
-  const memoizedNodeTypes = useMemo<NodeTypes>(() => ({
-    blueprintNode: BlueprintNode,
-  }), []);
-
-  // Memoize fit view options
-  const fitViewOptions = useMemo(() => ({ 
-    padding: 0.2,
-    maxZoom: 1.5,
-    duration: 200
-  }), []);
-
-  // Memoize edge options
-  const defaultEdgeOptions = useMemo(() => ({
-    type: 'default',
-    style: { stroke: '#3182CE', strokeWidth: 2 },
-  }), []);
-  
-  // Add a custom snap grid and performance optimizations
-  const snapGrid: [number, number] = useMemo(() => [16, 16], []);
-
-  // Optimize node drag handling
-  const onNodeDragStart = useCallback(() => {
-    // Add a class to the document body to disable pointer events on non-essential elements
-    document.body.classList.add('node-dragging');
-  }, []);
-
-  const onNodeDrag = useCallback(() => {
-    // Optional: could add throttled position updates here
-  }, []);
-
-  const onNodeDragStop = useCallback(() => {
-    // Remove the class when dragging stops
-    document.body.classList.remove('node-dragging');
-  }, []);
-
-  // Create nodes more efficiently
-  const createFlowNodes = useCallback((nodes: Node[]): FlowNode[] => {
-    if (!nodes.length) return [];
-    
-    return nodes.map((node, index) => ({
-      id: node.id,
-      type: 'blueprintNode',
-      position: { 
-        x: isMobileView ? 20 : (index % 3) * 350 + 50, 
-        y: isMobileView ? index * 150 + 50 : Math.floor(index / 3) * 200 + 50 
-      },
-      data: {
-        node: node,
-        detailed: false,
-        highlightTerm: searchTerm
-      },
-      draggable: true,
-    }));
-  }, [isMobileView, searchTerm]);
-
   // Update filtered nodes when search term changes
   useEffect(() => {
     if (searchTerm && searchTerm.length >= 2) {
@@ -255,6 +188,19 @@ const Documentation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Clear search
+  const clearSearch = useCallback(() => {
+    setSearchTerm('');
+    
+    // Go back to category view if a category is selected
+    if (selectedCategory) {
+      const categoryNodes = getNodesByCategory(selectedCategory);
+      setFilteredNodes(categoryNodes);
+    } else {
+      setFilteredNodes([]);
+    }
+  }, [selectedCategory]);
+  
   // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -287,7 +233,7 @@ const Documentation = () => {
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [searchTerm, selectedNode, selectedCategory, navigate]);
+  }, [searchTerm, selectedNode, selectedCategory, navigate, clearSearch]);
   
   // Handle category selection
   const handleCategorySelect = useCallback((category: string) => {
@@ -353,19 +299,6 @@ const Documentation = () => {
       analytics.trackSearch(term, searchNodes(term).length);
     }
   }, [analytics]);
-  
-  // Clear search
-  const clearSearch = useCallback(() => {
-    setSearchTerm('');
-    
-    // Go back to category view if a category is selected
-    if (selectedCategory) {
-      const categoryNodes = getNodesByCategory(selectedCategory);
-      setFilteredNodes(categoryNodes);
-    } else {
-      setFilteredNodes([]);
-    }
-  }, [selectedCategory]);
   
   // Handle details close
   const handleCloseDetails = useCallback(() => {

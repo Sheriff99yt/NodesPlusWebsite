@@ -23,7 +23,6 @@ export const navigateTo = (route: string, forceReload = false): void => {
     navigateWithReload(route);
   } else {
     // Let React Router handle it (code using this would use the navigate function from useNavigate)
-    console.log(`Normal navigation to ${route} (handled by caller)`);
   }
 };
 
@@ -32,7 +31,7 @@ export const navigateTo = (route: string, forceReload = false): void => {
  * @param route The route to check
  * @returns True if the route should be reloaded
  */
-export const shouldForceReload = (route: string): boolean => {
+export const shouldForceReload = (): boolean => {
   // No problematic routes since docs were removed
   return false;
 }; 

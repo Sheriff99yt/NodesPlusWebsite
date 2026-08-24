@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
-import { Node, Pin } from '../../data/nodes';
+import React, { useMemo } from 'react';
+import { Node } from '../../data/nodes';
 import '../../styles/NodeDetailsPanel.css';
-import { FaTimes, FaInfoCircle, FaTag, FaCubes, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
+import { FaInfoCircle, FaTag, FaCubes, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
 import ReactFlow, { 
   Background, 
   BackgroundVariant, 

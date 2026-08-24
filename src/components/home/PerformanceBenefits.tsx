@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaCode, FaFileMedical, FaMemory, FaRocket } from 'react-icons/fa';
+import { FaCode, FaMemory, FaRocket } from 'react-icons/fa';
 import '../../styles/PerformanceBenefits.css';
 
 interface PerformanceMetric {
@@ -77,22 +77,6 @@ const PerformanceBenefits: React.FC = () => {
       }
     };
   }, []);
-
-  // Case study data
-  const caseStudies = [
-    {
-      title: "Game Save System",
-      standardTime: "2.5 hours",
-      enhancedTime: "1 hour",
-      description: "A complete game save system with validation, error handling, and data transformation."
-    },
-    {
-      title: "Inventory Management",
-      standardTime: "5 hours",
-      enhancedTime: "2 hours",
-      description: "Inventory system with item categorization, searching, and persistence."
-    }
-  ];
 
   return (
     <>

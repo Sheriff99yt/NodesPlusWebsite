@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NodeCategory, Node, getNodesByCategory } from '../../data/nodes';
 import { 
   FaChevronDown, 
@@ -26,11 +26,10 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
 
   // Ensure selected category is expanded
   useEffect(() => {
-    if (selectedCategory && !expandedCategories[selectedCategory]) {
-      setExpandedCategories(prev => ({
-        ...prev,
-        [selectedCategory]: true
-      }));
+    if (selectedCategory) {
+      setExpandedCategories(prev => (
+        prev[selectedCategory] ? prev : { ...prev, [selectedCategory]: true }
+      ));
     }
   }, [selectedCategory]);
 
@@ -52,20 +51,18 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
     }));
   };
 
-  // Expand all categories
-  const expandAll = () => {
+  const expandAll = useCallback(() => {
     const allCategories = categories.reduce((acc, category) => {
       acc[category.id] = true;
       return acc;
     }, {} as Record<string, boolean>);
     
     setExpandedCategories(allCategories);
-  };
+  }, [categories]);
   
-  // Collapse all categories
-  const collapseAll = () => {
+  const collapseAll = useCallback(() => {
     setExpandedCategories({});
-  };
+  }, []);
 
   // Add event listeners for the expandAllCategories and collapseAllCategories events
   useEffect(() => {
@@ -84,7 +81,7 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
       window.removeEventListener('expandAllCategories', handleExpandAll);
       window.removeEventListener('collapseAllCategories', handleCollapseAll);
     };
-  }, [categories]); // Re-add listeners if categories change
+  }, [expandAll, collapseAll]);
 
   return (
     <div className={`node-category-list ${isMobileView ? 'mobile-view' : ''}`}>
@@ -101,8 +98,7 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
             >
               <div 
                 className="category-header"
-                onClick={(e) => {
-                  // Toggle expansion when clicking on the header
+                onClick={() => {
                   toggleCategory(category.id);
                 }}
               >

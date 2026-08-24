@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { getOptimizedImageSrc, getResponsiveSrcSet } from '../home/ImageOptimizer';
+import { getOptimizedImageSrc, getResponsiveSrcSet, ResponsiveImageSrc } from '../home/ImageOptimizer';
 
 interface OptimizedImageProps {
-  src: any; // Can be a string or a ResponsiveImageSrc object
+  src: string | ResponsiveImageSrc;
   alt: string;
   className?: string;
   width?: number | string;
@@ -35,10 +35,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     setError(true);
     console.error(`Failed to load image: ${typeof src === 'string' ? src : src.original}`);
     
-    // If this is a banner image, try loading a direct fallback
-    if (isBanner) {
-      console.log("Trying fallback for banner image");
-    }
   };
   
   // Get image source - use original directly for banners

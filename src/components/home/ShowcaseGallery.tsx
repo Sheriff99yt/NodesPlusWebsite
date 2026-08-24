@@ -1,11 +1,8 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { FaLightbulb } from 'react-icons/fa';
 import ReactFlow, {
   Background,
   useNodesState,
-  useEdgesState,
   Node as FlowNode,
-  Edge,
   ConnectionLineType,
   ReactFlowInstance
 } from 'reactflow';
@@ -106,7 +103,7 @@ const ShowcaseGallery: React.FC = () => {
   }, [fuzzySearchNode]);
 
   // Set up state for flows
-  const [simpleNodes, setSimpleNodes, onSimpleNodesChange] = useNodesState(initialSimpleNodes);
+  const [simpleNodes, , onSimpleNodesChange] = useNodesState(initialSimpleNodes);
   const [simpleFlowInstance, setSimpleFlowInstance] = useState<ReactFlowInstance | null>(null);
 
   // Node types definition for ReactFlow
