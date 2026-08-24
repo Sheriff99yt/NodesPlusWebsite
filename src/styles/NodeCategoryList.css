@@ -555,3 +555,12 @@
   opacity: 1;
   visibility: visible;
 } 
+.category-header {
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.55rem 0.65rem;
+}
+.node-count-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+}

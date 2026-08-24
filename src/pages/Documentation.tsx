@@ -9,7 +9,7 @@ import CategoryDetailsPanel from '../components/docs/CategoryDetailsPanel';
 import { nodeCategories, getNodesByCategory, getNodeById, Node, NodeCategory, searchNodes } from '../data/nodes';
 import useAnalytics from '../hooks/useAnalytics';
 import { useTheme } from '../context/ThemeContext';
-import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaMoon, FaSun, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars, FaArrowRight } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars, FaArrowRight } from 'react-icons/fa';
 
 import '../styles/Documentation.css';
 
@@ -109,7 +109,7 @@ const Documentation = () => {
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   const isDirectNodeSelection = useRef(false);
   
@@ -404,21 +404,12 @@ const Documentation = () => {
                 </div>
               </div>
               
-              <div className="controls-row">
-                <button 
-                  type="button"
-                  className="control-button theme-toggle-button"
-                  onClick={toggleTheme}
-                  aria-label={`Switch to ${theme === 'dark-theme' ? 'light' : 'dark'} theme`}
-                  title={`Switch to ${theme === 'dark-theme' ? 'light' : 'dark'} theme`}
-                >
-                  {theme === 'dark-theme' ? <FaSun /> : <FaMoon />}
-                </button>
-                
+              <div className="docs-sidebar-bar">
+                <p className="docs-sidebar-title">Library</p>
                 <div className="category-controls">
                   <button 
                     type="button"
-                    className="control-button"
+                    className="control-button control-button-label"
                     onClick={() => {
                       window.dispatchEvent(new CustomEvent('expandAllCategories'));
                     }}
@@ -426,10 +417,11 @@ const Documentation = () => {
                     aria-label="Expand all categories"
                   >
                     <FaExpandAlt aria-hidden="true" />
+                    <span>Expand</span>
                   </button>
                   <button 
                     type="button"
-                    className="control-button"
+                    className="control-button control-button-label"
                     onClick={() => {
                       window.dispatchEvent(new CustomEvent('collapseAllCategories'));
                     }}
@@ -437,6 +429,7 @@ const Documentation = () => {
                     aria-label="Collapse all categories"
                   >
                     <FaCompressAlt aria-hidden="true" />
+                    <span>Collapse</span>
                   </button>
                 </div>
               </div>
