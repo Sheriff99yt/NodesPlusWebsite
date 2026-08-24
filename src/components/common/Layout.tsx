@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+﻿import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import '../../styles/Layout.css';
@@ -10,7 +10,7 @@ const Layout = () => {
         Skip to content
       </a>
       <Navbar />
-      <div className="app-shell-body">
+      <div className="app-shell-body" id="main-content">
         <Outlet />
       </div>
       <Footer />

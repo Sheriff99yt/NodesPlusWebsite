@@ -39,7 +39,7 @@ const Architecture = () => {
   ];
 
   return (
-    <main id="main-content" className={`architecture-page ${theme}`} tabIndex={-1}>
+    <main className={`architecture-page ${theme}`}>
       <PageSeo
         title="Architecture"
         description="How the Nodes Plus Unreal Engine plugin, documentation site, and Fab listing fit together."

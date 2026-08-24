@@ -5,7 +5,7 @@ import '../../styles/NotFoundPage.css';
 
 const NotFoundPage = () => {
   return (
-    <main id="main-content" className="not-found-container" tabIndex={-1}>
+    <main className="not-found-container">
       <PageSeo
         title="Page not found"
         description="This page does not exist on the Nodes Plus site. Return to Home, Documentation, or Architecture."

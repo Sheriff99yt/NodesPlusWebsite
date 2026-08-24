@@ -96,7 +96,7 @@ const Home = () => {
         faq={faqItems}
       />
 
-      <main id="main-content" className="main-content" tabIndex={-1}>
+      <main className="main-content">
         <section className="hero-section" ref={heroRef} aria-labelledby="home-hero-title">
           <div className="hero-background" style={{ transform: `translateY(${scrollY * 0.15}px)` }}>
             <OptimizedImage

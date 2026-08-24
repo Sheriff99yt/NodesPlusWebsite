@@ -28,3 +28,6 @@ html, body {
   position: relative;
   z-index: 0;
 }
+
+#main-content { scroll-margin-top: 0; outline: none; }
+

@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, useCallback, useRef, useMemo, type ReactNode } from 'react';
+import { useEffect, useState, useCallback, useRef, useMemo, type ReactNode } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import PageSeo from '../components/common/PageSeo';
 import StructuredData from '../components/common/StructuredData';
@@ -517,7 +517,7 @@ const Documentation = () => {
           </button>
         )}
         
-        <div id="main-content" className="docs-main-content" tabIndex={-1} role="main">
+        <div className="docs-main-content" role="main">
           {/* Show appropriate content based on selection state */}
           {selectedNode ? (
             /* Node detail view */
