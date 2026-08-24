@@ -1,46 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import { loadCatalog } from "./load-catalog.mjs";
 
 const dist = path.resolve("dist");
 const indexPath = path.join(dist, "index.html");
 const SITE = "https://sheriff99yt.github.io/NodesPlusWebsite";
-
-function extractArray(src, exportName) {
-  const start = src.indexOf(`export const ${exportName}`);
-  if (start < 0) throw new Error("missing " + exportName);
-  const eq = src.indexOf("= [", start);
-  let i = eq + 2;
-  let depth = 0;
-  const begin = i;
-  for (; i < src.length; i++) {
-    if (src[i] === "[") depth++;
-    else if (src[i] === "]") {
-      depth--;
-      if (depth === 0) {
-        return src.slice(begin, i + 1);
-      }
-    }
-  }
-  throw new Error("unclosed " + exportName);
-}
-
-function loadCatalog(src = fs.readFileSync(path.resolve("src/data/nodes.ts"), "utf8")) {
-  const catBlock = extractArray(src, "nodeCategories");
-  const categories = [];
-  const catRe = /id:\s*'([^']+)'\s*,\s*name:\s*'([^']+)'\s*,\s*description:\s*'([^']*)'/g;
-  let m;
-  while ((m = catRe.exec(catBlock))) {
-    categories.push({ id: m[1], name: m[2], description: m[3] });
-  }
-
-  const nodeBlock = extractArray(src, "nodes");
-  const nodes = [];
-  const objRe = /id:\s*'([^']+)'\s*,\s*name:\s*'([^']+)'\s*,\s*category:\s*'([^']+)'/g;
-  while ((m = objRe.exec(nodeBlock))) {
-    nodes.push({ id: m[1], name: m[2], category: m[3] });
-  }
-  return { categories, nodes };
-}
 
 function sitemapXml(categories, nodes) {
   const urls = [
@@ -65,7 +29,7 @@ ${urls
 `;
 }
 
-const { categories, nodes } = loadCatalog();
+const { categories, nodes } = await loadCatalog();
 console.log("catalog", categories.length, "categories", nodes.length, "nodes");
 
 if (process.env.SITEMAP_ONLY) {
@@ -117,8 +81,8 @@ for (const node of nodes) {
 }
 
 function inject(html, route) {
-  const markup = "<main data-prerendered=\"true\"><h1>" + route.h1 + "</h1><p>" + route.copy + "</p></main>";
-  let out = html.replace(/<div id="root"[^>]*>\s*<\/div>/, "<div id=\"root\">" + markup + "</div>");
+  const markup = '<main data-prerendered="true"><h1>' + route.h1 + "</h1><p>" + route.copy + "</p></main>";
+  let out = html.replace(/<div id="root"[^>]*>\s*<\/div>/, '<div id="root">' + markup + "</div>");
   if (out === html) throw new Error("prerender: could not find empty #root in dist/index.html");
   return out.replace(/<title>[^<]*<\/title>/, "<title>" + route.title + "</title>");
 }

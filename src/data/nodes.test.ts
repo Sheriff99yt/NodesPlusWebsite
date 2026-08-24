@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getNodeById, getNodesByCategory, nodes, searchNodes } from './nodes';
+import { getNodeById, getNodesByCategory, nodeCategories, nodes, searchNodes } from './nodes';
 
 describe('node catalog helpers', () => {
   const first = nodes[0];
@@ -25,5 +25,20 @@ describe('node catalog helpers', () => {
     expect(byName.some((node) => node.id === first.id)).toBe(true);
     const byKeyword = searchNodes(first.searchKeywords[0]);
     expect(byKeyword.length).toBeGreaterThan(0);
+  });
+
+  it('keeps every node on a real category with id and name', () => {
+    const ids = new Set(nodeCategories.map((category) => category.id));
+    expect(nodeCategories.length).toBeGreaterThan(0);
+    expect(nodes.length).toBeGreaterThan(0);
+    for (const category of nodeCategories) {
+      expect(category.id).toBeTruthy();
+      expect(category.name).toBeTruthy();
+    }
+    for (const node of nodes) {
+      expect(node.id).toBeTruthy();
+      expect(node.name).toBeTruthy();
+      expect(ids.has(node.category)).toBe(true);
+    }
   });
 });
