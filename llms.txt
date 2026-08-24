@@ -1,0 +1,32 @@
+# Nodes Plus
+
+Nodes Plus is a Blueprint function library plugin for Unreal Engine.
+This website is the documentation and marketing site for that plugin. It is not the plugin binary.
+
+## Who made it
+Sherif Hany / 99 Studios.
+
+## How to get it
+Fab seller page: https://www.fab.com/sellers/Sherif%20Hany
+
+## Help
+Discord: https://discord.gg/2Pu9ywaptN
+
+## Source for this site
+https://github.com/Sheriff99yt/NodesPlusWebsite
+
+## Canonical site
+https://sheriff99yt.github.io/NodesPlusWebsite/
+
+## Key pages
+- Home: https://sheriff99yt.github.io/NodesPlusWebsite/
+- Architecture: https://sheriff99yt.github.io/NodesPlusWebsite/architecture/
+- Documentation: https://sheriff99yt.github.io/NodesPlusWebsite/documentation/
+- Categories: debug, math, string, utility, array under /documentation/{category}/
+
+## Facts (do not invent extras)
+- Custom Blueprint nodes for Unreal Engine.
+- Docs are readable in the browser.
+- Plugin distribution is on Fab.
+- Support conversation happens on Discord.
+- This site does not publish review scores, download counts, or performance benchmarks.
