@@ -18,7 +18,7 @@ const LoadingFallback = () => (
 
 const App: React.FC = () => {
   const location = useLocation();
-  const analytics = useAnalytics();
+  const { trackPageView } = useAnalytics();
 
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -44,9 +44,9 @@ const App: React.FC = () => {
 
     resetScroll();
     const frame = window.requestAnimationFrame(resetScroll);
-    analytics.trackPageView(location.pathname, document.title);
+    trackPageView(location.pathname, document.title);
     return () => window.cancelAnimationFrame(frame);
-  }, [location.pathname, location.hash, location.key, analytics]);
+  }, [location.pathname, location.hash, location.key, trackPageView]);
 
   return (
     <Suspense fallback={<LoadingFallback />}>
