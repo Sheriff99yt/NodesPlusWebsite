@@ -96,7 +96,7 @@ const Home = () => {
         faq={faqItems}
       />
 
-      <main className="main-content">
+      <div className="main-content">
         <section className="hero-section" ref={heroRef} aria-labelledby="home-hero-title">
           <div className="hero-background" style={{ transform: `translateY(${scrollY * 0.15}px)` }}>
             <OptimizedImage
@@ -180,7 +180,7 @@ const Home = () => {
             </p>
           </div>
         </section>
-      </main>
+      </div>
 
       {isVisible && (
         <button
