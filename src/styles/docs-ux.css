@@ -199,3 +199,39 @@
 .node-flow {
   min-height: 300px;
 }
+
+
+@media (max-width: 768px) {
+  .documentation-page .sidebar:not(.mobile-visible) {
+    display: none !important;
+  }
+  .documentation-page .sidebar.mobile-visible {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    max-width: none;
+    height: 100dvh;
+    height: 100%;
+    background: #12141c;
+    z-index: 50;
+    padding-top: 56px;
+    transform: none;
+  }
+  html[data-theme="light"] .documentation-page .sidebar.mobile-visible,
+  .documentation-page .sidebar.mobile-visible.light-theme {
+    background: #f3f5fb;
+  }
+  .category-nodes-grid,
+  .docs-categories-grid,
+  .docs-features-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .node-preview-card h3,
+  .docs-category-card h3 {
+    -webkit-line-clamp: 3;
+    white-space: normal;
+  }
+}
