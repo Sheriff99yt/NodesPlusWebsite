@@ -12,6 +12,7 @@ import { useTheme } from '../context/ThemeContext';
 import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars, FaArrowRight } from 'react-icons/fa';
 
 import '../styles/Documentation.css';
+import '../styles/docs-ux.css';
 
 // Default Documentation Panel when no node is selected
 const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categories: NodeCategory[], onSelectCategory: (categoryId: string) => void }) => {

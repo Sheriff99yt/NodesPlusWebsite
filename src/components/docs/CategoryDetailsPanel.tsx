@@ -2,6 +2,7 @@ import React from 'react';
 import { Node, NodeCategory } from '../../data/nodes';
 import { FaArrowLeft, FaLayerGroup } from 'react-icons/fa';
 import '../../styles/CategoryDetailsPanel.css';
+import '../../styles/docs-ux.css';
 
 interface CategoryDetailsPanelProps {
   category: NodeCategory;
@@ -23,13 +24,13 @@ const CategoryDetailsPanel: React.FC<CategoryDetailsPanelProps> = ({
           <div className="category-title-container">
             <h2 className="category-title">{category.name}</h2>
             <div className="category-meta">
-              <span className="category-count">{nodes.length} nodes</span>
+              <span className="category-count">{nodes.length === 1 ? "1 node" : `${nodes.length} nodes`}</span>
             </div>
           </div>
         </div>
         
         {onBack && (
-          <button className="back-button" onClick={onBack} aria-label="Back to documentation">
+          <button type="button" className="back-button" onClick={onBack} aria-label="Back to documentation">
             <FaArrowLeft /> <span>Back</span>
           </button>
         )}
@@ -43,7 +44,8 @@ const CategoryDetailsPanel: React.FC<CategoryDetailsPanelProps> = ({
       
       <div className="category-nodes-grid">
         {nodes.map(node => (
-          <div 
+          <button
+            type="button"
             key={node.id} 
             className="node-preview-card"
             onClick={() => onSelectNode(node)}
@@ -66,7 +68,7 @@ const CategoryDetailsPanel: React.FC<CategoryDetailsPanelProps> = ({
                 </span>
               )}
             </div>
-          </div>
+          </button>
         ))}
       </div>
       

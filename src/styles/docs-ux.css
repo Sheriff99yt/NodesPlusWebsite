@@ -1,0 +1,148 @@
+﻿/* Full docs UI/UX pass — loaded after Documentation.css */
+.docs-default-panel {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.docs-hero-section {
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2rem 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: none;
+}
+.docs-hero-section::before,
+.docs-hero-section .docs-hero-content::after {
+  display: none !important;
+  content: none !important;
+}
+.docs-hero-content h1 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+.docs-hero-content p {
+  color: var(--text-light);
+  max-width: 40rem;
+  margin: 0 0 1.25rem;
+}
+.docs-hero-button.primary {
+  min-height: 44px;
+  border-radius: 10px;
+  padding: 0.65rem 1.15rem;
+}
+.docs-features-section h2,
+.docs-categories-section h2 {
+  font-size: 1.25rem;
+  margin: 0 0 1rem;
+}
+.docs-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+}
+.docs-feature-card {
+  padding: 1.1rem 1.15rem;
+  border-radius: 12px;
+  min-height: 0;
+  align-items: flex-start;
+}
+.docs-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+.docs-category-card {
+  text-align: left;
+  padding: 1.15rem 1.2rem 1rem;
+  border-radius: 14px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.docs-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.docs-category-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.docs-category-card p {
+  flex: 1;
+  color: var(--text-light);
+  margin: 0;
+}
+.docs-view-category {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.category-details-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 0 1.25rem;
+  background: none;
+  border-bottom: 1px solid var(--border-color);
+}
+.category-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: 0 0 0.35rem;
+}
+.back-button {
+  min-height: 44px;
+  border-radius: 10px;
+  padding: 0 0.9rem;
+}
+.category-nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+.node-preview-card {
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  width: 100%;
+  background: var(--card-bg, var(--bg-light));
+  border: 1px solid var(--border-color);
+}
+.node-preview-card h3 {
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+}
+.node-details-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.node-details-content {
+  max-width: 72rem;
+}
+.node-overview,
+.node-description {
+  max-width: 65ch;
+}
+.node-graph-container {
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 220px;
+}
+@media (max-width: 800px) {
+  .docs-features-grid,
+  .docs-categories-grid {
+    grid-template-columns: 1fr;
+  }
+  .docs-category-card {
+    min-height: 0;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Node } from '../../data/nodes';
 import '../../styles/NodeDetailsPanel.css';
+import '../../styles/docs-ux.css';
 import { FaInfoCircle, FaTag, FaCubes, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
 import ReactFlow, { 
   Background, 
@@ -85,7 +86,7 @@ const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm
           </div>
         </div>
         {onClose && (
-          <button className="back-button" onClick={onClose} aria-label="Back to list">
+          <button type="button" className="back-button" onClick={onClose} aria-label="Back to list">
             <FaArrowLeft /> <span>Back</span>
           </button>
         )}
