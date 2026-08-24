@@ -15,20 +15,13 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import BlueprintNode from './BlueprintNode';
 import { useTheme } from '../../context/ThemeContext';
+import { highlightText } from '../../utils/docsText';
 
 interface NodeDetailsPanelProps {
   node: Node;
   highlightTerm?: string;
   onClose?: () => void;
 }
-
-// Helper function to highlight text matches
-const highlightText = (text: string, searchTerm: string) => {
-  if (!text || !searchTerm || searchTerm.length < 2) return text;
-  
-  const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-  return text.replace(regex, '<span class="highlight">$1</span>');
-};
 
 const NodeDetailsPanel: React.FC<NodeDetailsPanelProps> = ({ node, highlightTerm = '', onClose }) => {
   // Prepare highlighted content if needed
