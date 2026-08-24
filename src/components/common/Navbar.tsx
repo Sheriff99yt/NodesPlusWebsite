@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { Link as RouterLink, NavLink } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../../context/ThemeContext';
@@ -10,21 +10,19 @@ const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  // Close menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      // Check if click is outside nav and not on the toggle button
       if (
-        navRef.current && 
-        !navRef.current.contains(event.target as Node) && 
-        btnRef.current && 
-        !btnRef.current.contains(event.target as Node) && 
+        navRef.current &&
+        !navRef.current.contains(event.target as Node) &&
+        btnRef.current &&
+        !btnRef.current.contains(event.target as Node) &&
         isMenuOpen
       ) {
         closeMenu();
       }
     }
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -32,21 +30,15 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
-  // Close menu on window resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768 && isMenuOpen) {
         closeMenu();
       }
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isMenuOpen]);
-
-  // Log state changes to debug
-  useEffect(() => {
-    console.log('Menu open state changed:', isMenuOpen);
   }, [isMenuOpen]);
 
   const toggleMenu = () => {
@@ -70,27 +62,27 @@ const Navbar = () => {
   return (
     <header className={`navbar ${theme}`} role="banner">
       <div className="navbar-content">
-        <RouterLink 
-          to="/" 
+        <RouterLink
+          to="/"
           className="navbar-logo"
           aria-label="Nodes Plus Home"
           onClick={closeMenu}
         >
-          <img 
-            className="navbar-logo" 
-            src="./images/branding/Logo.png" 
-            alt="NodesPlus Logo" 
+          <img
+            className="navbar-logo"
+            src="./images/branding/Logo.png"
+            alt="NodesPlus Logo"
             width="180"
             height="40"
           />
         </RouterLink>
-        
+
         <div className={`menu-icon-container ${isMenuOpen ? 'active' : ''}`}>
-          <button 
+          <button
             ref={btnRef}
             className="menu-toggle-btn"
             onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
           >
             <div className="menu-icon">
@@ -100,33 +92,41 @@ const Navbar = () => {
             </div>
           </button>
         </div>
-        
-        <nav 
+
+        <nav
           ref={navRef}
-          role="navigation" 
+          role="navigation"
           aria-label="Main Navigation"
           className={isMenuOpen ? 'open' : ''}
         >
-          <NavLink 
-            to="/" 
-            className={({ isActive }) => isActive ? "navbar-link active" : "navbar-link"}
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? 'navbar-link active' : 'navbar-link')}
             end
             onClick={closeMenu}
           >
             Home
           </NavLink>
-          
-          <NavLink 
-            to="/documentation" 
-            className={({ isActive }) => isActive ? "navbar-link active" : "navbar-link"}
+
+          <NavLink
+            to="/architecture"
+            className={({ isActive }) => (isActive ? 'navbar-link active' : 'navbar-link')}
+            onClick={closeMenu}
+          >
+            Architecture
+          </NavLink>
+
+          <NavLink
+            to="/documentation"
+            className={({ isActive }) => (isActive ? 'navbar-link active' : 'navbar-link')}
             onClick={closeMenu}
           >
             Documentation
           </NavLink>
-          
-          <a 
-            href="https://www.fab.com/sellers/Sherif%20Hany" 
-            target="_blank" 
+
+          <a
+            href="https://www.fab.com/sellers/Sherif%20Hany"
+            target="_blank"
             rel="noopener noreferrer"
             className="navbar-button navbar-button-blue"
             aria-label="Get Nodes Plus on Fab.com (opens in a new tab)"
@@ -134,10 +134,10 @@ const Navbar = () => {
           >
             Get on Fab.com
           </a>
-          
-          <a 
-            href="https://discord.gg/2Pu9ywaptN" 
-            target="_blank" 
+
+          <a
+            href="https://discord.gg/2Pu9ywaptN"
+            target="_blank"
             rel="noopener noreferrer"
             className="navbar-button navbar-button-purple"
             aria-label="Join Discord Community (opens in a new tab)"
@@ -145,13 +145,13 @@ const Navbar = () => {
           >
             Join Discord
           </a>
-          
+
           <ThemeToggle />
         </nav>
-        
+
         {isMenuOpen && (
-          <div 
-            className="navbar-overlay visible" 
+          <div
+            className="navbar-overlay visible"
             onClick={closeMenu}
             aria-hidden="true"
           ></div>
@@ -161,4 +161,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;
