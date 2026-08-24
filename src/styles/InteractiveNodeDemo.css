@@ -724,4 +724,48 @@
     flex-direction: column;
     align-items: center;
   }
-} 
+}
+
+
+.info-button,
+.creator-link {
+  min-height: 44px;
+}
+
+.creator-link {
+  padding: 0.35rem 0.25rem;
+}
+
+.demo-graph-column,
+.demo-graph-column .react-flow,
+.interactive-node-demo {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .demo-graph-column {
+    overflow: hidden !important;
+    max-height: 280px;
+    min-height: 0;
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+
+  .demo-graph-column .react-flow,
+  .react-flow__renderer,
+  .react-flow__container,
+  .react-flow__viewport,
+  .react-flow__pane {
+    overflow: hidden !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .demo-graph-column {
+    display: none;
+  }
+
+  .two-column-layout {
+    display: block;
+  }
+}

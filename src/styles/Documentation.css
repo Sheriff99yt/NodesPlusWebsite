@@ -875,3 +875,22 @@ button.search-result-item {
     width: calc(100% - var(--sidebar-width));
   }
 }
+
+
+.search-input-wrapper {
+  min-height: 44px;
+}
+
+.search-input {
+  min-height: 44px;
+}
+
+.clear-search {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.mobile-menu-toggle {
+  min-width: 44px;
+  min-height: 44px;
+}

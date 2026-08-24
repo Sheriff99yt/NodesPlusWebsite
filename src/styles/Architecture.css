@@ -139,3 +139,12 @@
 .architecture-page {
   padding-bottom: var(--space-8);
 }
+
+
+.breadcrumbs a,
+.architecture-page .breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.35rem 0.4rem;
+}
