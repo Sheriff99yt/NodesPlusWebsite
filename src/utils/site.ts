@@ -12,6 +12,7 @@ export function publicAsset(path: string): string {
 
 export const LOGO_SRC = publicAsset("images/branding/Logo.png");
 export const BANNER_SRC = publicAsset("images/branding/Banner.jpg");
+export const BANNER_WEBP_SRC = publicAsset("images/branding/Banner.webp");
 export const FAB_URL = 'https://www.fab.com/sellers/Sherif%20Hany';
 export const DISCORD_URL = 'https://discord.gg/2Pu9ywaptN';
 export const GITHUB_URL = 'https://github.com/Sheriff99yt/NodesPlusWebsite';

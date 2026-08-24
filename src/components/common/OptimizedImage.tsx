@@ -1,7 +1,8 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 
 interface OptimizedImageProps {
   src: string;
+  webpSrc?: string;
   alt: string;
   className?: string;
   width?: number | string;
@@ -13,6 +14,7 @@ interface OptimizedImageProps {
 
 const OptimizedImage = ({
   src,
+  webpSrc,
   alt,
   className = '',
   width,
@@ -39,6 +41,27 @@ const OptimizedImage = ({
       }
     : {};
 
+  const img = (
+    <img
+      src={src}
+      alt={alt}
+      width={isBanner ? undefined : width}
+      height={isBanner ? undefined : height}
+      loading={loading}
+      onLoad={() => setIsLoaded(true)}
+      onError={() => {
+        setError(true);
+      }}
+      onClick={onClick}
+      style={{
+        opacity: isLoaded || error ? 1 : 0,
+        transition: 'opacity 0.3s ease',
+        ...bannerStyles,
+      }}
+      className={`optimized-image ${isLoaded ? 'loaded' : ''}`}
+    />
+  );
+
   return (
     <div
       className={`optimized-image-container ${className}`}
@@ -63,24 +86,14 @@ const OptimizedImage = ({
           }}
         />
       )}
-      <img
-        src={src}
-        alt={alt}
-        width={isBanner ? undefined : width}
-        height={isBanner ? undefined : height}
-        loading={loading}
-        onLoad={() => setIsLoaded(true)}
-        onError={() => {
-          setError(true);
-        }}
-        onClick={onClick}
-        style={{
-          opacity: isLoaded || error ? 1 : 0,
-          transition: 'opacity 0.3s ease',
-          ...bannerStyles,
-        }}
-        className={`optimized-image ${isLoaded ? 'loaded' : ''}`}
-      />
+      {webpSrc ? (
+        <picture>
+          <source srcSet={webpSrc} type="image/webp" />
+          {img}
+        </picture>
+      ) : (
+        img
+      )}
     </div>
   );
 };

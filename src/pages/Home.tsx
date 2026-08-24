@@ -4,7 +4,7 @@ import { FaArrowRight, FaArrowUp } from 'react-icons/fa';
 import StructuredData, { type FaqItem } from '../components/common/StructuredData';
 import PageSeo from '../components/common/PageSeo';
 import OptimizedImage from '../components/common/OptimizedImage';
-import { BANNER_SRC, DISCORD_URL, FAB_URL, SITE_DESCRIPTION, SITE_NAME } from '../utils/site';
+import { BANNER_SRC, BANNER_WEBP_SRC, DISCORD_URL, FAB_URL, SITE_DESCRIPTION, SITE_NAME } from '../utils/site';
 import '../styles/Home.css';
 
 const InteractiveNodeDemo = lazy(() => import('../components/home/InteractiveNodeDemo'));
@@ -101,11 +101,12 @@ const Home = () => {
           <div className="hero-background" style={{ transform: `translateY(${scrollY * 0.15}px)` }}>
             <OptimizedImage
               src={BANNER_SRC}
+              webpSrc={BANNER_WEBP_SRC}
               alt=""
               loading="eager"
               className="hero-background-image"
-              width="2400"
-              height="1350"
+              width="1024"
+              height="1024"
               isBanner={true}
             />
             <div className="hero-overlay"></div>
