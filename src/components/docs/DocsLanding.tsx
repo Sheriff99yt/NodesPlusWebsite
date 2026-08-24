@@ -1,16 +1,15 @@
 import type { ReactNode } from 'react';
-import { FaArrowRight, FaBook, FaCalculator, FaCode, FaCube, FaFont, FaLayerGroup, FaLightbulb, FaTools } from 'react-icons/fa';
+import { FaArrowRight, FaBook, FaCalculator, FaCode, FaFont, FaLightbulb, FaList, FaTools } from 'react-icons/fa';
 import { getNodesByCategory, type NodeCategory } from '../../data/nodes';
 import { useTheme } from '../../context/ThemeContext';
 import { nodeCountLabel } from '../../utils/docsText';
 
 const ICONS: Record<string, ReactNode> = {
+  debug: <FaTools className="category-icon" />,
   math: <FaCalculator className="category-icon" />,
   string: <FaFont className="category-icon" />,
-  utility: <FaTools className="category-icon" />,
-  data: <FaLayerGroup className="category-icon" />,
-  logic: <FaCode className="category-icon" />,
-  geometry: <FaCube className="category-icon" />,
+  utility: <FaLightbulb className="category-icon" />,
+  array: <FaList className="category-icon" />,
 };
 
 type Props = {

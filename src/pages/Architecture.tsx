@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { nodeCategories } from '../data/nodes';
 import PageSeo from '../components/common/PageSeo';
 import StructuredData from '../components/common/StructuredData';
 import '../styles/Architecture.css';
@@ -11,7 +12,7 @@ const layers = [
   },
   {
     title: 'Nodes Plus plugin',
-    body: 'A Blueprint function library: math, string, utility, data, logic, and geometry nodes that drop into any graph.',
+    body: 'A Blueprint function library: math, string, utility, and collection nodes that drop into any graph.',
   },
   {
     title: 'Docs site',
@@ -23,14 +24,6 @@ const layers = [
   },
 ];
 
-const categories = [
-  { id: 'debug', name: 'Debug', note: 'Logging and test helpers' },
-  { id: 'math', name: 'Math', note: 'Scalar, vector, and range helpers' },
-  { id: 'string', name: 'String', note: 'Format, split, and compare' },
-  { id: 'utility', name: 'Utility', note: 'Everyday Blueprint shortcuts' },
-  { id: 'array', name: 'Array', note: 'Collections and lookups' },
-];
-
 const Architecture = () => {
   const { theme } = useTheme();
   const crumbs = [
@@ -39,7 +32,7 @@ const Architecture = () => {
   ];
 
   return (
-    <main className={`architecture-page ${theme}`}>
+    <div className={`architecture-page ${theme}`}>
       <PageSeo
         title="Architecture"
         description="How the Nodes Plus Unreal Engine plugin, documentation site, and Fab listing fit together."
@@ -92,15 +85,15 @@ const Architecture = () => {
       <section className="arch-cats">
         <h2>Library map</h2>
         <div className="arch-grid">
-          {categories.map((cat) => (
+          {nodeCategories.map((cat) => (
             <Link key={cat.id} to={`/documentation/${cat.id}`} className="arch-cat">
               <strong>{cat.name}</strong>
-              <span>{cat.note}</span>
+              <span>{cat.description}</span>
             </Link>
           ))}
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 
