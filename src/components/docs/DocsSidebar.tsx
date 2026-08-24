@@ -1,6 +1,8 @@
 import { FaBars, FaCompressAlt, FaExpandAlt, FaSearch, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { nodeCategories, type Node } from '../../data/nodes';
 import { highlightText } from '../../utils/docsText';
+import { DISCORD_URL, FAB_URL } from '../../utils/site';
 import NodeCategoryList from './NodeCategoryList';
 
 type Props = {
@@ -46,6 +48,22 @@ const DocsSidebar = ({
         aria-label="Documentation categories"
       >
         <div className="sidebar-inner">
+          {isMobile ? (
+            <nav className="docs-site-links" aria-label="Site">
+              <Link to="/" onClick={onCloseSidebar}>
+                Home
+              </Link>
+              <Link to="/architecture" onClick={onCloseSidebar}>
+                Architecture
+              </Link>
+              <a href={FAB_URL} target="_blank" rel="noopener noreferrer" onClick={onCloseSidebar}>
+                Fab
+              </a>
+              <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" onClick={onCloseSidebar}>
+                Discord
+              </a>
+            </nav>
+          ) : null}
           <div className="sidebar-controls">
             <div className="search-input-wrapper">
               <FaSearch className="search-icon" aria-hidden="true" />

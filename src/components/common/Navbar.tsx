@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link as RouterLink, NavLink } from 'react-router-dom';
+import { Link as RouterLink, NavLink, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../../context/ThemeContext';
 import { DISCORD_URL, FAB_URL, LOGO_SRC } from '../../utils/site';
@@ -7,6 +7,8 @@ import '../../styles/Navbar.css';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isDocsRoute = pathname === '/documentation' || pathname.startsWith('/documentation/');
   const { theme } = useTheme();
   const navRef = useRef<HTMLElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -50,6 +52,12 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    if (isDocsRoute && isMenuOpen) {
+      closeMenu();
+    }
+  }, [isDocsRoute, isMenuOpen]);
+
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768 && isMenuOpen) {
         closeMenu();
@@ -72,7 +80,7 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   return (
-    <header className={`navbar ${theme}`} role="banner">
+    <header className={`navbar ${theme}${isDocsRoute ? ' on-docs' : ''}`} role="banner">
       <div className="navbar-content">
         <RouterLink to="/" className="navbar-logo-link" aria-label="Nodes Plus home" onClick={closeMenu}>
           <img

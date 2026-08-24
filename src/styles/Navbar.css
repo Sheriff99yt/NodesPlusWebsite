@@ -640,3 +640,11 @@ html[data-theme="light"] .navbar {
   background: #ffffff;
   backdrop-filter: none;
 }
+
+
+/* On /documentation* mobile, the docs FAB is the only drawer control. */
+@media (max-width: 768px) {
+  .navbar.on-docs .menu-toggle-btn {
+    display: none !important;
+  }
+}
