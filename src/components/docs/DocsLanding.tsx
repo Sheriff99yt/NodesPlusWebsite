@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { FaArrowRight, FaBook, FaCalculator, FaCode, FaCube, FaFont, FaLayerGroup, FaLightbulb, FaTools } from 'react-icons/fa';
 import { getNodesByCategory, type NodeCategory } from '../../data/nodes';
 import { useTheme } from '../../context/ThemeContext';
@@ -23,18 +23,12 @@ const DocsLanding = ({ categories, onSelectCategory }: Props) => {
 
   return (
     <div className={`docs-default-panel ${theme}`}>
-      <section className="docs-hero-section">
-        <div className="docs-hero-content">
-          <h1>Nodes Plus Library</h1>
-          <p>Custom nodes for Unreal Engine Blueprints.</p>
-          <button type="button" className="docs-hero-button primary" onClick={() => onSelectCategory(categories[0]?.id)}>
-            Explore nodes
-          </button>
-        </div>
-      </section>
+      <header className="docs-landing-head">
+        <h1>Documentation</h1>
+        <p>Custom Blueprint nodes for Unreal Engine.</p>
+      </header>
 
-      <section className="docs-features-section">
-        <h2>Why Nodes Plus</h2>
+      <section className="docs-features-section" aria-label="Highlights">
         <div className="docs-features-grid">
           <article className="docs-feature-card">
             <FaLightbulb className="docs-feature-icon" />
@@ -70,12 +64,12 @@ const DocsLanding = ({ categories, onSelectCategory }: Props) => {
                   <div className="docs-category-icon-wrapper">
                     {ICONS[category.id] || <FaBook className="category-icon" />}
                   </div>
+                  <h3 title={category.name}>{category.name}</h3>
                   <span className="docs-category-node-count">{nodeCountLabel(count)}</span>
                 </div>
-                <h3>{category.name}</h3>
-                <p>{category.description || `${category.name} Blueprint nodes.`}</p>
+                {category.description ? <p>{category.description}</p> : null}
                 <span className="docs-view-category">
-                  View <FaArrowRight aria-hidden="true" />
+                  Open <FaArrowRight aria-hidden="true" />
                 </span>
               </button>
             );

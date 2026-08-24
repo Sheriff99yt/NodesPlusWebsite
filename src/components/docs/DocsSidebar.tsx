@@ -1,4 +1,4 @@
-﻿import { FaBars, FaCompressAlt, FaExpandAlt, FaSearch, FaTimes } from 'react-icons/fa';
+import { FaBars, FaCompressAlt, FaExpandAlt, FaSearch, FaTimes } from 'react-icons/fa';
 import { nodeCategories, type Node } from '../../data/nodes';
 import { highlightText } from '../../utils/docsText';
 import NodeCategoryList from './NodeCategoryList';
@@ -66,7 +66,6 @@ const DocsSidebar = ({
             </div>
 
             <div className="docs-sidebar-bar">
-              <p className="docs-sidebar-title">Library</p>
               <div className="category-controls">
                 <button
                   type="button"
@@ -121,7 +120,7 @@ const DocsSidebar = ({
             </div>
           ) : (
             <div className="no-results">
-              <p>No nodes match “{searchTerm}”.</p>
+              <p>No nodes match "{searchTerm}".</p>
             </div>
           )}
         </div>

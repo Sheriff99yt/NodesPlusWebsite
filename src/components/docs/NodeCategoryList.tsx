@@ -110,7 +110,7 @@ const NodeCategoryList: React.FC<NodeCategoryListProps> = ({
                     onSelectCategory(category.id);
                   }}
                 >
-                  <span className="category-name">{category.name}</span>
+                  <span className="category-name" title={category.name}>{category.name}</span>
                   <span className="category-count">{nodeCount}</span>
                 </div>
                 
