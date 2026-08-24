@@ -7,7 +7,7 @@
    CORE VARIABLES - Refer to global CSS for complete set
    =============================================================== */
 :root {
-  --sidebar-width: 280px;
+  --sidebar-width: 300px;
   --sidebar-width-mobile: 85%;
   --header-height: 60px;
   --content-padding: 1.5rem 2rem;
