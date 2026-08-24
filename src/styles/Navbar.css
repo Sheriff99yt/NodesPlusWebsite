@@ -8,16 +8,15 @@
   background: var(--navbar-bg, #1a1a1d);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  position: sticky;
-  top: 0;
-  left: 0;
+  position: relative;
+  top: auto;
+  left: auto;
   z-index: 100;
   border-bottom: 1px solid var(--glass-border);
   height: 60px;
   box-sizing: border-box;
   transition: all 0.3s ease;
   box-shadow: var(--glass-shadow);
-  will-change: transform;
 }
 
 /* Dark theme (default) - blue theme */
@@ -480,8 +479,7 @@ body {
   }
 } 
 .navbar {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 1000;
 }
 

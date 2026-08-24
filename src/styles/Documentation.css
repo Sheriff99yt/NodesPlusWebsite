@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   background-color: var(--bg-color);
-  padding-top: var(--header-height);
+  padding-top: 0;
   scroll-padding-top: var(--header-height);
   scroll-margin-top: var(--header-height);
   margin: 0;
