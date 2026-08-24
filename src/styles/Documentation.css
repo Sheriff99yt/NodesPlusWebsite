@@ -483,7 +483,7 @@
    DOCUMENTATION HERO SECTION - Completely separate from Home hero
    =============================================================== */
 .docs-hero-section {
-  background: url('/images/branding/Banner.jpg') center center/cover no-repeat;
+  background: url('/NodesPlusWebsite/images/branding/Banner.jpg') center center/cover no-repeat;
   position: relative;
   padding: 3rem 2rem;
   text-align: center;
@@ -615,8 +615,14 @@
 
 .docs-features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .docs-features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .docs-feature-card {

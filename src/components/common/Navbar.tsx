@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link as RouterLink, NavLink } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../../context/ThemeContext';
-import { DISCORD_URL, FAB_URL } from '../../utils/site';
+import { DISCORD_URL, FAB_URL, LOGO_SRC } from '../../utils/site';
 import '../../styles/Navbar.css';
 
 const Navbar = () => {
@@ -76,8 +76,8 @@ const Navbar = () => {
       <div className="navbar-content">
         <RouterLink to="/" className="navbar-logo-link" onClick={closeMenu}>
           <img
-            className="navbar-logo"
-            src="./images/branding/Logo.png"
+            className="navbar-logo navbar-logo-image"
+            src={LOGO_SRC}
             alt="Nodes Plus home"
             width="180"
             height="40"

@@ -532,3 +532,25 @@ body {
   outline: var(--focus-ring, 2px solid #526ED3);
   outline-offset: 3px;
 }
+
+
+img.navbar-logo,
+.navbar-logo-image {
+  height: 36px;
+  width: auto;
+  max-height: 36px;
+  display: block;
+  object-fit: contain;
+}
+
+.navbar-button-purple {
+  background: linear-gradient(90deg, #5865f2 0%, #4752c4 100%);
+  color: #ffffff;
+  border: none;
+  opacity: 1;
+}
+
+.navbar-button-purple:hover {
+  filter: brightness(1.08);
+  border-color: transparent;
+}

@@ -9,7 +9,7 @@ import CategoryDetailsPanel from '../components/docs/CategoryDetailsPanel';
 import { nodeCategories, getNodesByCategory, getNodeById, Node, NodeCategory, searchNodes } from '../data/nodes';
 import useAnalytics from '../hooks/useAnalytics';
 import { useTheme } from '../context/ThemeContext';
-import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaMoon, FaSun, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaExpandAlt, FaCompressAlt, FaMoon, FaSun, FaCode, FaBook, FaLightbulb, FaCalculator, FaFont, FaTools, FaLayerGroup, FaCube, FaBars, FaArrowRight } from 'react-icons/fa';
 
 import '../styles/Documentation.css';
 
@@ -92,7 +92,7 @@ const DefaultDocumentationPanel = ({ categories, onSelectCategory }: { categorie
                 <h3>{category.name}</h3>
                 <p>{category.description || `A collection of ${category.name.toLowerCase()} blueprint nodes`}</p>
                 <div className="docs-category-card-footer">
-                  <span className="docs-view-category">View Category <span className="arrow">â†’</span></span>
+                  <span className="docs-view-category">View Category <span className="arrow" aria-hidden="true"><FaArrowRight /></span></span>
                 </div>
               </button>
             ))}

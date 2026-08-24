@@ -36,9 +36,15 @@
 
 .arch-stack {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
   margin-bottom: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .arch-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .arch-card {

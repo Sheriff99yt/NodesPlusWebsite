@@ -1,3 +1,4 @@
+import { BANNER_SRC } from '../../utils/site';
 /**
  * ImageOptimizer.ts
  * Utility for optimizing images on the Nodes Plus website
@@ -97,14 +98,14 @@ export const preloadCriticalImages = (imageSrcs: string[]): void => {
 export const siteImages = {
   // Hero banner 
   heroBanner: {
-    original: './images/branding/Banner.jpg',
-    small: './images/branding/Banner.jpg',
-    medium: './images/branding/Banner.jpg',
-    large: './images/branding/Banner.jpg',
+    original: BANNER_SRC,
+    small: BANNER_SRC,
+    medium: BANNER_SRC,
+    large: BANNER_SRC,
     webp: {
-      small: './images/branding/Banner.jpg',
-      medium: './images/branding/Banner.jpg',
-      large: './images/branding/Banner.jpg',
+      small: BANNER_SRC,
+      medium: BANNER_SRC,
+      large: BANNER_SRC,
     }
   },
   
