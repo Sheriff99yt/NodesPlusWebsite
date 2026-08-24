@@ -26,7 +26,7 @@
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Light theme - red theme */
+/* Light theme */
 .navbar.light-theme {
   background: rgba(255, 255, 255, 0.2);
   border-bottom-color: rgba(255, 255, 255, 0.3);
@@ -65,13 +65,16 @@ nav {
 }
 
 .navbar-link {
-  margin-right: 24px;
+  margin-right: 8px;
   text-decoration: none;
   color: var(--text-color);
   font-weight: 500;
   transition: color 0.2s ease, transform 0.2s ease;
   position: relative;
-  padding: 6px 12px;
+  padding: 10px 12px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   font-size: 1rem;
   border-radius: 8px;
 }
@@ -84,6 +87,7 @@ nav {
 }
 
 .navbar-button {
+  min-height: 44px;
   padding: 10px 18px;
   border-radius: 12px;
   background: var(--glass-bg);
@@ -139,7 +143,7 @@ nav {
   border-radius: 3px;
 }
 
-/* Light theme colors for active links - red accent */
+/* Light theme active links */
 .light-theme .navbar-link.active {
   color: var(--primary-color);
   font-weight: 600;

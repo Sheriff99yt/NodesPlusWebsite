@@ -23,11 +23,12 @@
    =============================================================== */
 /* Main page container */
 .documentation-page {
-  min-height: 100vh;
+  min-height: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-color);
-  padding-top: var(--header-height);
+  padding-top: 0;
   margin: 0;
   width: 100%;
   overflow-x: hidden;
@@ -41,7 +42,7 @@
   display: flex;
   position: relative;
   width: 100%;
-  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height) - 5.5rem);
 }
 
 /* Sidebar */
@@ -92,7 +93,7 @@
   margin-left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
   background-color: var(--bg-color);
-  min-height: calc(100vh - var(--header-height));
+  min-height: 0;
   transition: all 0.3s ease;
   line-height: 1.5;
   box-sizing: border-box;
@@ -133,8 +134,10 @@
 .control-button {
   background: none;
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -396,7 +399,7 @@
 /* Small screens */
 @media (max-width: 480px) {
   .documentation-page {
-    padding-top: var(--header-height);
+    padding-top: 0;
   }
   
   .docs-main-content {
@@ -854,4 +857,15 @@ button.search-result-item {
 
 .docs-default-panel h1 {
   max-width: var(--prose-width);
+}
+
+.docs-main-content {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+@media (min-width: 769px) {
+  .docs-main-content {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+  }
 }
